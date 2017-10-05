@@ -14,13 +14,13 @@ function findTests(params) {
   for (let file of params.requires)
     require(file);
 
-  createMocha(params.rootPath, params.options, params.files.glob, params.files.ignore)
+  return createMocha(params.rootPath, params.options, params.files.glob, params.files.ignore)
     .then(mocha => crawlTests(mocha.suite))
-    .then(tests => console.error(JSON.stringify(tests, null, 2)))
+    .then(tests =>  tests)
     .catch(err => {
       console.error(err.stack);
 
-      process.exit(-1);
+      //  process.exit(-1);
     });
 }
 
@@ -71,7 +71,7 @@ function crawlTests(suite) {
 
         return {
           name,
-          fullName: trimArray(entry.path).concat([name]).join(' '),
+          fullName: entry.path[entry.path.length - 1].concat(' ').concat([name]),
           suitePath: entry.path,
           file: test.file
         };

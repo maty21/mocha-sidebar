@@ -62,10 +62,11 @@ class matyProvider {
         console.log('------------------------------------');
         if (!element) {
             let nodes = [];
-            this._tests = await this._runner.loadTestFiles();
-            this._cleanLevelZero();
+            this._tests = await mochaShim.findTestsProcess(vscode.workspace.rootPath);
+            // this._tests = await this._runner.loadTestFiles();
+          //  this._cleanLevelZero();
             this._formatedTest = this._createTreeFromArray();
-            this.item = new matyItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest, 0)
+            this.item = new matyItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
             nodes.push(this.item);
             return nodes;
 
