@@ -1,0 +1,160 @@
+{
+  "name": "vscode-mocha-latte",
+  "displayName": "Mocha Latte",
+  "description": "Runs Mocha tests.  Bugfixed for Mac and Linux.",
+  "version": "0.2.0",
+  "publisher": "cspotcode",
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "icon": "icon.png",
+  "galleryBanner.color": "#8A6343",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cspotcode/vscode-mocha-latte.git"
+  },
+  "bugs": "https://github.com/cspotcode/vscode-mocha-latte/issues/",
+  "homepage": "https://github.com/cspotcode/vscode-mocha-latte/blob/master/README.md",
+  "keywords": [
+    "bdd",
+    "mocha",
+    "tdd",
+    "test",
+    "testing"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:mocha.runAllTests",
+    "onCommand:maty.runAllTests",
+    "onCommand:mocha.runTestAtCursor",
+    "onCommand:mocha.selectAndRunTest",
+    "onCommand:mocha.runFailedTests",
+    "onCommand:mocha.runTestsByPattern",
+    "onCommand:mocha.runLastSetAgain",
+    "onView:maty"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "menus": {
+      "view/title": [
+        {
+          "command": "maty.refreshExplorer",
+          "when": "view == maty",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-docker.system.prune",
+          "when": "view == maty",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "maty.runAllTests",
+          "when": "view == maty&&viewItem==rootTests"
+        },
+        {
+          "command": "maty.runAllTests",
+          "when": "view == maty&&viewItem==testItem"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "mocha.runAllTests",
+        "title": "Mocha: Run all tests"
+      },
+      {
+        "command": "mocha.runTestAtCursor",
+        "title": "Mocha: Run test at cursor"
+      },
+      {
+        "command": "mocha.selectAndRunTest",
+        "title": "Mocha: Select and run a test"
+      },
+      {
+        "command": "mocha.runFailedTests",
+        "title": "Mocha: Run failed tests"
+      },
+      {
+        "command": "mocha.runTestsByPattern",
+        "title": "Mocha: Run tests matching a pattern"
+      },
+      {
+        "command": "mocha.runLastSetAgain",
+        "title": "Mocha: Run last set again"
+      },
+      {
+        "command": "maty.refreshExplorer",
+        "title": "Refresh",
+        "category": "Maty"
+      },
+      {
+        "command": "maty.runAllTests",
+        "title": "Run All",
+        "category": "Maty"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "maty",
+          "name": "Maty",
+          "when": "config.maty.showExplorer == true"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Mocha options",
+      "properties": {
+        "mocha.options": {
+          "default": {},
+          "description": "Mocha: Options to run Mocha"
+        },
+        "maty.showExplorer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show or hide the Explorer."
+        },
+        "mocha.files.glob": {
+          "default": "test/**/*.js",
+          "description": "Mocha: Glob to search for test files",
+          "type": "string"
+        },
+        "mocha.files.ignore": {
+          "default": [
+            "**/.git/**/*",
+            "**/node_modules/**/*"
+          ],
+          "description": "Mocha: Globs to ignore when searching for test files",
+          "type": [
+            "string"
+          ]
+        },
+        "mocha.env": {
+          "default": {},
+          "description": "Mocha: Environment variables to run your tests"
+        },
+        "mocha.node_options": {
+          "default": [],
+          "description": "Mocha: Options to pass to node executable"
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "vscode": "0.11.x"
+  },
+  "dependencies": {
+    "babylon": "^6.13.1",
+    "bluebird": "^3.3.5",
+    "escape-regexp": "0.0.1",
+    "glob": "^7.0.3",
+    "lodash.forin": "^4.4.0",
+    "lodash.isobject": "^3.0.2",
+    "mocha": "^2.4.5"
+  }
+}

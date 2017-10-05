@@ -1,0 +1,15 @@
+.git/**
+.github/**
+.gitignore
+.vagrant/**
+.vscode/**
+typings/**
+test/**
+jsconfig.json
+vsc-extension-quickstart.md
+*.psd
+*.gif
+demo.png
+**/debug.log
+vagrant/**
+Vagrantfile

@@ -1,0 +1,5 @@
+node_modules
+**/debug.log
+.vscode/symbols.json
+.vagrant
+.history
