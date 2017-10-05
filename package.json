@@ -28,6 +28,7 @@
   "activationEvents": [
     "onCommand:mocha.runAllTests",
     "onCommand:maty.runAllTests",
+    "onCommand:maty.runTest",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
     "onCommand:mocha.runFailedTests",
@@ -56,7 +57,7 @@
           "when": "view == maty&&viewItem==rootTests"
         },
         {
-          "command": "maty.runAllTests",
+          "command": "maty.runTest",
           "when": "view == maty&&viewItem==testItem"
         }
       ]
@@ -65,6 +66,10 @@
       {
         "command": "mocha.runAllTests",
         "title": "Mocha: Run all tests"
+      },
+      {
+        "command": "mocha.runTest",
+        "title": "Mocha: Run test"
       },
       {
         "command": "mocha.runTestAtCursor",
@@ -93,7 +98,12 @@
       },
       {
         "command": "maty.runAllTests",
-        "title": "Run All",
+        "title": "Run All Tests",
+        "category": "Maty"
+      },
+      {
+        "command": "maty.runTest",
+        "title": "Run test",
         "category": "Maty"
       }
     ],

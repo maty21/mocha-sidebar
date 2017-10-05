@@ -21,13 +21,29 @@ Runner.prototype.loadTestFiles = function () {
 };
 
 Runner.prototype._runMocha = function (testFiles, grep, logMessages) {
+  let tests = testFiles.map(test => test.file);
+  return MochaShim.runTests(dedupeStrings(tests), grep, logMessages)
+    .then(result => {
+      this.lastRunResult = result;
+
+      const numFailed = (result.failed || []).length;
+
+      numFailed && vscode.window.showWarningMessage(`There are ${numFailed} test${numFailed > 1 ? 's' : ''} failed.`);
+    },
+    err => {
+      console.error(err);
+      throw err;
+    });
+};
+Runner.prototype._runMochaSingleTest = function (testFiles, grep, logMessages) {
+
   return MochaShim.runTests(dedupeStrings(testFiles), grep, logMessages)
     .then(result => {
       this.lastRunResult = result;
 
       const numFailed = (result.failed || []).length;
 
-      numFailed && vscode.window.showWarningMessage(`There are ${numFailed} test${numFailed > 1 ? 's': ''} failed.`);
+      numFailed && vscode.window.showWarningMessage(`There are ${numFailed} test${numFailed > 1 ? 's' : ''} failed.`);
     },
     err => {
       console.error(err);
@@ -44,7 +60,7 @@ Runner.prototype.runWithGrep = function (grep) {
 };
 
 Runner.prototype.runTest = function (test) {
-  return this._runMocha([ test.file ], `^${escapeRegExp(test.fullName)}$`);
+  return this._runMocha([test], `^${escapeRegExp(test.fullName)}$`);
 };
 
 Runner.prototype.runFailed = function () {

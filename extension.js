@@ -35,7 +35,12 @@ function activate(context) {
       //runAllTests();
     }
   }))
-
+  subscriptions.push(vscode.commands.registerCommand('maty.runTest', (element) => {
+    if (hasWorkspace()) {
+      _matyProvider.runTest(element);
+      //runAllTests();
+    }
+  }))
 
 
 

@@ -7,19 +7,23 @@ const
   Promise = require('bluebird'),
   trimArray = require('../utils').trimArray;
 
-const   args = JSON.parse(process.argv[process.argv.length - 1]);
+//const   args = JSON.parse(process.argv[process.argv.length - 1]);
 
-for(let file of args.requires)
-  require(file);
 
-createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
-  .then(mocha => crawlTests(mocha.suite))
-  .then(tests => console.error(JSON.stringify(tests, null, 2)))
-  .catch(err => {
-    console.error(err.stack);
+function findTests(params) {
+  for (let file of params.requires)
+    require(file);
 
-    process.exit(-1);
-  });
+  createMocha(params.rootPath, params.options, params.files.glob, params.files.ignore)
+    .then(mocha => crawlTests(mocha.suite))
+    .then(tests => console.error(JSON.stringify(tests, null, 2)))
+    .catch(err => {
+      console.error(err.stack);
+
+      process.exit(-1);
+    });
+}
+
 
 function createMocha(rootPath, options, glob, ignore) {
   // const requireOptions = options.require || [];
@@ -67,7 +71,7 @@ function crawlTests(suite) {
 
         return {
           name,
-          fullName: trimArray(entry.path).concat([ name ]).join(' '),
+          fullName: trimArray(entry.path).concat([name]).join(' '),
           suitePath: entry.path,
           file: test.file
         };
@@ -86,3 +90,6 @@ function crawlTests(suite) {
 
   return tests;
 }
+
+
+module.exports = findTests;

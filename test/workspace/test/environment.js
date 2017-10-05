@@ -7,7 +7,7 @@ const
 
 it('should inherit environment variables', function () {
   // Should cover Linux/Mac and Windows
-  assert(process.env.HOME || process.env.PATHEXT);
+  assert.fail();
 
   // Once I figure out how to pass env variables to the extension host process,
   // we can do this:
@@ -29,15 +29,15 @@ it('should inherit environment variables', function () {
 // });
 
 
-// describe('When environment variable is set in settings', function () {
-//   it('should run with them', function () {
-//     assert(process.env.HELLO_WORLD, 'Hello, World!');
-//   });
-// });
+describe('When environment variable is set in settings', function () {
+  it('should run with them', function () {
+    assert(process.env.HELLO_WORLD, 'Hello, World!');
+  });
+});
 
 describe('green 3', function () {
   it('inner green 3', function () {
-    assert(process.env.HOME || process.env.PATHEXT);
+    assert.fail(process.env.HOME || process.env.PATHEXT);
   });
 });
 describe('green 4', function () {
@@ -48,3 +48,27 @@ describe('green 4', function () {
     assert(process.env.HOME || process.env.PATHEXT);
   });
 });
+
+describe('green 5', () => {
+  describe('describe level 1', () => {
+    describe('describe level 2', () => {
+      it('describe level 2 inner green 5', function () {
+        assert(process.env.HOME || process.env.PATHEXT);
+      });
+      it(' describe level 2 inner green second 5', function () {
+        assert(process.env.HOME || process.env.PATHEXT);
+      });
+    });
+    it('describe level 1 inner green 5', function () {
+      assert(process.env.HOME || process.env.PATHEXT);
+    });
+    it('describe level 1inner green second 5', function () {
+      assert(process.env.HOME || process.env.PATHEXT);
+    });
+  });
+  it('inner green  5', function () {
+    assert(process.env.HOME || process.env.PATHEXT);
+  });
+});
+
+
