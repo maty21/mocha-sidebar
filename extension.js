@@ -13,7 +13,7 @@ const
   Promise = require('bluebird'),
   Runner = require('./runner'),
   vscode = require('vscode'),
-  matyProvider = require('./matyProvider')
+  mochaProvider = require('./mochaProvider')
 const
   access = Promise.promisify(fs.access),
   runner = new Runner();
@@ -26,18 +26,18 @@ let
 // your extension is activated the very first time the command is executed
 function activate(context) {
   const subscriptions = context.subscriptions;
-  const _matyProvider = new matyProvider();
-  vscode.window.registerTreeDataProvider('maty', _matyProvider);
+  const _mochaProvider = new mochaProvider();
+  vscode.window.registerTreeDataProvider('mocha', _mochaProvider);
 
-  subscriptions.push(vscode.commands.registerCommand('maty.runAllTests', (element) => {
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllTests', (element) => {
     if (hasWorkspace()) {
-      _matyProvider.runAllTests(element);
+      _mochaProvider.runAllTests(element);
       //runAllTests();
     }
   }))
-  subscriptions.push(vscode.commands.registerCommand('maty.runTest', (element) => {
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.runTest', (element) => {
     if (hasWorkspace()) {
-      _matyProvider.runTest(element);
+      _mochaProvider.runTest(element);
       //runAllTests();
     }
   }))

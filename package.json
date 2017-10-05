@@ -1,9 +1,9 @@
 {
-  "name": "vscode-mocha-latte",
-  "displayName": "Mocha Latte",
-  "description": "Runs Mocha tests.  Bugfixed for Mac and Linux.",
+  "name": "vscode-mocha-sidebar",
+  "displayName": "Mocha sidebar",
+  "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
   "version": "0.2.0",
-  "publisher": "cspotcode",
+  "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
   },
@@ -11,54 +11,57 @@
   "galleryBanner.color": "#8A6343",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cspotcode/vscode-mocha-latte.git"
+    "url": "https://github.com/maty21/mocha-sidebar.git"
   },
-  "bugs": "https://github.com/cspotcode/vscode-mocha-latte/issues/",
-  "homepage": "https://github.com/cspotcode/vscode-mocha-latte/blob/master/README.md",
+  "bugs": "https://github.com/maty21/mocha-sidebar/issues/",
+  "homepage": "https://github.com/maty21/mocha-sidebar/blob/master/README.md",
   "keywords": [
     "bdd",
     "mocha",
     "tdd",
     "test",
-    "testing"
+    "testing",
+    "side bar",
+    "provider",
+    "unit test"
   ],
   "categories": [
     "Other"
   ],
   "activationEvents": [
     "onCommand:mocha.runAllTests",
-    "onCommand:maty.runAllTests",
-    "onCommand:maty.runTest",
+    "onCommand:mocha-maty.runAllTests",
+    "onCommand:mocha-maty.runTest",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
     "onCommand:mocha.runFailedTests",
     "onCommand:mocha.runTestsByPattern",
     "onCommand:mocha.runLastSetAgain",
-    "onView:maty"
+    "onView:mocha"
   ],
   "main": "./extension",
   "contributes": {
     "menus": {
       "view/title": [
         {
-          "command": "maty.refreshExplorer",
-          "when": "view == maty",
+          "command": "mocha-maty.refreshExplorer",
+          "when": "view == mocha",
           "group": "navigation"
         },
         {
           "command": "vscode-docker.system.prune",
-          "when": "view == maty",
+          "when": "view == mocha",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "maty.runAllTests",
-          "when": "view == maty&&viewItem==rootTests"
+          "command": "mocha-maty.runAllTests",
+          "when": "view == mocha&&viewItem==rootTests"
         },
         {
-          "command": "maty.runTest",
-          "when": "view == maty&&viewItem==testItem"
+          "command": "mocha-maty.runTest",
+          "when": "view == mocha&&viewItem==testItem"
         }
       ]
     },
@@ -92,27 +95,27 @@
         "title": "Mocha: Run last set again"
       },
       {
-        "command": "maty.refreshExplorer",
+        "command": "mocha-maty.refreshExplorer",
         "title": "Refresh",
-        "category": "Maty"
+        "category": "mocha"
       },
       {
-        "command": "maty.runAllTests",
+        "command": "mocha-maty.runAllTests",
         "title": "Run All Tests",
-        "category": "Maty"
+        "category": "mocha"
       },
       {
-        "command": "maty.runTest",
+        "command": "mocha-maty.runTest",
         "title": "Run test",
-        "category": "Maty"
+        "category": "mocha"
       }
     ],
     "views": {
       "explorer": [
         {
-          "id": "maty",
-          "name": "Maty",
-          "when": "config.maty.showExplorer == true"
+          "id": "mocha",
+          "name": "mocha",
+          "when": "config.mocha.showExplorer == true"
         }
       ]
     },
@@ -124,7 +127,7 @@
           "default": {},
           "description": "Mocha: Options to run Mocha"
         },
-        "maty.showExplorer": {
+        "mocha.showExplorer": {
           "type": "boolean",
           "default": true,
           "description": "Show or hide the Explorer."

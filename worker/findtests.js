@@ -67,7 +67,8 @@ function crawlTests(suite) {
 
         return {
           name,
-          fullName: trimArray(entry.path).concat([ name ]).join(' '),
+          //fullName: trimArray(entry.path).concat([ name ]).join(' '),
+          fullName: entry.path[entry.path.length - 1].concat(' ').concat([name]),
           suitePath: entry.path,
           file: test.file
         };

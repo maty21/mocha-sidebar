@@ -20,6 +20,12 @@ Runner.prototype.loadTestFiles = function () {
     });
 };
 
+Runner.prototype.loadAsyncTestFiles = async function () {
+  return MochaShim.findTests(vscode.workspace.rootPath)
+    
+};
+
+
 Runner.prototype._runMocha = function (testFiles, grep, logMessages) {
   let tests = testFiles.map(test => test.file);
   return MochaShim.runTests(dedupeStrings(tests), grep, logMessages)

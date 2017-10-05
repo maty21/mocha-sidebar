@@ -52,21 +52,21 @@ describe('green 4', function () {
 describe('green 5', () => {
   describe('describe level 1', () => {
     describe('describe level 2', () => {
-      it('describe level 2 inner green 5', function () {
+      it('inner green 5 level 2', function () {
         assert(process.env.HOME || process.env.PATHEXT);
       });
-      it(' describe level 2 inner green second 5', function () {
+      it(' inner green second 5 level 2', function () {
         assert(process.env.HOME || process.env.PATHEXT);
       });
     });
-    it('describe level 1 inner green 5', function () {
+    it('inner green 5 level 1', function () {
       assert(process.env.HOME || process.env.PATHEXT);
     });
-    it('describe level 1inner green second 5', function () {
+    it('inner green second 5 level 1', function () {
       assert(process.env.HOME || process.env.PATHEXT);
     });
   });
-  it('inner green  5', function () {
+  it('inner green 5 level 0', function () {
     assert(process.env.HOME || process.env.PATHEXT);
   });
 });

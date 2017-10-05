@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const matyItem = require('./matyItem');
+const mochaItem = require('./mochaItem');
 const runner = require('./runner');
 const path = require('path');
 const forIn = require('lodash.forin');
@@ -11,7 +11,7 @@ const RESULT = {
     PASS: 'pass',
     NOT_EXECUTE: 'notExecute'
 }
-class matyProvider {
+class mochaProvider {
     constructor() {
         console.log('------------------------------------');
         console.log('constructor');
@@ -62,11 +62,11 @@ class matyProvider {
         console.log('------------------------------------');
         if (!element) {
             let nodes = [];
-            this._tests = await mochaShim.findTestsProcess(vscode.workspace.rootPath);
-            // this._tests = await this._runner.loadTestFiles();
+        //    this._tests = await mochaShim.findTestsProcess(vscode.workspace.rootPath);
+            this._tests = await this._runner.loadAsyncTestFiles();
           //  this._cleanLevelZero();
             this._formatedTest = this._createTreeFromArray();
-            this.item = new matyItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
+            this.item = new mochaItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
             nodes.push(this.item);
             return nodes;
 
@@ -97,11 +97,11 @@ class matyProvider {
                 if (this.results) {
                     iconPath = this._setPassOrFailIcon(item[1].test.name);
                 }
-                return new matyItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+                return new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
             }
             else {
                 let name = item[0];
-                return new matyItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
+                return new mochaItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
             }
         })
         return nodes;
@@ -201,4 +201,4 @@ class matyProvider {
 }
 
 
-module.exports = matyProvider; 
+module.exports = mochaProvider; 
