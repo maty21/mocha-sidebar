@@ -1,4 +1,4 @@
-![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/banner.svg)
+![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/banner.png)
 
 # Mocha Side bar 
 
