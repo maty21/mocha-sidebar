@@ -1,8 +1,10 @@
 # Mocha Side bar 
 
-Mocha side bar viewer that allows you to run Mocha tests for side bar menu  and view results
-can run each level hierarchy from all tests to a single test(and each describer of course) 
+Mocha side bar viewer that allows you to run Mocha tests from side bar menu and view results
+can run each level hierarchy from all tests to a single test(and each describer of course)
+
 have fun :)
+
 By Maty Zisserman
 
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/animated.gif)
@@ -49,17 +51,6 @@ Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/
 
 
 
-
-### How it works
-By default, this extensions will discover tests by searching for `test/**/*.js` under your workspace.
-
-Because your tests may requires a newer version of Node.js than the one powering Visual Studio Code, thus, this extension will attempt to find your installed Node.js and use it for your tests. It will search for the installed Node.js as indicated by environmental variable `PATH`. You can find the logic [here](https://github.com/maty21/mocha-sidebar/blob/master/fork.js).
-
-When the test is being run, we will add `NODE_PATH` to point to your workspace `node_modules` folder to help [resolving external modules](https://nodejs.org/api/modules.html#modules_loading_from_the_global_folders).
-
-When you ask to run the test under cursor position, the extension will parse the current file and look for matching tests or suites.
-If the file contains tests or suites defined using template strings or via dynamic generation, the regular expression `(.+)` will be used as a placeholder in order to have a better matching without having to evaluate the file twice.
-This implies that more tests than expected might be run.
 
 ## Fit yourself
 
@@ -118,3 +109,14 @@ Following commands are also supported:
 | `mocha.runTestsByPattern` | Mocha: Run tests matching a pattern |
 | `mocha.selectAndRunTest` | Mocha: Select and run a test |
 
+
+### How it works
+By default, this extensions will discover tests by searching for `test/**/*.js` under your workspace.
+
+Because your tests may requires a newer version of Node.js than the one powering Visual Studio Code, thus, this extension will attempt to find your installed Node.js and use it for your tests. It will search for the installed Node.js as indicated by environmental variable `PATH`. You can find the logic [here](https://github.com/maty21/mocha-sidebar/blob/master/fork.js).
+
+When the test is being run, we will add `NODE_PATH` to point to your workspace `node_modules` folder to help [resolving external modules](https://nodejs.org/api/modules.html#modules_loading_from_the_global_folders).
+
+When you ask to run the test under cursor position, the extension will parse the current file and look for matching tests or suites.
+If the file contains tests or suites defined using template strings or via dynamic generation, the regular expression `(.+)` will be used as a placeholder in order to have a better matching without having to evaluate the file twice.
+This implies that more tests than expected might be run.

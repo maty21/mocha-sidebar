@@ -31,6 +31,7 @@
   "activationEvents": [
     "onCommand:mocha.runAllTests",
     "onCommand:mocha-maty.runAllTests",
+    "onCommand:mocha-maty.runDescriberLevelTest",
     "onCommand:mocha-maty.runTest",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
@@ -62,6 +63,10 @@
         {
           "command": "mocha-maty.runTest",
           "when": "view == mocha&&viewItem==testItem"
+        },
+        {
+          "command": "mocha-maty.runDescriberLevelTest",
+          "when": "view == mocha&&viewItem==testDescriber"
         }
       ]
     },
@@ -107,6 +112,11 @@
       {
         "command": "mocha-maty.runTest",
         "title": "Run test",
+        "category": "mocha"
+      },
+      {
+        "command": "mocha-maty.runDescriberLevelTest",
+        "title": "Run tests from this level",
         "category": "mocha"
       }
     ],
@@ -166,6 +176,7 @@
     "bluebird": "^3.3.5",
     "escape-regexp": "0.0.1",
     "glob": "^7.0.3",
+    "lodash.assign": "^4.2.0",
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "mocha": "^2.4.5"

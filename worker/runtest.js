@@ -53,6 +53,7 @@ if (grep) {
   mocha.grep(new RegExp(grep, 'i'));
 }
 
+
 mocha.reporter(CustomReporter);
 
 mocha.run();

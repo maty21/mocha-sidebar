@@ -4,6 +4,8 @@ const runner = require('./runner');
 const path = require('path');
 const forIn = require('lodash.forin');
 const isObject = require('lodash.isobject');
+const assign = require('lodash.assign');
+
 const mochaShim = require('./mochashim');
 const escapeRegExp = require('escape-regexp')
 const RESULT = {
@@ -62,9 +64,9 @@ class mochaProvider {
         console.log('------------------------------------');
         if (!element) {
             let nodes = [];
-        //    this._tests = await mochaShim.findTestsProcess(vscode.workspace.rootPath);
+            //    this._tests = await mochaShim.findTestsProcess(vscode.workspace.rootPath);
             this._tests = await this._runner.loadAsyncTestFiles();
-          //  this._cleanLevelZero();
+            //  this._cleanLevelZero();
             this._formatedTest = this._createTreeFromArray();
             this.item = new mochaItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
             nodes.push(this.item);
@@ -140,14 +142,42 @@ class mochaProvider {
         console.log('tests');
     }
 
+    async runDescriberLevelTest(element) {
+        let tests = [];
+        let results = [];
+        this._findObjectByLabel(element, 'test', tests);
+        for (let test of tests) {
+            let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
+            results.push(result);
+        }
+        let combinedResults = {
+            passed: [],
+            failed: []
+        }
+        results.forEach(res => {
+            if (res.passed.length > 0) {
+                res.passed.forEach(r => combinedResults.passed.push(r))
+            }
+            if (res.failed.length > 0) {
+                res.failed.forEach(r => combinedResults.failed.push(r))
+            }
+        })
+        this.results = combinedResults;
+        this._onDidChangeTreeData.fire(this.item);
+        // tests .forEach(async test => {
+        // })
+        // let results = await Promise.all(promiseArray);
+        // let spread = assign(results);
+        //  console.log('res');
+    }
     async runTest(element) {
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
         let log = {};
         this.results = await this.runMochaTests(tests, `^${escapeRegExp(tests[0].fullName)}$`)
-        if (this.results.passed.length == 0) {
-            this.results.failed.push(tests[0])
-        }
+        // if (this.results.passed.length == 0) {
+        //     this.results.failed.push(tests[0])
+        // }
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }

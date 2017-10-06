@@ -41,7 +41,12 @@ function activate(context) {
       //runAllTests();
     }
   }))
-
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.runDescriberLevelTest', (element) => {
+    if (hasWorkspace()) {
+      _mochaProvider.runDescriberLevelTest(element);
+      //runAllTests();
+    }
+  }))
 
 
 
