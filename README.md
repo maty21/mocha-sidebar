@@ -1,3 +1,5 @@
+![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/banner.svg)
+
 # Mocha Side bar 
 
 Mocha side bar viewer that allows you to run Mocha tests from side bar menu and view results
