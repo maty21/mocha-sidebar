@@ -47,7 +47,12 @@ function activate(context) {
       //runAllTests();
     }
   }))
-
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.refreshExplorer', (element) => {
+    if (hasWorkspace()) {
+      _mochaProvider.refreshExplorer(element);
+      //runAllTests();
+    }
+  }))
 
 
 
