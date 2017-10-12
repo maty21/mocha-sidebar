@@ -64,10 +64,7 @@ class mochaProvider {
         console.log('------------------------------------');
         if (!element) {
             let nodes = [];
-            //    this._tests = await mochaShim.findTestsProcess(vscode.workspace.rootPath);
-            this._tests = await this._runner.loadAsyncTestFiles();
-            //  this._cleanLevelZero();
-            this._formatedTest = this._createTreeFromArray();
+            await this.loadAndFormatTests();
             this.item = new mochaItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
             nodes.push(this.item);
             return nodes;
@@ -75,6 +72,19 @@ class mochaProvider {
         } else {
             return this._newLevelRunning(element.item)
         }
+    }
+
+    async loadAndFormatTests() {
+        this._tests = await this._runner.loadAsyncTestFiles();
+        this._formatedTest = this._createTreeFromArray();
+    }
+
+    async refreshExplorer() {
+        if (this.item) {
+            await this.loadAndFormatTests();
+            this.item.item = this._formatedTest[""];
+        }
+        this._onDidChangeTreeData.fire(this.item);
     }
     _cleanLevelZero() {
         this._tests.forEach(test => test.suitePath.splice(0, 1))
@@ -141,6 +151,7 @@ class mochaProvider {
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }
+
 
     async runDescriberLevelTest(element) {
         let tests = [];

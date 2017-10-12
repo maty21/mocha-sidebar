@@ -31,6 +31,7 @@
   "activationEvents": [
     "onCommand:mocha.runAllTests",
     "onCommand:mocha-maty.runAllTests",
+    "onCommand:mocha-maty.refreshExplorer",
     "onCommand:mocha-maty.runDescriberLevelTest",
     "onCommand:mocha-maty.runTest",
     "onCommand:mocha.runTestAtCursor",
@@ -46,11 +47,6 @@
       "view/title": [
         {
           "command": "mocha-maty.refreshExplorer",
-          "when": "view == mocha",
-          "group": "navigation"
-        },
-        {
-          "command": "vscode-docker.system.prune",
           "when": "view == mocha",
           "group": "navigation"
         }
