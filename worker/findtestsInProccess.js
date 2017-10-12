@@ -5,6 +5,7 @@ const
   Mocha = require('mocha'),
   path = require('path'),
   Promise = require('bluebird'),
+  vscode = require('vscode'),
   trimArray = require('../utils').trimArray;
 
 //const   args = JSON.parse(process.argv[process.argv.length - 1]);
@@ -16,7 +17,7 @@ function findTests(params) {
 
   return createMocha(params.rootPath, params.options, params.files.glob, params.files.ignore)
     .then(mocha => crawlTests(mocha.suite))
-    .then(tests =>  tests)
+    .then(tests => tests)
     .catch(err => {
       console.error(err.stack);
 
@@ -25,30 +26,19 @@ function findTests(params) {
 }
 
 
-function createMocha(rootPath, options, glob, ignore) {
-  // const requireOptions = options.require || [];
-
-  // if (requireOptions) {
-  //   if (typeof requireOptions === 'string') {
-  //     global[requireOptions] = require(requireOptions);
-  //   } else {
-  //     requireOptions.forEach(name => {
-  //       global[name] = require(name);
-  //     });
-  //   }
-  // }
+function createMocha(rootPath = process.cwd(), options, glob, ignore) {
 
   return new Promise((resolve, reject) => {
     new Glob(glob, { cwd: rootPath, ignore }, (err, files) => {
-      if (err) { return reject(err); }
+      if (err) { return reject(`createMocha wow ${err}`); }
 
       try {
         const mocha = new Mocha(options);
-
         files.forEach(file => mocha.addFile(path.resolve(rootPath, file)));
         mocha.loadFiles();
         resolve(mocha);
       } catch (ex) {
+
         reject(ex);
       }
     });

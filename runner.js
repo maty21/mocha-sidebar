@@ -21,8 +21,9 @@ Runner.prototype.loadTestFiles = function () {
 };
 
 Runner.prototype.loadAsyncTestFiles = async function () {
-  return MochaShim.findTests(vscode.workspace.rootPath)
-    
+  //  vscode.window.showWarningMessage(`entering loadAsyncTestFiles ${vscode.workspace.rootPath}`)
+  return process.platform == 'win32' ? MochaShim.findTestsProcess(vscode.workspace.rootPath) : MochaShim.findTests(vscode.workspace.rootPath);
+
 };
 
 

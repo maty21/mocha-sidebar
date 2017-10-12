@@ -6,7 +6,7 @@ const
   path = require('path'),
   Promise = require('bluebird'),
   vscode = require('vscode'),
-  findTestsInProcess = require('./worker/findtestsInProccess');
+  _findTestsInProcess = require('./worker/findtestsInProccess');
 
 function envWithNodePath(rootPath) {
   return Object.assign({}, process.env, {
@@ -165,9 +165,11 @@ function findTests(rootPath) {
 
 async function findTestsProcess(rootPath) {
   // Allow the user to choose a different subfolder
-  rootPath = applySubdirectory(rootPath);
+  //vscode.window.showWarningMessage(`entering findTestsProcess in mochasim ${rootPath}`)
 
-  return findTestsInProcess({
+  rootPath = applySubdirectory(rootPath);
+  // vscode.window.showWarningMessage(`passing applySubdirectory in mochasim ${rootPath}`)
+  let options = {
     options: config.options(),
     files: {
       glob: config.files().glob,
@@ -175,7 +177,9 @@ async function findTestsProcess(rootPath) {
     },
     requires: config.requires(),
     rootPath
-  })
+  }
+  //  vscode.window.showWarningMessage(`passing options in mochasim ${JSON.stringify(options)}`)
+  return _findTestsInProcess(options);
 
 }
 //   const
