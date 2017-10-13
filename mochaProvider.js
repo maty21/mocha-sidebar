@@ -107,7 +107,7 @@ class mochaProvider {
             if (item[1].test) {
                 let iconPath = this._iconPath;
                 if (this.results) {
-                    iconPath = this._setPassOrFailIcon(item[1].test.name);
+                    iconPath = this._setPassOrFailIcon(item[1].test.fullName);
                 }
                 return new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
             }
@@ -124,13 +124,13 @@ class mochaProvider {
             dark: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg'),
             light: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg')
         };
-        if (this.results.passed.find(res => res.name == itemName)) {
+        if (this.results.passed.find(res => res.fullName == itemName)) {
             icon = {
                 dark: path.join(__filename, '..', 'images', 'light', 'testPass.svg'),
                 light: path.join(__filename, '..', 'images', 'light', 'testPass.svg')
             }
         }
-        if (this.results.failed.find(res => res.name == itemName)) {
+        if (this.results.failed.find(res => res.fullName == itemName)) {
             icon = {
                 dark: path.join(__filename, '..', 'images', 'light', 'testFail.svg'),
                 light: path.join(__filename, '..', 'images', 'light', 'testFail.svg')
