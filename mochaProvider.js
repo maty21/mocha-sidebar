@@ -24,6 +24,9 @@ class mochaProvider {
         this._formatedTest = null;
         this._runner = new runner();
         this._testCounter = 0;
+        this._elements = {
+
+        }
         this._iconPath = {
             dark: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg'),
             light: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg')
@@ -89,17 +92,6 @@ class mochaProvider {
     _cleanLevelZero() {
         this._tests.forEach(test => test.suitePath.splice(0, 1))
     }
-    // _levelRunning() {
-    //     let nodes = []
-    //     this._tests.forEach(test => {
-    //         let item = this._treeItem(test, this._hierarchyLevel);
-    //         if (item) {
-    //             nodes.push(item);
-    //         }
-    //     })
-    //     this._hierarchyLevel = this._hierarchyLevel + 1;
-    //     return nodes;
-    // }
 
     _newLevelRunning(element) {
         let nodes = [];
@@ -194,10 +186,10 @@ class mochaProvider {
     }
     async runMochaTests(testFiles, regex) {
         let tests = testFiles.map(test => test.file);
-        return mochaShim.runTests(this._dedupeStrings(tests), regex, null)
+        return this._runner.runAsyncTests(this._dedupeStrings(tests), regex, null)
     }
     async runMochaTest(test, regex) {
-        return mochaShim.runTests([test.file], `^${escapeRegExp(test.fullName)}$`, null)
+        return this._runner.runAsyncTests([test.file], `^${escapeRegExp(test.fullName)}$`, null)
     }
     _findObjectByLabel(obj, label, arr = []) {
 
@@ -222,6 +214,8 @@ class mochaProvider {
         // }
         // return null;
     };
+
+
 
     _dedupeStrings(array) {
         const keys = {};

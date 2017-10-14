@@ -13,6 +13,7 @@ const
   Promise = require('bluebird'),
   Runner = require('./runner'),
   vscode = require('vscode'),
+  changesNotification = require('./changesNotification'),
   mochaProvider = require('./mochaProvider')
 const
   access = Promise.promisify(fs.access),
@@ -27,6 +28,7 @@ let
 function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
+  //const _changesNotification = new changesNotification(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider);
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllTests', (element) => {
