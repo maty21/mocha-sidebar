@@ -40,7 +40,7 @@ function toJS(suitePath, test) {
 
   return {
     name,
-    fullName: trimArray(suitePath).concat([ name ]).join(' '),
+    fullName: suitePath[suitePath.length - 1].concat(' ').concat([name]),
     suitePath: suitePath.slice(),
     file: test.file
   };
