@@ -9,6 +9,7 @@ const
   _runTestsInProcess = require('./inProcess/runtestInProcess'),
   _findTestsInProcess = require('./inProcess/findtestsInProccess');
 
+const outputChannel = vscode.window.createOutputChannel('Mocha');
 function envWithNodePath(rootPath) {
   return Object.assign({}, process.env, {
     NODE_PATH: `${rootPath}${path.sep}node_modules`
@@ -47,10 +48,9 @@ function runTests(testFiles, grep, messages) {
       env: envWithNodePath(rootPath)
     }
   ).then(process => new Promise((resolve, reject) => {
-    const outputChannel = vscode.window.createOutputChannel('Mocha');
 
     outputChannel.show();
-    outputChannel.clear();
+    // outputChannel.clear();
 
     outputChannel.appendLine(`Running Mocha with Node.js at ${process.spawnfile}\n`);
 
@@ -149,7 +149,7 @@ function findTests(rootPath) {
         }
 
         if (code) {
-          const outputChannel = vscode.window.createOutputChannel('Mocha');
+          //  const outputChannel = vscode.window.createOutputChannel('Mocha');
 
           outputChannel.show();
           outputChannel.append(stderrText);
@@ -222,7 +222,7 @@ function runTestsInProcess(testFiles, grep, messages) {
       env: envWithNodePath(rootPath)
     }
   ).then(process => new Promise((resolve, reject) => {
-    const outputChannel = vscode.window.createOutputChannel('Mocha');
+    //   const outputChannel = vscode.window.createOutputChannel('Mocha');
 
     outputChannel.show();
     outputChannel.clear();
@@ -280,3 +280,5 @@ module.exports.runTestsInProcess = runTestsInProcess;
 
 module.exports.findTests = findTests;
 module.exports.findTestsProcess = findTestsProcess;
+
+module.exports.outputChannel = outputChannel;

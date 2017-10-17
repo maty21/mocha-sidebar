@@ -8,6 +8,7 @@ const assign = require('lodash.assign');
 
 const mochaShim = require('./mochashim');
 const escapeRegExp = require('escape-regexp')
+
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -146,8 +147,10 @@ class mochaProvider {
 
 
     async runDescriberLevelTest(element) {
+
         let tests = [];
         let results = [];
+        mochaShim.outputChannel.clear();
         this._findObjectByLabel(element, 'test', tests);
         for (let test of tests) {
             let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
