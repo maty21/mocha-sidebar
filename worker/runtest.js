@@ -1,18 +1,16 @@
 'use strict';
 
-const
-  CustomReporter = require('./customreporter'),
-  escapeRegExp = require('escape-regexp'),
-  fs = require('fs'),
-  Mocha = require('mocha'),
-  path = require('path'),
-  Promise = require('bluebird');
+const CustomReporter = require('./customreporter');
+const escapeRegExp = require('escape-regexp');
+const fs = require('fs');
+const Mocha = require('mocha');
+const path = require('path');
+const Promise = require('bluebird');
 
-const
-  args = JSON.parse(process.argv[process.argv.length - 1]),
-  options = args.options;
+const args = JSON.parse(process.argv[process.argv.length - 1]);
+const options = args.options;
 
-for(let file of args.requires)
+for (let file of args.requires)
   require(file);
 
 if (Object.keys(options || {}).length) {
@@ -56,7 +54,12 @@ if (grep) {
 
 mocha.reporter(CustomReporter);
 
-mocha.run();
+mocha.run((failures) => {
+  console.log('------------------------------------');
+  console.log(`finish failuare amount:${failures}`);
+  console.log('------------------------------------');
+  process.exit(0);
+});
 
 function indent(lines) {
   return lines.split('\n').map(line => `  ${line}`).join('\n');

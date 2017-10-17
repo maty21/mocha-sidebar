@@ -28,8 +28,8 @@ Runner.prototype.loadAsyncTestFiles = async () => {
 
 Runner.prototype.runAsyncTests = async (testFiles, grep, logMessages) => {
   //  vscode.window.showWarningMessage(`entering loadAsyncTestFiles ${vscode.workspace.rootPath}`)
-  return process.platform == 'win32' ? MochaShim.runTestsInProcess(testFiles, grep, logMessages) : MochaShim.runTests(testFiles, grep, logMessages);
-
+  //return process.platform == 'win32' ? MochaShim.runTestsInProcess(testFiles, grep, logMessages) : MochaShim.runTests(testFiles, grep, logMessages);
+  return MochaShim.runTests(testFiles, grep, logMessages);
 };
 
 

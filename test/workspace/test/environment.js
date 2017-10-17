@@ -13,7 +13,14 @@ it('should inherit environment variables', function () {
   // we can do this:
   // assert(process.env.INHERITED_ENV_VAR == 'inherited');
 });
+it('should inherit environment variables 2', function () {
+  // Should cover Linux/Mac and Windows
+  assert.fail();
 
+  // Once I figure out how to pass env variables to the extension host process,
+  // we can do this:
+  // assert(process.env.INHERITED_ENV_VAR == 'inherited');
+});
 // describe('greens for good', function () {
 //   describe('greens for good2', function () {
 //     it('should run green', function () {

@@ -172,6 +172,6 @@
     "lodash.assign": "^4.2.0",
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
-    "mocha": "^2.4.5"
+    "mocha": "^2.5.3"
   }
 }
