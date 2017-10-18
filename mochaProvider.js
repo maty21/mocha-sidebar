@@ -180,6 +180,15 @@ class mochaProvider {
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
         let log = {};
+
+        // vscode.workspace.openTextDocument(tests[0].file).then(doc => {
+
+        //     var textRange = new vscode.Range(29,
+        //         0,
+        //         29,
+        //         0);
+        //     vscode.window.showTextDocument(doc, { selection: textRange });
+        // })
         this.results = await this.runMochaTests(tests, `^${escapeRegExp(tests[0].fullName)}$`)
         // if (this.results.passed.length == 0) {
         //     this.results.failed.push(tests[0])
@@ -192,6 +201,8 @@ class mochaProvider {
         return this._runner.runAsyncTests(this._dedupeStrings(tests), regex, null)
     }
     async runMochaTest(test, regex) {
+
+
         return this._runner.runAsyncTests([test.file], `^${escapeRegExp(test.fullName)}$`, null)
     }
     _findObjectByLabel(obj, label, arr = []) {

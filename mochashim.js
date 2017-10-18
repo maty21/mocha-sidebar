@@ -26,13 +26,24 @@ function applySubdirectory(rootPath) {
 }
 
 function stripWarnings(text) { // Remove node.js warnings, which would make JSON parsing fail
-  return text.replace(/\(node:\d+\) DeprecationWarning:\s[^\n]+/g, "");
+  // return text.replace(/\(node:\d+\) DeprecationWarning:\s[^\n]+/g, "");
+  //outputChannel.appendLine(`stripWarnings entered`)
+  let newText = text.replace(/\(node:\d+\)\s[^\n]+/g, "");
+
+  //outputChannel.appendLine(`stripWarnings:${newText}`)
+  return newText
 }
 
 function runTests(testFiles, grep, messages) {
   // Allow the user to choose a different subfolder
   const rootPath = applySubdirectory(vscode.workspace.rootPath);
-
+  console.log(`test arg: ${JSON.stringify({
+    files: testFiles,
+    options: config.options(),
+    grep,
+    requires: config.requires(),
+    rootPath
+  })}`)
   return fork(
     path.resolve(module.filename, '../worker/runtest.js'),
     [

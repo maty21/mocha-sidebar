@@ -96,12 +96,12 @@ function Reporter(runner) {
     .on('suite', suite => {
       suitePath.push(suite.fullTitle());
       //   calcSuite(suite)
-   //   console.log(`#### title:${suite.fullTitle()} length start:${suitePath.length} `);
+      //   console.log(`#### title:${suite.fullTitle()} length start:${suitePath.length} `);
     })
     .on('suite end', () => {
       const poped = suitePath.pop();
 
-   //   console.log(`#### title:${poped} length end:${suitePath.length} `);
+      //   console.log(`#### title:${poped} length end:${suitePath.length} `);
       if (suitePath.length == 0) {
         console.error(JSON.stringify({ passed, failed }, null, 2));
       }
@@ -127,7 +127,8 @@ function toJS(suitePath, test) {
     name,
     fullName: suitePath[suitePath.length - 1].concat(' ').concat([name]),
     suitePath: suitePath.slice(),
-    file: test.file
+    file: test.file,
+    
   };
 }
 

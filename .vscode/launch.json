@@ -25,6 +25,17 @@
             "stopOnEntry": false
         },
         {
+            "name": "Launch producer-consumer",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "/home/matyz/dev/raf-producer-consumer/"
+            ],
+            "stopOnEntry": false
+        },
+        {
             "name": "Launch Tests",
             "type": "extensionHost",
             "request": "launch",
@@ -48,11 +59,16 @@
             "remoteRoot": null
         },
         {
-            
             "type": "node",
             "request": "launch",
             "name": "Launch recurse",
             "program": "${workspaceRoot}/stub/recursion"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch stub",
+            "program": "${workspaceRoot}/inProcess/stub"
         },
     ]
 }
