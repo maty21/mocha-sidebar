@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const setDecoration = (result)=>{
+const setDecoration = (resStauts,test)=>{
    
     vscode.editor.setDecorations()
 

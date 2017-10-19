@@ -101,7 +101,8 @@ class mochaProvider {
             if (item[1].test) {
                 let iconPath = this._iconPath;
                 if (this.results) {
-                    iconPath = this._setPassOrFailIcon(item[1].test.fullName);
+                    let status  = setItemResultStatus(this.results, item[1].test.fullName);
+                    iconPath = this._setPassOrFailIcon(status);
                 }
                 return new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
             }
@@ -113,9 +114,8 @@ class mochaProvider {
         return nodes;
     }
 
-    _setPassOrFailIcon(itemName) {
+    _setPassOrFailIcon(status) {
         let icon = null;
-        let status = setItemResultStatus(this.results, itemName);
         switch (status) {
             case consts.PASSED:
                 icon = {
