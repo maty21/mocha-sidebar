@@ -176,7 +176,6 @@
     "bluebird": "^3.3.5",
     "escape-regexp": "0.0.1",
     "glob": "^7.0.3",
-    "line-number": "^0.1.0",
     "lodash.assign": "^4.2.0",
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
