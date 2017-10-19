@@ -5,9 +5,10 @@ const path = require('path');
 const forIn = require('lodash.forin');
 const isObject = require('lodash.isobject');
 const assign = require('lodash.assign');
-
+const lineNumber = require('line-number');
 const mochaShim = require('./mochashim');
 const escapeRegExp = require('escape-regexp')
+const fs = require('fs');
 
 const RESULT = {
     FAIL: 'fail',
@@ -196,6 +197,26 @@ class mochaProvider {
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }
+
+    async itemSelection({ file, name }) {
+        // let re = new RegExp(`/${name}+/g`);
+        let re = new RegExp(`${name}+`);
+
+        let fixture = fs.readFileSync(file, 'utf8');
+        let line = lineNumber(fixture, re);
+        console.log(line);
+        if (line.length == 0) {
+            line.push({ line: "", number: 0, match: "" })
+        }
+        vscode.workspace.openTextDocument(file).then(doc => {
+            var textRange = new vscode.Range(line[0].number - 1,
+                0,
+                line[0].number - 1,
+                0);
+            vscode.window.showTextDocument(doc, { selection: textRange });
+        })
+    }
+
     async runMochaTests(testFiles, regex) {
         let tests = testFiles.map(test => test.file);
         return this._runner.runAsyncTests(this._dedupeStrings(tests), regex, null)

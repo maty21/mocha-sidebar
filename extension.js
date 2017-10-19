@@ -55,7 +55,12 @@ function activate(context) {
       //runAllTests();
     }
   }))
-
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.itemSelection', item => {
+    if (hasWorkspace()) {
+      _mochaProvider.itemSelection(item);
+      //runAllTests();
+    }
+  }))
 
 
   subscriptions.push(vscode.commands.registerCommand('mocha.runAllTests', function () {

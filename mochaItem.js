@@ -7,6 +7,14 @@ class mochaItem extends vscode.TreeItem {
         this.iconPath = iconPath;
         this.item = item;
         this.hierarchyLevel = hierarchyLevel;
+        if (this.contextValue == "testItem") {
+            this.command = {
+                command: 'mocha-maty.itemSelection',
+                title: 'item selection',
+                arguments: [this.item.test]
+            }
+        }
+
     }
 }
 

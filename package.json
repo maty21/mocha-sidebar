@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -31,10 +31,12 @@
     "onCommand:mocha-maty.refreshExplorer",
     "onCommand:mocha-maty.runDescriberLevelTest",
     "onCommand:mocha-maty.runTest",
+    "onCommand:mocha-maty.itemSelection",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
     "onCommand:mocha.runFailedTests",
     "onCommand:mocha.runTestsByPattern",
+    "onCommand:mocha.runLastSetAgain",
     "onCommand:mocha.runLastSetAgain",
     "onView:mocha"
   ],
@@ -105,6 +107,11 @@
       {
         "command": "mocha-maty.runTest",
         "title": "Run test",
+        "category": "mocha"
+      },
+      {
+        "command": "mocha-maty.itemSelection",
+        "title": "itemSelection",
         "category": "mocha"
       },
       {
