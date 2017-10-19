@@ -5,11 +5,11 @@ const path = require('path');
 const forIn = require('lodash.forin');
 const isObject = require('lodash.isobject');
 const assign = require('lodash.assign');
-const lineNumber = require('line-number');
 const mochaShim = require('./mochashim');
 const escapeRegExp = require('escape-regexp')
-const fs = require('fs');
-
+const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
+const consts = require('./provider-extensions/consts');
+const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -114,22 +114,28 @@ class mochaProvider {
     }
 
     _setPassOrFailIcon(itemName) {
-        let icon = {
-            dark: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg'),
-            light: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg')
-        };
-        if (this.results.passed.find(res => res.fullName == itemName)) {
-            icon = {
-                dark: path.join(__filename, '..', 'images', 'light', 'testPass.svg'),
-                light: path.join(__filename, '..', 'images', 'light', 'testPass.svg')
-            }
+        let icon = null;
+        let status = setItemResultStatus(this.results, itemName);
+        switch (status) {
+            case consts.PASSED:
+                icon = {
+                    dark: path.join(__filename, '..', 'images', 'light', 'testPass.svg'),
+                    light: path.join(__filename, '..', 'images', 'light', 'testPass.svg')
+                }
+                break;
+            case consts.FAILED:
+                icon = {
+                    dark: path.join(__filename, '..', 'images', 'light', 'testFail.svg'),
+                    light: path.join(__filename, '..', 'images', 'light', 'testFail.svg')
+                }
+                break;
+            default:
+                icon = {
+                    dark: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg'),
+                    light: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg')
+                };
         }
-        if (this.results.failed.find(res => res.fullName == itemName)) {
-            icon = {
-                dark: path.join(__filename, '..', 'images', 'light', 'testFail.svg'),
-                light: path.join(__filename, '..', 'images', 'light', 'testFail.svg')
-            }
-        }
+
         return icon;
     }
 
@@ -182,14 +188,7 @@ class mochaProvider {
         this._findObjectByLabel(element, 'test', tests);
         let log = {};
 
-        // vscode.workspace.openTextDocument(tests[0].file).then(doc => {
 
-        //     var textRange = new vscode.Range(29,
-        //         0,
-        //         29,
-        //         0);
-        //     vscode.window.showTextDocument(doc, { selection: textRange });
-        // })
         this.results = await this.runMochaTests(tests, `^${escapeRegExp(tests[0].fullName)}$`)
         // if (this.results.passed.length == 0) {
         //     this.results.failed.push(tests[0])
@@ -198,21 +197,11 @@ class mochaProvider {
         console.log('tests');
     }
 
-    async itemSelection({ file, name }) {
-        // let re = new RegExp(`/${name}+/g`);
-        let re = new RegExp(`${name}+`);
+    async itemSelection({ test, line }) {
 
-        let fixture = fs.readFileSync(file, 'utf8');
-        let line = lineNumber(fixture, re);
-        console.log(line);
-        if (line.length == 0) {
-            line.push({ line: "", number: 0, match: "" })
-        }
-        vscode.workspace.openTextDocument(file).then(doc => {
-            var textRange = new vscode.Range(line[0].number - 1,
-                0,
-                line[0].number - 1,
-                0);
+        // navigateEditorItem(file, name);
+        vscode.workspace.openTextDocument(test.file).then(doc => {
+            var textRange = new vscode.Range(line[0].number - 1, 0, line[0].number - 1, 0);
             vscode.window.showTextDocument(doc, { selection: textRange });
         })
     }
