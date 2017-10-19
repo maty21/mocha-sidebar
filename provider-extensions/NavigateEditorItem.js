@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 const fs = require('fs');
-const lineNumber = require('line-number');
+const lineNumber = require('../utils').linenumber;
 const navigateEditorItem = (file, name) => {
     // let re = new RegExp(`/${name}+/g`);
     let re = new RegExp(`${name}+`);
