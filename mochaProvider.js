@@ -97,11 +97,14 @@ class mochaProvider {
 
     _newLevelRunning(element) {
         let nodes = [];
+        if (!element) {
+            return nodes;
+        }
         nodes = Object.entries(element).map(item => {
             if (item[1].test) {
                 let iconPath = this._iconPath;
                 if (this.results) {
-                    let status  = setItemResultStatus(this.results, item[1].test.fullName);
+                    let status = setItemResultStatus(this.results, item[1].test.fullName);
                     iconPath = this._setPassOrFailIcon(status);
                 }
                 return new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);

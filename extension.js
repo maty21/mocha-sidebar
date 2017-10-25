@@ -112,9 +112,9 @@ function hasWorkspace() {
   const root = vscode.workspace.rootPath;
   const validWorkspace = typeof root === "string" && root.length;
 
-  console.log(root);
-  console.log(vscode);
-  console.log(validWorkspace);
+ // console.log(root);
+ // console.log(vscode);
+  //console.log(validWorkspace);
 
   if (!validWorkspace) {
     vscode.window.showErrorMessage('Please open a folder before trying to execute Mocha.');
