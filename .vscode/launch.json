@@ -56,7 +56,8 @@
             "sourceMaps": false,
             "outFiles": [],
             "localRoot": "${workspaceRoot}",
-            "remoteRoot": null
+            "remoteRoot": null,
+            "protocol": "inspector"
         },
         {
             "type": "node",

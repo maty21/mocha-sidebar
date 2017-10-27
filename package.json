@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
-  "version": "0.6.4",
+  "version": "0.8.0",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -28,9 +28,12 @@
   "activationEvents": [
     "onCommand:mocha.runAllTests",
     "onCommand:mocha-maty.runAllTests",
-    "onCommand:mocha-maty.refreshExplorer",
+    "onCommand:mocha-maty.runAllDebug",
     "onCommand:mocha-maty.runDescriberLevelTest",
     "onCommand:mocha-maty.runTest",
+    "onCommand:mocha-maty.debugLevel",
+    "onCommand:mocha-maty.debugItem",
+    "onCommand:mocha-maty.refreshExplorer",
     "onCommand:mocha-maty.itemSelection",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
@@ -51,6 +54,18 @@
         }
       ],
       "view/item/context": [
+        {
+          "command": "mocha-maty.runAllDebug",
+          "when": "view == mocha&&viewItem==rootTests"
+        },
+        {
+          "command": "mocha-maty.debugLevel",
+          "when": "view == mocha&&viewItem==testDescriber"
+        },
+        {
+          "command": "mocha-maty.debugItem",
+          "when": "view == mocha&&viewItem==testItem"
+        },
         {
           "command": "mocha-maty.runAllTests",
           "when": "view == mocha&&viewItem==rootTests"
@@ -105,6 +120,11 @@
         "category": "mocha"
       },
       {
+        "command": "mocha-maty.runAllDebug",
+        "title": "Run Debug",
+        "category": "mocha"
+      },
+      {
         "command": "mocha-maty.runTest",
         "title": "Run test",
         "category": "mocha"
@@ -115,8 +135,18 @@
         "category": "mocha"
       },
       {
+        "command": "mocha-maty.debugItem",
+        "title": "Debug",
+        "category": "mocha"
+      },
+      {
         "command": "mocha-maty.runDescriberLevelTest",
         "title": "Run tests from this level",
+        "category": "mocha"
+      },
+      {
+        "command": "mocha-maty.debugLevel",
+        "title": "Debug Level",
         "category": "mocha"
       }
     ],
@@ -172,6 +202,7 @@
     "vscode": "0.11.x"
   },
   "dependencies": {
+    "await-done": "^1.0.1",
     "babylon": "^6.13.1",
     "bluebird": "^3.3.5",
     "escape-regexp": "0.0.1",

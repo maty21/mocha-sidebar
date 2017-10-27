@@ -23,13 +23,13 @@ function fork(jsPath, args, options) {
     execPath => new Promise((resolve, reject) => {
       // if (debug) {
       //   console.log('running in debug mode');
-      //   emptyPort({ startPort: 2000, maxPort: 60000 }, (err, port) => {
+      //   //emptyPort({ startPort: 2000, maxPort: 60000 }, (err, port) => {
       //     resolve(ChildProcess.spawn(
       //       execPath,
-      //       [`--inspect=${port}`, ...config.node_options().concat([jsPath]).concat(args)],
+      //       [`--inspect-brk=5859`, ...config.node_options().concat([jsPath]).concat(args)],
       //       options
       //     ))
-      //   })
+      //   //})
       // }
       // else {
       resolve(ChildProcess.spawn(
@@ -37,7 +37,7 @@ function fork(jsPath, args, options) {
         config.node_options().concat([jsPath]).concat(args),
         options
       ))
-      //    }
+ //       }
 
     }),
     err => {

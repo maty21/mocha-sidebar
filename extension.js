@@ -2,34 +2,50 @@
 
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-const
-  ChildProcess = require('child_process'),
-  config = require('./config'),
-  escapeRegExp = require('escape-regexp'),
-  fs = require('fs'),
-  Glob = require('glob').Glob,
-  parser = require('./parser'),
-  path = require('path'),
-  Promise = require('bluebird'),
-  Runner = require('./runner'),
-  vscode = require('vscode'),
-  changesNotification = require('./changesNotification'),
-  mochaProvider = require('./mochaProvider')
-const
-  access = Promise.promisify(fs.access),
-  runner = new Runner();
-
-let
-  lastPattern,
-  lastRunResult;
+const ChildProcess = require('child_process');
+const escapeRegExp = require('escape-regexp');
+const fs = require('fs');
+const Glob = require('glob').Glob;
+const parser = require('./parser');
+const path = require('path');
+const Promise = require('bluebird');
+const Runner = require('./runner');
+const config = require('./config');
+const vscode = require('vscode');
+const changesNotification = require('./changesNotification');
+const mochaProvider = require('./mochaProvider');
+const access = Promise.promisify(fs.access);
+const runner = new Runner();
+const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
+let lastPattern;
+let lastRunResult;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
+  debugInit(_mochaProvider);
   //const _changesNotification = new changesNotification(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider);
+
+
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllDebug', (element) => {
+    if (hasWorkspace()) {
+      debugAll(element, _mochaProvider.runAllTests);
+    }
+  }))
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.debugLevel', (element) => {
+    if (hasWorkspace()) {
+      debugLevel(element, _mochaProvider.runTestWithoutElement);
+    }
+  }))
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.debugItem', (element) => {
+    if (hasWorkspace()) {
+      debugItem(element, _mochaProvider.runTest);
+    }
+  }))
+
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllTests', (element) => {
     if (hasWorkspace()) {
@@ -112,8 +128,8 @@ function hasWorkspace() {
   const root = vscode.workspace.rootPath;
   const validWorkspace = typeof root === "string" && root.length;
 
- // console.log(root);
- // console.log(vscode);
+  // console.log(root);
+  // console.log(vscode);
   //console.log(validWorkspace);
 
   if (!validWorkspace) {

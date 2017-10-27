@@ -1,3 +1,5 @@
+
+
 const vscode = require('vscode');
 const mochaItem = require('./mochaItem');
 const runner = require('./runner');
@@ -166,6 +168,27 @@ class mochaProvider {
             let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
             results.push(result);
         }
+        // let combinedResults = {
+        //     passed: [],
+        //     failed: []
+        // }
+        // results.forEach(res => {
+        //     if (res.passed.length > 0) {
+        //         res.passed.forEach(r => combinedResults.passed.push(r))
+        //     }
+        //     if (res.failed.length > 0) {
+        //         res.failed.forEach(r => combinedResults.failed.push(r))
+        //     }
+        // })
+        this.results = this._combinedResults(results);
+        this._onDidChangeTreeData.fire(this.item);
+        // tests .forEach(async test => {
+        // })
+        // let results = await Promise.all(promiseArray);
+        // let spread = assign(results);
+        //  console.log('res');
+    }
+    _combinedResults(results) {
         let combinedResults = {
             passed: [],
             failed: []
@@ -178,14 +201,23 @@ class mochaProvider {
                 res.failed.forEach(r => combinedResults.failed.push(r))
             }
         })
-        this.results = combinedResults;
-        this._onDidChangeTreeData.fire(this.item);
-        // tests .forEach(async test => {
-        // })
-        // let results = await Promise.all(promiseArray);
-        // let spread = assign(results);
-        //  console.log('res');
+        return combinedResults;
     }
+
+    _combinedResultsWithCurrentResults(newResults, resultsToCombine) {
+
+
+        if (newResults.passed.length > 0) {
+            newResults.passed.forEach(r => resultsToCombine.passed.push(r))
+        }
+        if (newResults.failed.length > 0) {
+            newResults.failed.forEach(r => resultsToCombine.failed.push(r))
+        }
+
+        return resultsToCombine;
+    }
+
+
     async runTest(element) {
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
@@ -199,7 +231,18 @@ class mochaProvider {
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }
+    async runTestWithoutElement(test) {
+        let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
+        this.results = this._combinedResultsWithCurrentResults(result, this.results);
+        this._onDidChangeTreeData.fire(this.item);
+    }
 
+    clearResults() {
+        this.results = {
+            passed: [],
+            failed: []
+        }
+    }
     async itemSelection({ test, line }) {
 
         // navigateEditorItem(file, name);
