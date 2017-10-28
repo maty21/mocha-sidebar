@@ -1,12 +1,16 @@
 const vscode = require('vscode');
 const { callDone, done } = require('await-done');
-
+const path = require('path');
+let mochaPath = require.resolve('mocha');
+mochaPath = path.dirname(mochaPath);
+mochaPath = path.join(mochaPath,'bin','_mocha');
 let mochaTest = {
     "name": "Mocha Tests",
     "type": "node",
     "request": "launch",
     "stopOnEntry": false,
-    "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+    // "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+    "program": mochaPath,
     "cwd": "${workspaceRoot}",
     //    "args": ["./test/**/*.js", '--grep', '^green 4 inner green 4$'],
     // "args": ["./test/**/*.js"],
