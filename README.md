@@ -2,21 +2,20 @@
 
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
 
-Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
+#### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
-Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
-
+##### Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
 
 #### mocha side bar already supports this features
 * [x] see all tests in vscode side bar menu
 * [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
-* [x] NEW: debug tests fore each level hierarchy from all tests to a single test(and each describer of course) 
+* [x] NEW: debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] NEW: auto run tests on file save
 
 #### not supported yet
-* [] see tests results directly on the code 
-* [] run/debug results directly from the code 
-* [] split tests into files separation for the top level hierarchy
+* [ ] see tests results directly on the code 
+* [ ] run/debug results directly from the code 
+* [ ] split tests into files separation for the top level hierarchy
 
 feel free to propose new features 
 
