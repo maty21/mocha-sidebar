@@ -1,33 +1,36 @@
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/banner.png)
 
+![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
+
+Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
+
+Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
 
 
-Mocha side bar viewer that allows you to run Mocha tests from side bar menu and view results
-can run each level hierarchy from all tests to a single test(and each describer of course)
+#### mocha side bar already supports this features
+* [x] see all tests in vscode side bar menu
+* [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
+* [x] NEW: debug tests fore each level hierarchy from all tests to a single test(and each describer of course) 
+* [x] NEW: auto run tests on file save
 
-have fun :)
+#### not supported yet
+* [] see tests results directly on the code 
+* [] run/debug results directly from the code 
+* [] split tests into files separation for the top level hierarchy
 
-By Maty Zisserman
+feel free to propose new features 
 
-![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/animated.gif)
-
-
-you can also runs mocha tests, all or selected. Then prints the result to an output window.
-Unlike the original mocha , it also works on Mac and Linux.  
-
-### mocha side bar is based on mocha and has all its features
-### To use "Mocha side bar", uninstall the "Mocha or mocha late" extension.
-
-
-
-## Usage via side bar menu 
-* right click on each level of testing you like and click run test
+#### Contributors:
+- Maty Zisserman
+- Yehiyam Livne
 
 
+## Contributions
+Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
 
+Want to make this extension even more awesome? [Send us your wish](https://github.com/maty21/mocha-sidebar/issues/new/).
 
-
-![Demo showing Mocha test result](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/demo.png)
+Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/issues/new/) to us.
 
 ## Usage via command Palette
 To run Mocha tests:
@@ -40,22 +43,10 @@ You can run tests by:
 * Tests that the current cursor position (or the current file)
 * One test that you pick from a list
 
-
-
-
-
-## Contributions
-Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
-
-Want to make this extension even more awesome? [Send us your wish](https://github.com/maty21/mocha-sidebar/issues/new/).
-
-Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/issues/new/) to us.
-
-
+![Demo showing Mocha test result](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/demo.png)
 
 
 ## Fit yourself
-
 No one shoe could fit everyone. You may need to turn some switches on to fit your project. Please 
 [file us](https://github.com/maty21/mocha-sidebar/issues/new/) an issue if you think there is a better way to fit you and the others.
 
@@ -76,6 +67,11 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
   "**/.git/**/*",
   "**/node_modules/**/*"
 ],
+
+//Mocha: run tests on each save
+"mocha.runTestsOnSave": {
+    "default": "false",
+    },
 
 // Mocha: Environment variables to run your tests
 "mocha.env": {},
