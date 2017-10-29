@@ -222,7 +222,7 @@
           ]
         },
         "mocha.runTestsOnSave": {
-          "default": "true",
+          "default": "false",
           "description": "Mocha: run tests on each save",
           "type": "string"
         },
