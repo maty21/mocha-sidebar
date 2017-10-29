@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
-  "version": "0.8.4",
+  "version": "0.8.6",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
