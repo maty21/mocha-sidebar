@@ -25,6 +25,17 @@
             "stopOnEntry": false
         },
         {
+            "name": "Launch gateway",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "C:/dev/gateway"
+            ],
+            "stopOnEntry": false
+        },
+        {
             "name": "Launch producer-consumer",
             "type": "extensionHost",
             "request": "launch",

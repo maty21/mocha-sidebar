@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -34,6 +34,7 @@
     "onCommand:mocha-maty.debugLevel",
     "onCommand:mocha-maty.debugItem",
     "onCommand:mocha-maty.refreshExplorer",
+    "onCommand:mocha-maty.autoPlay",
     "onCommand:mocha-maty.itemSelection",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
@@ -41,6 +42,7 @@
     "onCommand:mocha.runTestsByPattern",
     "onCommand:mocha.runLastSetAgain",
     "onCommand:mocha.runLastSetAgain",
+    "onView:autoPlay",
     "onView:mocha"
   ],
   "main": "./extension",
@@ -50,6 +52,16 @@
         {
           "command": "mocha-maty.refreshExplorer",
           "when": "view == mocha",
+          "group": "navigation"
+        },
+        {
+          "command": "mocha-maty.autoPlayStart",
+          "when": "view == mocha&&runAutoPlay",
+          "group": "navigation"
+        },
+        {
+          "command": "mocha-maty.autoPlayPause",
+          "when": "view == mocha&&!runAutoPlay",
           "group": "navigation"
         }
       ],
@@ -112,7 +124,29 @@
       {
         "command": "mocha-maty.refreshExplorer",
         "title": "Refresh",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/refresh.svg",
+          "dark": "images/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.autoPlayStart",
+        "title": "Click for play",
+        "category": "autoPlay",
+        "icon": {
+          "light": "images/light/play-button.svg",
+          "dark": "images/dark/play-button.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.autoPlayPause",
+        "title": "Click for pause",
+        "category": "autoPlay",
+        "icon": {
+          "light": "images/light/pause-button.svg",
+          "dark": "images/dark/pause-button.svg"
+        }
       },
       {
         "command": "mocha-maty.runAllTests",
@@ -186,6 +220,11 @@
           "type": [
             "string"
           ]
+        },
+        "mocha.runTestsOnSave": {
+          "default": "true",
+          "description": "Mocha: run tests on each save",
+          "type": "string"
         },
         "mocha.env": {
           "default": {},

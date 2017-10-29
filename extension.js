@@ -5,6 +5,7 @@
 const ChildProcess = require('child_process');
 const escapeRegExp = require('escape-regexp');
 const fs = require('fs');
+const { runTestsOnSave } = require('./config');
 const Glob = require('glob').Glob;
 const parser = require('./parser');
 const path = require('path');
@@ -26,8 +27,23 @@ function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
   debugInit(_mochaProvider);
-  //const _changesNotification = new changesNotification(_mochaProvider);
+  const _changesNotification = new changesNotification(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider);
+  vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
+  let runAutoPlay = runTestsOnSave();
+
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.autoPlayStart', (element) => {
+    if (hasWorkspace()) {
+      vscode.commands.executeCommand('setContext', 'runAutoPlay', false)
+      _changesNotification.start();
+    }
+  }))
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.autoPlayPause', (element) => {
+    if (hasWorkspace()) {
+      vscode.commands.executeCommand('setContext', 'runAutoPlay', true)
+      _changesNotification.pause();
+    }
+  }))
 
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllDebug', (element) => {
