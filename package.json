@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
-  "version": "0.8.8",
+  "version": "0.9.0",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -221,6 +221,14 @@
             "string"
           ]
         },
+        "mocha.requires": {
+          "default": [],
+          "description": "Array of module required to run Mocha. (for example babel-register, coffee-script/register or ts-node/register)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "mocha.runTestsOnSave": {
           "default": "false",
           "description": "Mocha: run tests on each save",
@@ -242,6 +250,7 @@
   },
   "dependencies": {
     "await-done": "^1.0.1",
+    "babel-register": "^6.26.0",
     "babylon": "^6.13.1",
     "bluebird": "^3.3.5",
     "escape-regexp": "0.0.1",
