@@ -21,7 +21,7 @@ feel free to propose new features
 
 #### Contributors:
 - Maty Zisserman
-- Yehiyam Livne
+- Yehiyam Livneh
 
 
 ## Contributions
