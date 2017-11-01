@@ -12,7 +12,7 @@ const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
-const setDecoration = require('./provider-extensions/setDecortaion');
+const { updateDecorationStyle, setDecorationOnUpdateResults, clearData } = require('./provider-extensions/setDecortaion');
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -71,6 +71,7 @@ class mochaProvider {
         console.log(`get Children: ${this._hierarchyLevel}`);
         console.log('------------------------------------');
         if (!element) {
+
             let nodes = [];
             await this.loadAndFormatTests();
             this.item = new mochaItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
@@ -110,10 +111,12 @@ class mochaProvider {
                 if (this.results) {
                     status = setItemResultStatus(this.results, item[1].test.fullName);
                     iconPath = this._setPassOrFailIcon(status);
+                } else {
+                    status = consts.NOT_RUN;
                 }
 
                 let mItem = new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
-                setDecoration(status, mItem);
+                setDecorationOnUpdateResults(status, mItem);
                 return mItem;
             }
             else {
@@ -124,6 +127,10 @@ class mochaProvider {
         return nodes;
     }
 
+
+    updateDecorations() {
+        updateDecorationStyle();
+    }
     _setPassOrFailIcon(status) {
         let icon = null;
         switch (status) {
@@ -154,6 +161,7 @@ class mochaProvider {
         return element.suitePath[hierarchyLevel].replace(element.suitePath[hierarchyLevel - 1], "").trimLeft();
     }
     async runAllTests(element) {
+        clearData();
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
         let log = {};
@@ -164,7 +172,7 @@ class mochaProvider {
 
 
     async runDescriberLevelTest(element) {
-
+        clearData();
         let tests = [];
         let results = [];
         mochaShim.outputChannel.clear();
@@ -224,6 +232,7 @@ class mochaProvider {
 
 
     async runTest(element) {
+        clearData();
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
         let log = {};

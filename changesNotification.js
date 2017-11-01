@@ -9,6 +9,7 @@ class changesNotification {
 
         vscode.window.onDidChangeActiveTextEditor(editor => {
             console.log(`onDidChangeActiveTextEditor: ${editor}`)
+            this._mochaProvider.updateDecorations();
         })
         vscode.workspace.onDidSaveTextDocument(editor => {
             if (this._autoPlayOnSave) {

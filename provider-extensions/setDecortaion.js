@@ -1,9 +1,12 @@
 const vscode = require('vscode');
 const decorationType = require('./decorationType');
 const consts = require('./consts');
+let pushStyle = [];
+let decoratorAndStyle = []
 const setDecoration = (resStatus, test) => {
-
     let style = getStyle(resStatus);
+    pushStyle.push(style);
+    //  decoratorAndStyle.push({ resStatus, test });
     let decorators = {
         range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
         hoverMessage: resStatus,
@@ -27,7 +30,25 @@ const setDecoration = (resStatus, test) => {
 
 
 }
+const setDecorationOnUpdateResults = (resStatus, test) => {
+    decoratorAndStyle.push({ resStatus, test });
+    setDecoration(resStatus, test)
 
+
+}
+
+const clearData = () => {
+    removeStyle();
+    pushStyle = [];
+    decoratorAndStyle = [];
+}
+const removeStyle = () => {
+    pushStyle.forEach(s => s.dispose());
+}
+const updateDecorationStyle = () => {
+    removeStyle();
+    decoratorAndStyle.forEach(s => setDecoration(s.resStatus, s.test))
+}
 const getStyle = (status) => {
     let decorationStyle = null;
     switch (status) {
@@ -42,4 +63,4 @@ const getStyle = (status) => {
     }
 }
 
-module.exports = setDecoration;
+module.exports = { updateDecorationStyle, setDecorationOnUpdateResults, clearData };
