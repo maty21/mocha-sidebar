@@ -5,7 +5,7 @@ const setDecoration = (resStatus, test) => {
 
     let style = getStyle(resStatus);
     let decorators = {
-        range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 0),
+        range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
         hoverMessage: resStatus,
         //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
     }
@@ -32,14 +32,14 @@ const getStyle = (status) => {
     let decorationStyle = null;
     switch (status) {
         case consts.PASSED:
-            decorationStyle = decorationType.pass()
+            return decorationType.pass()
             break;
         case consts.FAILED:
-            decorationStyle = decorationType.fail()
+            return decorationType.fail()
             break;
         default:
-            decorationStyle = decorationType.notRun()
+            return decorationType.notRun()
     }
-    return decorationStyle;
 }
+
 module.exports = setDecoration;

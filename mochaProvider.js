@@ -12,6 +12,7 @@ const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
+const setDecoration = require('./provider-extensions/setDecortaion');
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -105,11 +106,15 @@ class mochaProvider {
         nodes = Object.entries(element).map(item => {
             if (item[1].test) {
                 let iconPath = this._iconPath;
+                let status = null;
                 if (this.results) {
-                    let status = setItemResultStatus(this.results, item[1].test.fullName);
+                    status = setItemResultStatus(this.results, item[1].test.fullName);
                     iconPath = this._setPassOrFailIcon(status);
                 }
-                return new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+
+                let mItem = new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+                setDecoration(status, mItem);
+                return mItem;
             }
             else {
                 let name = item[0];

@@ -31,7 +31,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "C:/dev/gateway"
+                "/home/matyz/dev/gateway"
             ],
             "stopOnEntry": false
         },
