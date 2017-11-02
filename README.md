@@ -11,7 +11,7 @@
 * [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] NEW: debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] NEW: auto run tests on file save
-* [x] see tests results directly on the code 
+* [x] HOT: see tests results directly on the code 
 
 #### not supported yet
 * [ ] run/debug results directly from the code 
@@ -104,7 +104,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
             "ts-node/register"
         ],
         ``` 
-          
+
         step2 - try to install typescript package locally  (not with -g)      
 
         if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)
