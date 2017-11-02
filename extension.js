@@ -15,6 +15,7 @@ const config = require('./config');
 const vscode = require('vscode');
 const changesNotification = require('./changesNotification');
 const mochaProvider = require('./mochaProvider');
+const mochaLensProvider = require('./provider-extensions/mochaLens')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
@@ -26,12 +27,14 @@ let lastRunResult;
 function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
+  const _codeLensProvider = new mochaLensProvider(context);
   debugInit(_mochaProvider);
   const _changesNotification = new changesNotification(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider);
+  let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
   vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
   let runAutoPlay = runTestsOnSave();
-
+  subscriptions.push(registerCodeLens);
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.autoPlayStart', (element) => {
     if (hasWorkspace()) {
       vscode.commands.executeCommand('setContext', 'runAutoPlay', false)
