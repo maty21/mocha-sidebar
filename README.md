@@ -85,6 +85,27 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 "mocha.requires": [],
 ```
 
+###Q&A
+  -  q: mocha side bar not run on my pc ? 
+  -  a: step1 - verify that there is no other mocha runner extension on your pc
+        step2 - try reinstall your vscode 
+  -  q: cant run ts-node compiler
+     a: step1 - verify that your configuration correct 
+        ```
+        "mocha.options": {
+        "compilers": {
+            "ts": "ts-node/register"
+          }
+        },
+        "mocha.requires": [
+            "ts-node/register"
+        ],
+    ```   
+        step2 - try to install typescript package locally  (not with -g)      
+
+        if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)
+  
+
 ### Setting a keyboard shortcut
 
 To quickly run tests, you can create a keyboard shortcut under File > Preferences > Keyboard Shortcuts. For example, the following JSON will run all tests with `CTRL+K` followed by `R` key.
