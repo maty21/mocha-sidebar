@@ -2,13 +2,13 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Runs Mocha tests using sidebar viewing that shows the result can run each level hierarchy from all tests to a single test(and each describer of course) have fun :)",
-  "version": "0.9.4",
+  "version": "0.9.6",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
   },
   "icon": "icon.png",
-  "galleryBanner.color": "#8A6343",
+  "galleryBanner.color": "#007F00",
   "repository": {
     "type": "git",
     "url": "https://github.com/maty21/mocha-sidebar.git"
