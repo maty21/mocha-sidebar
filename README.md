@@ -11,9 +11,9 @@
 * [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] NEW: debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] NEW: auto run tests on file save
+* [x] see tests results directly on the code 
 
 #### not supported yet
-* [ ] see tests results directly on the code 
 * [ ] run/debug results directly from the code 
 * [ ] split tests into files separation for the top level hierarchy
 
@@ -87,9 +87,12 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 
 ###Q&A
   -  q: mocha side bar not run on my pc ? 
-  -  a: step1 - verify that there is no other mocha runner extension on your pc
-        step2 - try reinstall your vscode 
+    a: step1 - verify that there is no other mocha runner extension on your pc
+
+      step2 - try reinstall your vscode 
+
   -  q: cant run ts-node compiler
+
      a: step1 - verify that your configuration correct 
         ```
         "mocha.options": {
@@ -100,7 +103,8 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
         "mocha.requires": [
             "ts-node/register"
         ],
-    ```   
+        ``` 
+          
         step2 - try to install typescript package locally  (not with -g)      
 
         if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)
