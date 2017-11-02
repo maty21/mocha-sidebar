@@ -43,7 +43,7 @@ describe('When environment variable is set in settings', function () {
 
 describe('green 3', function () {
   it('inner green 3', function () {
-    assert.fail(process.env.HOME || process.env.PATHEXT);
+   assert.fail(process.env.HOME || process.env.PATHEXT);
   });
 });
 describe('green 4', function () {

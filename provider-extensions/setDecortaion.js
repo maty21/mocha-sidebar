@@ -2,39 +2,35 @@ const vscode = require('vscode');
 const decorationType = require('./decorationType');
 const consts = require('./consts');
 let pushStyle = [];
+let currentFile = null;
 let decoratorAndStyle = []
 const setDecoration = (resStatus, test) => {
     let style = getStyle(resStatus);
     pushStyle.push(style);
-    //  decoratorAndStyle.push({ resStatus, test });
-    let decorators = {
-        range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
-        hoverMessage: resStatus,
-        //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
+    console.log(`test file in decorations: ${test.item.test.file}, name:${test.item.test.name}`);
+    if (vscode.window.activeTextEditor.document.fileName == test.item.test.file) {
+        let decorators = {
+            range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
+            hoverMessage: resStatus,
+            //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
+        }
+        try {
+            vscode.window.activeTextEditor.setDecorations(style, [decorators])
+        } catch (error) {
+            console.log(error);
+        }
     }
-    try {
-        vscode.window.activeTextEditor.setDecorations(style, [decorators])
-    } catch (error) {
-        console.log(error);
-    }
 
 
-    // return blocks.map(it => {
-    //     return {
-    //       // VS Code is indexed starting at 0
-    //       // jest-editor-support is indexed starting at 1
-    //       range: new vscode.Range(it.start.line - 1, it.start.column - 1, it.start.line - 1, it.start.column + 1),
-    //       hoverMessage: nameForState(it.name, state),
-    //     }
-    //   })
 
+}
 
+const setCurrentWorkspaceFile = (cFile) => {
+    currentFile = cFile;
 }
 const setDecorationOnUpdateResults = (resStatus, test) => {
     decoratorAndStyle.push({ resStatus, test });
     setDecoration(resStatus, test)
-
-
 }
 
 const clearData = () => {
@@ -63,4 +59,4 @@ const getStyle = (status) => {
     }
 }
 
-module.exports = { updateDecorationStyle, setDecorationOnUpdateResults, clearData };
+module.exports = { updateDecorationStyle, setDecorationOnUpdateResults, clearData, setCurrentWorkspaceFile };

@@ -12,7 +12,7 @@ const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
-const { updateDecorationStyle, setDecorationOnUpdateResults, clearData } = require('./provider-extensions/setDecortaion');
+const { updateDecorationStyle, setDecorationOnUpdateResults, clearData,setCurrentWorkspaceFile } = require('./provider-extensions/setDecortaion');
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -67,9 +67,7 @@ class mochaProvider {
 
 
     async getChildren(element) {
-        console.log('------------------------------------');
         console.log(`get Children: ${this._hierarchyLevel}`);
-        console.log('------------------------------------');
         if (!element) {
 
             let nodes = [];
@@ -114,7 +112,7 @@ class mochaProvider {
                 } else {
                     status = consts.NOT_RUN;
                 }
-
+                console.log(`name:${item[1].test.name},file:${item[1].test.file}`);
                 let mItem = new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
                 setDecorationOnUpdateResults(status, mItem);
                 return mItem;
@@ -128,7 +126,8 @@ class mochaProvider {
     }
 
 
-    updateDecorations() {
+    updateDecorations(fileName) {
+        setCurrentWorkspaceFile(fileName);    
         updateDecorationStyle();
     }
     _setPassOrFailIcon(status) {
@@ -309,11 +308,7 @@ class mochaProvider {
         return Object.keys(keys);
     }
     getTreeItem(element) {
-        console.log('------------------------------------');
         console.log(`getTreeItem:${element.label} expended:${element.contextValue}`);
-
-        console.log('------------------------------------');
-
         return element;
     }
 
