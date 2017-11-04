@@ -1,13 +1,13 @@
 const { CodeLens, Range } = require('vscode');
 class MochaLensDescriberItem extends CodeLens {
-    constructor(commandRange, document, selector, name) {
+    constructor(commandRange, item, selector, name) {
         super(commandRange)
         // this._item = item;
         this.title = "title"
         this.command = {
-            command: 'mocha-maty.itemSelection',
+            command: 'mocha-maty.runDescriberLevelTest',
             title: 'Run Suite',
-            arguments: [{ test: document, line: name }]
+            arguments: [item]
         }
     }
 
