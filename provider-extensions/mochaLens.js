@@ -3,7 +3,9 @@ const { files } = require('../config');
 
 const abstractCodeLens = require('./abstractCodeLens')
 const mochaLensTestItem = require('./mochaLensTestItem');
+const mochaDebugLensTestItem = require('./mochaDebugLensTestItem');
 const mochaLensDescriberItem = require('./mochaLensDescriberItem');
+const mochaLensDebugDescriberItem = require('./mochaLensDebugDescriberItem');
 class mochaLens extends abstractCodeLens {
     constructor(context, mochaProvider) {
         super();
@@ -55,13 +57,24 @@ class mochaLens extends abstractCodeLens {
 
 
     lensTestCreator(item) {
-        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 1e3);
+        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 10);
         return new mochaLensTestItem(range, item);
+    }
+    lensTestDebugCreator(item) {
+        let length = 'Debug Item'.length
+        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 20);
+        return new mochaDebugLensTestItem(range, item);
     }
     lensDescribeCreator(item) {
         let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 1e3);
         return new mochaLensDescriberItem(range, item);
     }
+    lensDescribeDebugCreator(item) {
+        let length = 'Debug Suite'.length
+        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 20);
+        return new mochaLensDebugDescriberItem(range, item);
+    }
+
     createLensFromTree(item, lensArr = []) {
         if (!item) {
             return;
@@ -70,7 +83,10 @@ class mochaLens extends abstractCodeLens {
             if (k != "meta") {
                 let lens = this.createLensItemFromTree(k, item);
                 if (lens) {
-                    lensArr.push(lens);
+                    lens.forEach(l => lensArr.push(l))
+                    // lensArr.push(lens[0]);
+                    //  lensArr.push(lens[1]);
+
                 }
                 //reach the leaves
                 if (item[k].test) {
@@ -88,9 +104,12 @@ class mochaLens extends abstractCodeLens {
             return;
         }
         if (item[key].test) {
-            return this.lensTestCreator(item[key])
+            let debug = this.lensTestDebugCreator(item[key]);
+            let test = this.lensTestCreator(item[key])
+            return [test, debug]
+            // return debug;
         }
-        return this.lensDescribeCreator(item[key])
+        return [this.lensDescribeCreator(item[key]), this.lensDescribeDebugCreator(item[key])]
 
     }
 
@@ -103,7 +122,7 @@ class mochaLens extends abstractCodeLens {
             }
             let path = this._getFirstTestItemPath(item[k]);
             if (path == this.lastDocument) {
-               listOfItems[k] = item[k];
+                listOfItems[k] = item[k];
             }
         })
         return listOfItems;
