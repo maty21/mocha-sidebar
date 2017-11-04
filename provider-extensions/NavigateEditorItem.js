@@ -25,6 +25,7 @@ const navigateEditorItem = (file, name) => {
 }
 
 
+
 let _lineNo = (str, re) => {
     return splitLines(str).map((line, i) => {
         if (re.test(line)) {

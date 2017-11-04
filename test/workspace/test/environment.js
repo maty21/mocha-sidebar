@@ -16,10 +16,20 @@ it('should inherit environment variables 2', function () {
   // Should cover Linux/Mac and Windows
   assert.fail();
 
+ 
+});
+
+
+it('test', function () {
+  // Should cover Linux/Mac and Windows
+  assert.fail();
+
   // Once I figure out how to pass env variables to the extension host process,
   // we can do this:
   // assert(process.env.INHERITED_ENV_VAR == 'inherited');
 });
+
+
 // describe('greens for good', function () {
 //   describe('greens for good2', function () {
 //     it('should run green', function () {
@@ -72,7 +82,7 @@ describe('green 5', () => {
       assert(process.env.HOME || process.env.PATHEXT);
     });
   });
-  it('inner green 5 level 0', function () {
+    it('inner green 5 level 0', function () {
     assert(process.env.HOME || process.env.PATHEXT);
   });
 });

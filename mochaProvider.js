@@ -12,7 +12,7 @@ const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
-const { updateDecorationStyle, setDecorationOnUpdateResults, clearData,setCurrentWorkspaceFile } = require('./provider-extensions/setDecortaion');
+const { updateDecorationStyle, setDecorationOnUpdateResults, clearData, setCurrentWorkspaceFile } = require('./provider-extensions/setDecortaion');
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -29,6 +29,7 @@ class mochaProvider {
         this._formatedTest = null;
         this._runner = new runner();
         this._testCounter = 0;
+        this.currentResultWithItem = [];
         this._elements = {
 
         }
@@ -48,13 +49,18 @@ class mochaProvider {
         this._tests.forEach(test => {
             for (var i = 0; i <= test.suitePath.length; i++) {
                 if (i == test.suitePath.length) {
-                    objCurrentPos[test.name] = { test };
+                    let meta = navigateEditorItem(test.file, test.name);
+                    objCurrentPos[test.name] = { test, meta };
                     objCurrentPos = obj;
                 }
                 else {
                     let name = i == 0 ? test.suitePath[i] : this._trimLastDescriber(test, i);
                     if (!objCurrentPos[name]) {
-                        objCurrentPos[name] = {}
+                        let meta = null;
+                        if (name != "") {
+                            meta = navigateEditorItem(test.file, name);
+                        }
+                        objCurrentPos[name] = { meta }
                     }
                     objCurrentPos = objCurrentPos[name];
                 }
@@ -103,6 +109,9 @@ class mochaProvider {
             return nodes;
         }
         nodes = Object.entries(element).map(item => {
+            if(item[0]=="meta"){
+                return
+            }
             if (item[1].test) {
                 let iconPath = this._iconPath;
                 let status = null;
@@ -115,6 +124,7 @@ class mochaProvider {
                 console.log(`name:${item[1].test.name},file:${item[1].test.file}`);
                 let mItem = new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
                 setDecorationOnUpdateResults(status, mItem);
+                this.currentResultWithItem.push({ status, test: item.test, type: "test" })
                 return mItem;
             }
             else {
@@ -127,7 +137,7 @@ class mochaProvider {
 
 
     updateDecorations(fileName) {
-        setCurrentWorkspaceFile(fileName);    
+        setCurrentWorkspaceFile(fileName);
         updateDecorationStyle();
     }
     _setPassOrFailIcon(status) {
@@ -289,13 +299,7 @@ class mochaProvider {
                 this._findObjectByLabel(o, label, arr);
             }
         })
-        // for (var i in obj) {
-        //     if (obj.hasOwnProperty(i)) {
-        //         var foundLabel = this._findObjectByLabel(obj[i], label);
-        //         if (foundLabel) { return foundLabel; }
-        //     }
-        // }
-        // return null;
+    
     };
 
 
