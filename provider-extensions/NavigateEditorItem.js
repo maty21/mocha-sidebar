@@ -12,8 +12,13 @@ const navigateEditorItem = (file, name) => {
         line.push({ line: "", number: 0, match: "" })
     }
     let fixedLine = line.filter(l => {
-        let t = l.line.split('(')[1].split(',')[0].replace(/'/gi, "").replace(/"/gi, "").replace(/`/gi, "");
-        return t == name;
+        try {
+            let t = l.line.split('(')[1].split(',')[0].replace(/'/gi, "").replace(/"/gi, "").replace(/`/gi, "");
+            return t == name;
+            
+        } catch (error) {
+            console.log(`split error:${error}`);
+        }
     })
     // console.log(line);
     if (fixedLine.length == 0) {
@@ -23,6 +28,7 @@ const navigateEditorItem = (file, name) => {
     return fixedLine;
 
 }
+
 
 
 let _lineNo = (str, re) => {

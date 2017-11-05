@@ -12,6 +12,7 @@ const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
+const { updateDecorationStyle, setDecorationOnUpdateResults, clearData, setCurrentWorkspaceFile } = require('./provider-extensions/setDecortaion');
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -28,6 +29,7 @@ class mochaProvider {
         this._formatedTest = null;
         this._runner = new runner();
         this._testCounter = 0;
+        this.currentResultWithItem = [];
         this._elements = {
 
         }
@@ -47,13 +49,18 @@ class mochaProvider {
         this._tests.forEach(test => {
             for (var i = 0; i <= test.suitePath.length; i++) {
                 if (i == test.suitePath.length) {
-                    objCurrentPos[test.name] = { test };
+                    let meta = navigateEditorItem(test.file, test.name);
+                    objCurrentPos[test.name] = { test, meta };
                     objCurrentPos = obj;
                 }
                 else {
                     let name = i == 0 ? test.suitePath[i] : this._trimLastDescriber(test, i);
                     if (!objCurrentPos[name]) {
-                        objCurrentPos[name] = {}
+                        let meta = null;
+                        if (name != "") {
+                            meta = navigateEditorItem(test.file, name);
+                        }
+                        objCurrentPos[name] = { meta }
                     }
                     objCurrentPos = objCurrentPos[name];
                 }
@@ -66,10 +73,9 @@ class mochaProvider {
 
 
     async getChildren(element) {
-        console.log('------------------------------------');
         console.log(`get Children: ${this._hierarchyLevel}`);
-        console.log('------------------------------------');
         if (!element) {
+
             let nodes = [];
             await this.loadAndFormatTests();
             this.item = new mochaItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
@@ -103,13 +109,23 @@ class mochaProvider {
             return nodes;
         }
         nodes = Object.entries(element).map(item => {
+            if(item[0]=="meta"){
+                return
+            }
             if (item[1].test) {
                 let iconPath = this._iconPath;
+                let status = null;
                 if (this.results) {
-                    let status = setItemResultStatus(this.results, item[1].test.fullName);
+                    status = setItemResultStatus(this.results, item[1].test.fullName);
                     iconPath = this._setPassOrFailIcon(status);
+                } else {
+                    status = consts.NOT_RUN;
                 }
-                return new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+                console.log(`name:${item[1].test.name},file:${item[1].test.file}`);
+                let mItem = new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+                setDecorationOnUpdateResults(status, mItem);
+                this.currentResultWithItem.push({ status, test: item.test, type: "test" })
+                return mItem;
             }
             else {
                 let name = item[0];
@@ -119,6 +135,11 @@ class mochaProvider {
         return nodes;
     }
 
+
+    updateDecorations(fileName) {
+        setCurrentWorkspaceFile(fileName);
+        updateDecorationStyle();
+    }
     _setPassOrFailIcon(status) {
         let icon = null;
         switch (status) {
@@ -149,6 +170,7 @@ class mochaProvider {
         return element.suitePath[hierarchyLevel].replace(element.suitePath[hierarchyLevel - 1], "").trimLeft();
     }
     async runAllTests(element) {
+        clearData();
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
         let log = {};
@@ -159,7 +181,7 @@ class mochaProvider {
 
 
     async runDescriberLevelTest(element) {
-
+        clearData();
         let tests = [];
         let results = [];
         mochaShim.outputChannel.clear();
@@ -219,6 +241,7 @@ class mochaProvider {
 
 
     async runTest(element) {
+        clearData();
         let tests = []
         this._findObjectByLabel(element, 'test', tests);
         let log = {};
@@ -276,13 +299,7 @@ class mochaProvider {
                 this._findObjectByLabel(o, label, arr);
             }
         })
-        // for (var i in obj) {
-        //     if (obj.hasOwnProperty(i)) {
-        //         var foundLabel = this._findObjectByLabel(obj[i], label);
-        //         if (foundLabel) { return foundLabel; }
-        //     }
-        // }
-        // return null;
+    
     };
 
 
@@ -295,11 +312,7 @@ class mochaProvider {
         return Object.keys(keys);
     }
     getTreeItem(element) {
-        console.log('------------------------------------');
         console.log(`getTreeItem:${element.label} expended:${element.contextValue}`);
-
-        console.log('------------------------------------');
-
         return element;
     }
 

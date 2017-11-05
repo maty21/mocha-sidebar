@@ -1,33 +1,35 @@
-![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/banner.png)
+# Mocha Side Bar 
+
+![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
+
+#### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
+
+##### Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
+
+#### mocha side bar already supports this features
+* [x] see all tests in vscode side bar menu
+* [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
+* [x] debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
+* [x] auto run tests on file save
+* [x] NEW: see tests results directly on the code 
+* [x] NEW:run/debug results directly from the code 
+
+#### not supported yet
+* [ ] split tests into files separation for the top level hierarchy
+
+feel free to propose new features 
+
+#### Contributors:
+- Maty Zisserman
+- Yehiyam Livneh
 
 
+## Contributions
+Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
 
-Mocha side bar viewer that allows you to run Mocha tests from side bar menu and view results
-can run each level hierarchy from all tests to a single test(and each describer of course)
+Want to make this extension even more awesome? [Send us your wish](https://github.com/maty21/mocha-sidebar/issues/new/).
 
-have fun :)
-
-By Maty Zisserman
-
-![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/animated.gif)
-
-
-you can also runs mocha tests, all or selected. Then prints the result to an output window.
-Unlike the original mocha , it also works on Mac and Linux.  
-
-### mocha side bar is based on mocha and has all its features
-### To use "Mocha side bar", uninstall the "Mocha or mocha late" extension.
-
-
-
-## Usage via side bar menu 
-* right click on each level of testing you like and click run test
-
-
-
-
-
-![Demo showing Mocha test result](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/demo.png)
+Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/issues/new/) to us.
 
 ## Usage via command Palette
 To run Mocha tests:
@@ -40,22 +42,10 @@ You can run tests by:
 * Tests that the current cursor position (or the current file)
 * One test that you pick from a list
 
-
-
-
-
-## Contributions
-Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
-
-Want to make this extension even more awesome? [Send us your wish](https://github.com/maty21/mocha-sidebar/issues/new/).
-
-Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/issues/new/) to us.
-
-
+![Demo showing Mocha test result](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/demo.png)
 
 
 ## Fit yourself
-
 No one shoe could fit everyone. You may need to turn some switches on to fit your project. Please 
 [file us](https://github.com/maty21/mocha-sidebar/issues/new/) an issue if you think there is a better way to fit you and the others.
 
@@ -77,6 +67,11 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
   "**/node_modules/**/*"
 ],
 
+//Mocha: run tests on each save
+"mocha.runTestsOnSave": {
+    "default": "false",
+    },
+
 // Mocha: Environment variables to run your tests
 "mocha.env": {},
 
@@ -89,6 +84,31 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 // Mocha: List of files to require before running mocha
 "mocha.requires": [],
 ```
+
+###Q&A
+  -  q: mocha side bar not run on my pc ? 
+    a: step1 - verify that there is no other mocha runner extension on your pc
+
+      step2 - try reinstall your vscode 
+
+  -  q: cant run ts-node compiler
+
+     a: step1 - verify that your configuration correct 
+        ```
+        "mocha.options": {
+        "compilers": {
+            "ts": "ts-node/register"
+          }
+        },
+        "mocha.requires": [
+            "ts-node/register"
+        ],
+        ``` 
+
+        step2 - try to install typescript package locally  (not with -g)      
+
+        if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)
+  
 
 ### Setting a keyboard shortcut
 

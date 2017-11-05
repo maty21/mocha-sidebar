@@ -12,8 +12,11 @@ const
 
 
 function findTests(params) {
-  for (let file of params.requires)
-    require(file);
+
+  for (let file of params.requires) {
+    let pt = `${params.rootPath}/node_modules/${file}`;
+    require(pt);
+  }
 
   return createMocha(params.rootPath, params.options, params.files.glob, params.files.ignore)
     .then(mocha => crawlTests(mocha.suite))
