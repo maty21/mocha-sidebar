@@ -20,7 +20,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/matyz/dev/etcd_serviceDiscovery1"
+                "/home/matyz/dev/etcd.rf"
             ],
             "stopOnEntry": false
         },
