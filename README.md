@@ -9,12 +9,12 @@
 #### mocha side bar already supports this features
 * [x] see all tests in vscode side bar menu
 * [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
-* [x] NEW: debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
-* [x] NEW: auto run tests on file save
-* [x] HOT: see tests results directly on the code 
+* [x] debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
+* [x] auto run tests on file save
+* [x] NEW: see tests results directly on the code 
+* [x] NEW:run/debug results directly from the code 
 
 #### not supported yet
-* [ ] run/debug results directly from the code 
 * [ ] split tests into files separation for the top level hierarchy
 
 feel free to propose new features 

@@ -1,12 +1,11 @@
 'use strict';
 
-const  assert = require('assert');
-
+const assert = require('assert');
 
 
 it('should inherit environment variables', function () {
   // Should cover Linux/Mac and Windows
- // assert.fail();
+  // assert.fail();
 
   // Once I figure out how to pass env variables to the extension host process,
   // we can do this:
@@ -16,23 +15,17 @@ it('should inherit environment variables 2', function () {
   // Should cover Linux/Mac and Windows
   assert.fail();
 
-  // Once I figure out how to pass env variables to the extension host process,
-  // we can do this:
-  // assert(process.env.INHERITED_ENV_VAR == 'inherited');
+
 });
-// describe('greens for good', function () {
-//   describe('greens for good2', function () {
-//     it('should run green', function () {
-//       assert(process.env.HELLO_WORLD, 'Hello, World!');
-//     }); 
-//     it('should run green2', function () {
-//       assert(process.env.HELLO_WORLD, 'Hello, World!');
-//     });
-//     it('should run green3', function () {
-//       assert(process.env.HELLO_WORLD, 'Hello, World!');
-//     });
-//   })
-// });
+
+
+it('test2', function () {
+  // Should cover Linux/Mac and Windows
+  assert.fail();
+
+});
+
+
 
 
 describe('When environment variable is set in settings', function () {
@@ -43,7 +36,7 @@ describe('When environment variable is set in settings', function () {
 
 describe('green 3', function () {
   it('inner green 3', function () {
-   assert.fail(process.env.HOME || process.env.PATHEXT);
+    assert.fail(process.env.HOME || process.env.PATHEXT);
   });
 });
 describe('green 4', function () {
@@ -65,10 +58,10 @@ describe('green 5', () => {
         assert(process.env.HOME || process.env.PATHEXT);
       });
     });
-    it('inner green 5 level 1', function () {
+    it('inner green 5 level  1', function () {
       assert(process.env.HOME || process.env.PATHEXT);
     });
-    it('inner green second 5 level 1', function () {
+    it('inner green second 5 level 1 ', function () {
       assert(process.env.HOME || process.env.PATHEXT);
     });
   });

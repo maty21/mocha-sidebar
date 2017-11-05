@@ -27,10 +27,10 @@ let lastRunResult;
 function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
-  const _codeLensProvider = new mochaLensProvider(context);
   debugInit(_mochaProvider);
   const _changesNotification = new changesNotification(_mochaProvider);
-  vscode.window.registerTreeDataProvider('mocha', _mochaProvider);
+  vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
+  const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
   let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
   vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
   let runAutoPlay = runTestsOnSave();

@@ -2,5 +2,6 @@
 {
   "mocha.env": {
     "HELLO_WORLD": "Hello, World!"
-  }
+  },
+  "mocha.enabled": true
 }
