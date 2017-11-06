@@ -86,13 +86,12 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 ```
 
 ###Q&A
-  -  q: mocha side bar not run on my pc ? 
-    a: step1 - verify that there is no other mocha runner extension on your pc
-
-      step2 - try reinstall your vscode 
-
-  -  q: cant run ts-node compiler
-
+  - q: mocha side bar not run on my pc ? 
+    
+    a: 
+      step1 - verify that there is no other mocha runner extension on your pc  
+      step2 - try reinstall your vscode   
+  -  q: cant run ts-node compiler  
      a: step1 - verify that your configuration correct 
         ```
         "mocha.options": {
@@ -104,10 +103,14 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
             "ts-node/register"
         ],
         ``` 
+        step2 - try to install typescript package locally  (not with -g)    
+        
+      q: all tests not working  
 
-        step2 - try to install typescript package locally  (not with -g)      
+      a: verify that there is no describe or test with the name "test" (should be fix soon)    
 
-        if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)
+        if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)  
+
   
 
 ### Setting a keyboard shortcut
