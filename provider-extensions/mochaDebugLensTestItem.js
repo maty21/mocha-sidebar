@@ -7,7 +7,7 @@ class mochaLensDebugItem extends CodeLens {
         this.command = {
             command: 'mocha-maty.debugItem',
             title: 'Debug Item',
-            arguments: [{ label: item.test.name, item }]
+            arguments: [{ label: item.__test.name, item }]
         }
     }
 

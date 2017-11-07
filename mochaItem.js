@@ -8,11 +8,11 @@ class mochaItem extends vscode.TreeItem {
         this.item = item;
         this.hierarchyLevel = hierarchyLevel;
         if (this.contextValue == "testItem") {
-            this.line = navigateEditorItem(this.item.test.file, this.item.test.name);
+            this.line = navigateEditorItem(this.item.__test.file, this.item.__test.name);
             this.command = {
                 command: 'mocha-maty.itemSelection',
                 title: 'item selection',
-                arguments: [{ test: this.item.test, line: this.line }]
+                arguments: [{ __test: this.item.__test, line: this.line }]
             }
         }
         else if (this.contextValue == "testDescriber") {
@@ -30,9 +30,9 @@ class mochaItem extends vscode.TreeItem {
     }
 
     _getFirstTestItem(item) {
-        let it = Object.keys(item).find(i => i == "test");
+        let it = Object.keys(item).find(i => i == "__test");
         if (it) {
-            return item.test;
+            return item.__test;
         }
         return this._getFirstTestItem(item[Object.keys(item)[1]])
     }

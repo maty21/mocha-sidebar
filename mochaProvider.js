@@ -46,19 +46,19 @@ class mochaProvider {
     _createTreeFromArray() {
         let obj = {};
         let objCurrentPos = obj;
-        this._tests.forEach(test => {
-            for (var i = 0; i <= test.suitePath.length; i++) {
-                if (i == test.suitePath.length) {
-                    let meta = navigateEditorItem(test.file, test.name);
-                    objCurrentPos[test.name] = { test, meta };
+        this._tests.forEach(__test => {
+            for (var i = 0; i <= __test.suitePath.length; i++) {
+                if (i == __test.suitePath.length) {
+                    let meta = navigateEditorItem(__test.file, __test.name);
+                    objCurrentPos[__test.name] = { __test, meta };
                     objCurrentPos = obj;
                 }
                 else {
-                    let name = i == 0 ? test.suitePath[i] : this._trimLastDescriber(test, i);
+                    let name = i == 0 ? __test.suitePath[i] : this._trimLastDescriber(__test, i);
                     if (!objCurrentPos[name]) {
                         let meta = null;
                         if (name != "") {
-                            meta = navigateEditorItem(test.file, name);
+                            meta = navigateEditorItem(__test.file, name);
                         }
                         objCurrentPos[name] = { meta }
                     }
@@ -108,28 +108,29 @@ class mochaProvider {
         if (!element) {
             return nodes;
         }
-        nodes = Object.entries(element).map(item => {
+         Object.entries(element).forEach(item => {
             if(item[0]=="meta"){
                 return
             }
-            if (item[1].test) {
+            if (item[1].__test) {
                 let iconPath = this._iconPath;
                 let status = null;
                 if (this.results) {
-                    status = setItemResultStatus(this.results, item[1].test.fullName);
+                    status = setItemResultStatus(this.results, item[1].__test.fullName);
                     iconPath = this._setPassOrFailIcon(status);
                 } else {
                     status = consts.NOT_RUN;
                 }
-                console.log(`name:${item[1].test.name},file:${item[1].test.file}`);
-                let mItem = new mochaItem(item[1].test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+                console.log(`name:${item[1].__test.name},file:${item[1].__test.file}`);
+                let mItem = new mochaItem(item[1].__test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
                 setDecorationOnUpdateResults(status, mItem);
-                this.currentResultWithItem.push({ status, test: item.test, type: "test" })
-                return mItem;
+                this.currentResultWithItem.push({ status, test: item[1].__test, type: "test" })
+                return nodes.push(mItem);
             }
             else {
                 let name = item[0];
-                return new mochaItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
+                let i = new mochaItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
+                return nodes.push(i);
             }
         })
         return nodes;
@@ -172,7 +173,7 @@ class mochaProvider {
     async runAllTests(element) {
         clearData();
         let tests = []
-        this._findObjectByLabel(element, 'test', tests);
+        this._findObjectByLabel(element, '__test', tests);
         let log = {};
         this.results = await this.runMochaTests(tests, null, null)
         this._onDidChangeTreeData.fire(this.item);
@@ -185,7 +186,7 @@ class mochaProvider {
         let tests = [];
         let results = [];
         mochaShim.outputChannel.clear();
-        this._findObjectByLabel(element, 'test', tests);
+        this._findObjectByLabel(element, '__test', tests);
         for (let test of tests) {
             let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
             results.push(result);
@@ -243,7 +244,7 @@ class mochaProvider {
     async runTest(element) {
         clearData();
         let tests = []
-        this._findObjectByLabel(element, 'test', tests);
+        this._findObjectByLabel(element, '__test', tests);
         let log = {};
 
 
@@ -255,6 +256,7 @@ class mochaProvider {
         console.log('tests');
     }
     async runTestWithoutElement(test) {
+        clearData();
         let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
         this.results = this._combinedResultsWithCurrentResults(result, this.results);
         this._onDidChangeTreeData.fire(this.item);
@@ -266,10 +268,10 @@ class mochaProvider {
             failed: []
         }
     }
-    async itemSelection({ test, line }) {
+    async itemSelection({ __test, line }) {
 
         // navigateEditorItem(file, name);
-        vscode.workspace.openTextDocument(test.file).then(doc => {
+        vscode.workspace.openTextDocument(__test.file).then(doc => {
             var textRange = new vscode.Range(line[0].number - 1, 0, line[0].number - 1, 0);
             vscode.window.showTextDocument(doc, { selection: textRange });
         })
