@@ -89,7 +89,7 @@ class mochaLens extends abstractCodeLens {
 
                 }
                 //reach the leaves
-                if (item[k].test) {
+                if (item[k].__test) {
                     return;
                 }
                 this.createLensFromTree(item[k], lensArr)
@@ -103,7 +103,7 @@ class mochaLens extends abstractCodeLens {
         if (key == "meta") {
             return;
         }
-        if (item[key].test) {
+        if (item[key].__test) {
             let debug = this.lensTestDebugCreator(item[key]);
             let test = this.lensTestCreator(item[key])
             return [test, debug]
@@ -128,9 +128,9 @@ class mochaLens extends abstractCodeLens {
         return listOfItems;
     }
     _getFirstTestItemPath(item) {
-        let it = Object.keys(item).find(i => i == "test");
+        let it = Object.keys(item).find(i => i == "__test");
         if (it) {
-            return item.test.file;
+            return item.__test.file;
         }
         return this._getFirstTestItemPath(item[Object.keys(item)[1]])
     }

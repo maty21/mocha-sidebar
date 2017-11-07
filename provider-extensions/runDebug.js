@@ -70,7 +70,7 @@ const debugLevel = async (element, functionOnTerminate) => {
     _provider.clearResults();
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
     let tests = [];
-    _provider._findObjectByLabel(element, 'test', tests);
+    _provider._findObjectByLabel(element, '__test', tests);
     // let n = tests[0].fullName.replace(` ${tests[0].name}`, '')
 
     for (let t of tests) {
@@ -84,16 +84,17 @@ const debugLevel = async (element, functionOnTerminate) => {
     }
 
 }
-const debugItem = (element, functionOnTerminate) => {
+const debugItem = async (element, functionOnTerminate) => {
     results = [];
 
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
     currentElement = element;
-    mochaTest.args = ["./test/**/*.js", '--grep', `^${element.item.test.fullName}$`]
+    mochaTest.args = ["./test/**/*.js", '--grep', `^${element.item.__test.fullName}$`]
     //  let reg = new RegExp(`^${element.item.test.fullName}$`)
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
     })
+    await done({ doneAmount: 1 })
 }
 const debugInit = provider => _provider = provider;
 
