@@ -116,7 +116,7 @@ class mochaProvider {
                 let iconPath = this._iconPath;
                 let status = null;
                 if (this.results) {
-                    status = setItemResultStatus(this.results, item[1].__test.fullName);
+                    status = setItemResultStatus(this.results, item[1].__test.fullName,item[1].__test.suitePath);
                     iconPath = this._setPassOrFailIcon(status);
                 } else {
                     status = consts.NOT_RUN;
