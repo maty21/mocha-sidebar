@@ -176,6 +176,7 @@ class mochaProvider {
         this._findObjectByLabel(element, '__test', tests);
         let log = {};
         this.results = await this.runMochaTests(tests, null, null)
+        this.results.ranTests=tests;
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }
@@ -204,6 +205,8 @@ class mochaProvider {
         //     }
         // })
         this.results = this._combinedResults(results);
+        this.results.ranTests=tests;
+        
         this._onDidChangeTreeData.fire(this.item);
         // tests .forEach(async test => {
         // })
@@ -236,7 +239,12 @@ class mochaProvider {
         if (newResults.failed.length > 0) {
             newResults.failed.forEach(r => resultsToCombine.failed.push(r))
         }
-
+        if (newResults.ranTests && newResults.ranTests.length > 0) {
+            if (!resultsToCombine.ranTests){
+                resultsToCombine.ranTests=[];
+            }
+            newResults.ranTests.forEach(r => resultsToCombine.ranTests.push(r))
+        }
         return resultsToCombine;
     }
 
@@ -249,6 +257,7 @@ class mochaProvider {
 
 
         this.results = await this.runMochaTests(tests, `^${escapeRegExp(tests[0].fullName)}$`)
+        this.results.ranTests=tests;
         // if (this.results.passed.length == 0) {
         //     this.results.failed.push(tests[0])
         // }
@@ -258,6 +267,7 @@ class mochaProvider {
     async runTestWithoutElement(test) {
         clearData();
         let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
+        result.ranTests=[test];
         this.results = this._combinedResultsWithCurrentResults(result, this.results);
         this._onDidChangeTreeData.fire(this.item);
     }

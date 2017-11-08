@@ -3,11 +3,14 @@ const setItemResultStatus = (res, name, suitePath) => {
     if (res.passed.find(r => r.fullName == name)) {
         return consts.PASSED;
     }
-    if (res.failed.find(r => (r.fullName == name ||
-        arraysEqual(r.suitePath, suitePath)))) {
+    if (res.failed.find(r => r.fullName == name )) {
         return consts.FAILED;
     }
 
+    if (res.ranTests && res.ranTests.find(t=>t.fullName == name) && res.failed.find(r=>arraysEqual(r.suitePath, suitePath))){
+        return consts.FAILED;
+    }
+        
     return consts.NOT_RUN;
 
 
