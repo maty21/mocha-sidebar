@@ -29,7 +29,7 @@ it('test2', function () {
 
 
 describe('When environment variable is set in settings', function () {
- 
+
   it('should run with them', function () {
     assert(process.env.HELLO_WORLD, 'Hello, World!');
   });
@@ -40,11 +40,14 @@ describe('green 3', function () {
     assert.fail(process.env.HOME || process.env.PATHEXT);
   });
 });
+let isFirst = true;
 describe('green 4', function () {
-  
   beforeEach(() => {
-    // this assertion fails, but mocha-sidebar test entry does not turn red
-    assert.equal(1, 2);
+    if (isFirst) {
+      // this assertion fails, but mocha-sidebar test entry does not turn red
+      isFirst = false;
+      assert.equal(1, 2);
+    }
   });
   it('inner green 4 test', function () {
     assert(process.env.HOME || process.env.PATHEXT);
