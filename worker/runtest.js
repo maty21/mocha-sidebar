@@ -10,9 +10,15 @@ const Promise = require('bluebird');
 const args = JSON.parse(process.argv[process.argv.length - 1]);
 const options = args.options;
 
-for (let file of args.requires)
+module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
+for (let file of args.requires) {
+  // let pt = `${args.rootPath}/node_modules/${file}`;
+  let abs = fs.existsSync(file) || fs.existsSync(file + '.js');
+  if (abs) {
+    file = path.resolve(file);
+  }
   require(file);
-
+}
 if (Object.keys(options || {}).length) {
   console.log(`Applying Mocha options:\n${indent(JSON.stringify(options, null, 2))}`);
 } else {

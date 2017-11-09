@@ -92,6 +92,6 @@
             "request": "launch",
             "name": "Launch stub",
             "program": "${workspaceRoot}/inProcess/stub"
-        },
+        }
     ]
 }
