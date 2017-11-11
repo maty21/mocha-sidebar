@@ -6,6 +6,10 @@ const mochaLensTestItem = require('./mochaLensTestItem');
 const mochaDebugLensTestItem = require('./mochaDebugLensTestItem');
 const mochaLensDescriberItem = require('./mochaLensDescriberItem');
 const mochaLensDebugDescriberItem = require('./mochaLensDebugDescriberItem');
+const TYPE = {
+    test: 'test',
+    debug: 'debug'
+}
 class mochaLens extends abstractCodeLens {
     constructor(context, mochaProvider) {
         super();
@@ -14,6 +18,10 @@ class mochaLens extends abstractCodeLens {
         this.item = null;
         this.lastDocument = null;
         this.listOfSpecificFileItems = {};
+        this._counterOfItemsThatAlreadySet = {
+            test: {},
+            debug: {}
+        };
     }
 
     get selector() {
@@ -26,6 +34,10 @@ class mochaLens extends abstractCodeLens {
     }
     async provideCodeLenses(document, token) {
         this.item = await this._dirtyCheck();
+        this._counterOfItemsThatAlreadySet = {
+            test: {},
+            debug: {}
+        };
         this.lastDocument = document.fileName;
         this.listOfSpecificFileItems = this._getRelevantItems();
         console.log(document);
@@ -56,24 +68,44 @@ class mochaLens extends abstractCodeLens {
     }
 
 
+    _returnRelevantItemCounter(item, type) {
+        let name = item.meta[0].match;
+        if (this._counterOfItemsThatAlreadySet[type][name] != null) {
+            this._counterOfItemsThatAlreadySet[type][name] = this._counterOfItemsThatAlreadySet[type][name] + 1;
+            //     console.log(name);
+        }
+        else {
+            this._counterOfItemsThatAlreadySet[type][name] = 0;
+            //      console.log(name);
+        }
+
+        return this._counterOfItemsThatAlreadySet[type][name]
+    }
+
     lensTestCreator(item) {
-        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 10);
+        let itemPlace = this._returnRelevantItemCounter(item, TYPE.test);
+        let range = new vscode.Range(item.meta[itemPlace].number - 1, 0, item.meta[itemPlace].number - 1, 10);
         return new mochaLensTestItem(range, item);
     }
     lensTestDebugCreator(item) {
         let length = 'Debug Item'.length
-        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 20);
+        let itemPlace = this._returnRelevantItemCounter(item, TYPE.debug);
+        let range = new vscode.Range(item.meta[itemPlace].number - 1, 0, item.meta[itemPlace].number - 1, 20);
         return new mochaDebugLensTestItem(range, item);
     }
     lensDescribeCreator(item) {
-        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 1e3);
+        let itemPlace = this._returnRelevantItemCounter(item, TYPE.test);
+        let range = new vscode.Range(item.meta[itemPlace].number - 1, 0, item.meta[itemPlace].number - 1, 1e3);
         return new mochaLensDescriberItem(range, item);
     }
     lensDescribeDebugCreator(item) {
         let length = 'Debug Suite'.length
-        let range = new vscode.Range(item.meta[0].number - 1, 0, item.meta[0].number - 1, 20);
+        let itemPlace = this._returnRelevantItemCounter(item, TYPE.debug);
+        let range = new vscode.Range(item.meta[itemPlace].number - 1, 0, item.meta[itemPlace].number - 1, 20);
         return new mochaLensDebugDescriberItem(range, item);
     }
+
+
 
     createLensFromTree(item, lensArr = []) {
         if (!item) {
