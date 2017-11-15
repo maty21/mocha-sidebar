@@ -3,7 +3,8 @@ const { callDone, done } = require('await-done');
 const path = require('path');
 let mochaPath = require.resolve('mocha');
 mochaPath = path.dirname(mochaPath);
-mochaPath = path.join(mochaPath,'bin','_mocha');
+mochaPath = path.join(mochaPath, 'bin', '_mocha');
+const config = require('../config');
 let mochaTest = {
     "name": "Mocha Tests",
     "type": "node",
@@ -58,9 +59,10 @@ let _provider = null;
 let results = [];
 const debugAll = (element, functionOnTerminate) => {
     results = [];
+
     currentElement = element;
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
-    mochaTest.args = ["./test/**/*.js"]
+    mochaTest.args = config.files().glob || ["./test/**/*.js"]
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
     })
@@ -75,7 +77,8 @@ const debugLevel = async (element, functionOnTerminate) => {
 
     for (let t of tests) {
         currentElement = t;
-        mochaTest.args = ["./test/**/*.js", '--grep', `^${t.fullName}$`]
+        let glob = config.files().glob || "./test/**/*.js";
+        mochaTest.args = [glob, '--grep', `^${t.fullName}$`]
         vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
             console.log(`debug status:${data}`);
         })
@@ -89,7 +92,8 @@ const debugItem = async (element, functionOnTerminate) => {
 
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
     currentElement = element;
-    mochaTest.args = ["./test/**/*.js", '--grep', `^${element.item.__test.fullName}$`]
+    let glob = config.files().glob || "./test/**/*.js";
+    mochaTest.args = [glob, '--grep', `^${element.item.__test.fullName}$`]
     //  let reg = new RegExp(`^${element.item.test.fullName}$`)
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
