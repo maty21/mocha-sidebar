@@ -12,6 +12,7 @@
     "color": "#007F00",
     "theme": "dark"
   },
+    "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/maty21/mocha-sidebar.git"
