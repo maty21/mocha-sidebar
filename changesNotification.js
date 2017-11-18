@@ -39,6 +39,11 @@ class changesNotification {
                 if (err) {
                     return err;
                 }
+                else if (!editor) {
+                    console.warn(`notification:editor is not defined therefore tests will not updates 
+                     please refresh it manually via side bar `);
+                    return;
+                }
                 else {
                     files.forEach(f => {
                         if (path.normalize(`${vscode.workspace.rootPath}/${f}`) == editor.document.fileName) {
