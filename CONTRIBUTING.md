@@ -1,0 +1,17 @@
+- `git clone ...`
+- `npm install`
+- Open with **vscode**
+- Disable **Mocha sidebar** extension in this workspace
+- Choose `Launch Extension` debug configuration
+- Launch debug
+- A new vscode window should open using the test workspace folder
+- Run `npm install`
+- Open **Explorer** in sidebar
+- Expand the Mocha explorer at the bottom of Explorer
+- Open `./test/environment.js`
+- You should see tests load in **Mocha sidebar**
+- In Mocha sidebar, right click **Tests** and click **Run All Tests**
+- Some should pass and some should fail
+- Make changes to the extensions in the extension project
+- Restart extension debugging
+- Make sure tests still load and run
