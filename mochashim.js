@@ -133,7 +133,7 @@ function runTests(testFiles, grep, messages) {
       outputChannel.show();
       // outputChannel.clear();
 
-      outputChannel.appendLine(`Running Mocha with Node.js at ${process.spawnfile}\n`);
+      outputChannel.appendLine(`Running Mocha with Node.js at "${process.spawnfile}"\n`);
 
       appendMessagesToOutput(messages);
 
@@ -162,7 +162,7 @@ function findTests(rootPath) {
   return forkFindTests(rootPath)
     .then(process => new Promise((resolve, reject) => {
 
-      outputChannel.appendLine(`Finding tests with Mocha on Node.js at ${process.spawnfile}\n`);
+      outputChannel.appendLine(`Finding tests with Mocha on Node.js at "${process.spawnfile}"\n`);
 
       const
         stderrBuffers = [];
@@ -234,7 +234,7 @@ function runTestsInProcess(testFiles, grep, messages) {
       outputChannel.show();
       outputChannel.clear();
 
-      outputChannel.appendLine(`Running Mocha with Node.js at ${process.spawnfile}\n`);
+      outputChannel.appendLine(`Running Mocha with Node.js at "${process.spawnfile}"\n`);
 
       appendMessagesToOutput(messages);
 
