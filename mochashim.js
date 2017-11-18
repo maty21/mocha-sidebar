@@ -165,21 +165,20 @@ function findTests(rootPath) {
       outputChannel.appendLine(`Finding tests with Mocha on Node.js at ${process.spawnfile}\n`);
 
       const
-        stdoutBuffers = [],
         stderrBuffers = [];
 
       process.stderr.on('data', data => {
+        console.error(data.toString());
         stderrBuffers.push(data);
       });
 
       process.stdout.on('data', data => {
-        stdoutBuffers.push(data);
+        console.log(data.toString());
       });
 
       process
         .on('error', err => handleError(err, reject))
         .on('exit', code => {
-          console.log(Buffer.concat(stdoutBuffers).toString());
           handleProcessExit(stderrBuffers, code, reject, resolve);
         });
     }));
