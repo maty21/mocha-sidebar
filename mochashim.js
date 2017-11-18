@@ -95,24 +95,31 @@ function appendMessagesToOutput(messages) {
   }
 }
 
+function createError(errorText) {
+  return new Error(`Mocha sidebar: ${errorText}. See Mocha output for more info.`);
+}
+
 function handleProcessExit(stderrBuffers, code, reject, resolve) {
   const stderrText = Buffer.concat(stderrBuffers).toString();
 
-  let resultJSON;
-
-  try {
-    resultJSON = stderrText && JSON.parse(stripWarnings(stderrText));
-  } catch (ex) {
-    code = 1;
-  }
-
   if (code) {
     outputChannel.show();
-    outputChannel.append(stderrText);
+    outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
     console.error(stderrText);
-    reject(new Error('unknown error'));
-  } else {
+    reject(createError('Process exited with code ' + code));
+    return;
+  }
+
+  try {
+    const resultJSON = stderrText && JSON.parse(stripWarnings(stderrText));
     resolve(resultJSON);
+  } catch (ex) {
+    outputChannel.show();
+    outputChannel.appendLine('Exception caught while parsing JSON from Mocha output: ' + ex.stack);
+    outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
+    console.error(stderrText);
+    reject(createError('Exception caught while parsing JSON from Mocha output: ' + ex.message));
+    return;
   }
 }
 
