@@ -108,15 +108,15 @@ class mochaProvider {
         if (!element) {
             return nodes;
         }
-         Object.entries(element).forEach(item => {
-            if(item[0]=="meta"){
+        Object.entries(element).forEach(item => {
+            if (item[0] == "meta") {
                 return
             }
             if (item[1].__test) {
                 let iconPath = this._iconPath;
                 let status = null;
                 if (this.results) {
-                    status = setItemResultStatus(this.results, item[1].__test.fullName,item[1].__test.suitePath);
+                    status = setItemResultStatus(this.results, item[1].__test.fullName, item[1].__test.suitePath);
                     iconPath = this._setPassOrFailIcon(status);
                 } else {
                     status = consts.NOT_RUN;
@@ -138,6 +138,7 @@ class mochaProvider {
 
 
     updateDecorations(fileName) {
+        clearData();
         setCurrentWorkspaceFile(fileName);
         updateDecorationStyle();
     }
@@ -176,7 +177,7 @@ class mochaProvider {
         this._findObjectByLabel(element, '__test', tests);
         let log = {};
         this.results = await this.runMochaTests(tests, null, null)
-        this.results.ranTests=tests;
+        this.results.ranTests = tests;
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }
@@ -205,8 +206,8 @@ class mochaProvider {
         //     }
         // })
         this.results = this._combinedResults(results);
-        this.results.ranTests=tests;
-        
+        this.results.ranTests = tests;
+
         this._onDidChangeTreeData.fire(this.item);
         // tests .forEach(async test => {
         // })
@@ -240,8 +241,8 @@ class mochaProvider {
             newResults.failed.forEach(r => resultsToCombine.failed.push(r))
         }
         if (newResults.ranTests && newResults.ranTests.length > 0) {
-            if (!resultsToCombine.ranTests){
-                resultsToCombine.ranTests=[];
+            if (!resultsToCombine.ranTests) {
+                resultsToCombine.ranTests = [];
             }
             newResults.ranTests.forEach(r => resultsToCombine.ranTests.push(r))
         }
@@ -257,7 +258,7 @@ class mochaProvider {
 
 
         this.results = await this.runMochaTests(tests, `^${escapeRegExp(tests[0].fullName)}$`)
-        this.results.ranTests=tests;
+        this.results.ranTests = tests;
         // if (this.results.passed.length == 0) {
         //     this.results.failed.push(tests[0])
         // }
@@ -267,7 +268,7 @@ class mochaProvider {
     async runTestWithoutElement(test) {
         clearData();
         let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
-        result.ranTests=[test];
+        result.ranTests = [test];
         this.results = this._combinedResultsWithCurrentResults(result, this.results);
         this._onDidChangeTreeData.fire(this.item);
     }
@@ -311,7 +312,7 @@ class mochaProvider {
                 this._findObjectByLabel(o, label, arr);
             }
         })
-    
+
     };
 
 

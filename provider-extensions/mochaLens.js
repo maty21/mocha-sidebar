@@ -32,6 +32,9 @@ class mochaLens extends abstractCodeLens {
             //group: ['tags', 'statuses'],
         }
     }
+    raiseEventOnUpdate() {
+        this.reload();
+    }
     async provideCodeLenses(document, token) {
         this.item = await this._dirtyCheck();
         this._counterOfItemsThatAlreadySet = {

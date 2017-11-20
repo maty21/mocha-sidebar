@@ -22,6 +22,7 @@ createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
   .then(mocha => crawlTests(mocha.suite))
   .then(tests => {
     console.error(JSON.stringify(tests, null, 2))
+    process.exit(0);
   })
   .catch(err => {
     console.error(err.stack);

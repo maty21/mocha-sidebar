@@ -28,9 +28,9 @@ function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
   debugInit(_mochaProvider);
-  const _changesNotification = new changesNotification(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
   const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
+  const _changesNotification = new changesNotification(_mochaProvider, _codeLensProvider);
   let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
   vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
   let runAutoPlay = runTestsOnSave();
@@ -86,8 +86,10 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.refreshExplorer', (element) => {
     if (hasWorkspace()) {
-      _mochaProvider.refreshExplorer(element);
-      //runAllTests();
+    _mochaProvider.refreshExplorer(element);
+    _mochaProvider.updateDecorations(vscode.workspace.rootPath);
+    _codeLensProvider.raiseEventOnUpdate();
+    //runAllTests();
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.itemSelection', item => {
