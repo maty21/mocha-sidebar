@@ -21,7 +21,8 @@ for (let file of args.requires) {
 createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
   .then(mocha => crawlTests(mocha.suite))
   .then(tests => {
-    console.error(JSON.stringify(tests, null, 2))
+    // console.error(JSON.stringify(tests, null, 2))
+    process.send(tests)
     process.exit(0);
   })
   .catch(err => {

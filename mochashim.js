@@ -99,25 +99,25 @@ function createError(errorText) {
   return new Error(`Mocha sidebar: ${errorText}. See Mocha output for more info.`);
 }
 
-function handleProcessExit(stderrBuffers, code, reject, resolve) {
-  const stderrText = Buffer.concat(stderrBuffers).toString();
+function handleProcessExit(processMessage, code, reject, resolve) {
+  // const stderrText = Buffer.concat(stderrBuffers).toString();
 
   if (code) {
-    //  outputChannel.show();
-    outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
-    console.error(stderrText);
+    // outputChannel.show();
+    // outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
+    // console.error(stderrText);
     reject(createError('Process exited with code ' + code));
     return;
   }
 
   try {
-    const resultJSON = stderrText && JSON.parse(stripWarnings(stderrText));
+    const resultJSON = processMessage//stderrText && JSON.parse(stripWarnings(stderrText));
     resolve(resultJSON);
   } catch (ex) {
     outputChannel.show();
     outputChannel.appendLine('Exception caught while parsing JSON from Mocha output: ' + ex.stack);
-    outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
-    console.error(stderrText);
+    // outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
+    // console.error(stderrText);
     reject(createError('Exception caught while parsing JSON from Mocha output: ' + ex.message));
     return;
   }
@@ -137,12 +137,14 @@ function runTests(testFiles, grep, messages) {
 
       appendMessagesToOutput(messages);
 
-      const stderrBuffers = [];
-
+      // const stderrBuffers = [];
+      let processMessage;
       process.stderr.on('data', data => {
-        stderrBuffers.push(data);
+        // stderrBuffers.push(data);
       });
-
+      process.on('message', (msg) => {
+        processMessage = msg;
+      })
       process.stdout.on('data', data => {
         outputChannel.append(data.toString().replace(/\r/g, ''));
       });
@@ -150,7 +152,7 @@ function runTests(testFiles, grep, messages) {
       process
         .on('error', err => handleError(err, reject))
         .on('exit', code => {
-          handleProcessExit(stderrBuffers, code, reject, resolve);
+          handleProcessExit(processMessage, code, reject, resolve);
         });
     }));
 }
@@ -164,14 +166,16 @@ function findTests(rootPath) {
 
       outputChannel.appendLine(`Finding tests with Mocha on Node.js at "${process.spawnfile}"\n`);
 
-      const
-        stderrBuffers = [];
+      // const         stderrBuffers = [];
+      let processMessage;
 
-      process.stderr.on('data', data => {
-        console.error(data.toString());
-        stderrBuffers.push(data);
-      });
-
+      // process.stderr.on('data', data => {
+      //   console.error(data.toString());
+      //   stderrBuffers.push(data);
+      // });
+      process.on('message', data => {
+        processMessage = data;
+      })
       process.stdout.on('data', data => {
         console.log(data.toString());
       });
@@ -179,7 +183,7 @@ function findTests(rootPath) {
       process
         .on('error', err => handleError(err, reject))
         .on('exit', code => {
-          handleProcessExit(stderrBuffers, code, reject, resolve);
+          handleProcessExit(processMessage, code, reject, resolve);
         });
     }));
 }
@@ -223,45 +227,12 @@ async function findTestsProcess(rootPath) {
 
 
 
-//Just a workaround for dirty fix 
-function runTestsInProcess(testFiles, grep, messages) {
-  // Allow the user to choose a different subfolder
-  const rootPath = applySubdirectory(vscode.workspace.rootPath);
 
-  return forkRunTestInProcess(testFiles, grep, rootPath)
-    .then(process => new Promise((resolve, reject) => {
-
-      outputChannel.show();
-      outputChannel.clear();
-
-      outputChannel.appendLine(`Running Mocha with Node.js at "${process.spawnfile}"\n`);
-
-      appendMessagesToOutput(messages);
-
-      const stderrBuffers = [];
-
-      process.stderr.on('data', data => {
-        stderrBuffers.push(data);
-      });
-
-      process.stdout.on('data', data => {
-        outputChannel.append(data.toString().replace(/\r/g, ''));
-      });
-
-      process
-        .on('error', err => handleError(err, reject))
-        .on('exit', code => {
-          handleProcessExit(stderrBuffers, code, reject, resolve);
-        });
-    }));
-}
 
 
 
 module.exports.runTests = runTests;
-module.exports.runTestsInProcess = runTestsInProcess;
 
 module.exports.findTests = findTests;
-module.exports.findTestsProcess = findTestsProcess;
 
 module.exports.outputChannel = outputChannel;

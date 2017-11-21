@@ -16,6 +16,7 @@ const debug = typeof v8debug === 'object' || /--debug|--inspect/.test(process.ex
 function fork(jsPath, args, options) {
   // Make sure mocha is executed in the right folder
   options.cwd = path.dirname(options.env.NODE_PATH);
+  options.stdio = ['pipe','pipe','pipe','ipc'];
 
 
 
