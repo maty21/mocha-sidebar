@@ -14,13 +14,13 @@
             "stopOnEntry": false
         },
         {
-            "name": "Launch etcd",
+            "name": "Launch worker",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/matyz/dev/etcd.rf"
+                "/home/yehil/dev/hkube/worker/"
             ],
             "stopOnEntry": false
         },
