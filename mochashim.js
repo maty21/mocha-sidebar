@@ -19,7 +19,7 @@ function envWithNodePath(rootPath) {
 
 function applySubdirectory(rootPath) {
   const subdirectory = config.subdirectory()
-  e 255. See
+
   if (subdirectory)
     rootPath = path.resolve(rootPath, subdirectory);
 
@@ -103,7 +103,7 @@ function handleProcessExit(stderrBuffers, code, reject, resolve) {
   const stderrText = Buffer.concat(stderrBuffers).toString();
 
   if (code) {
-    //   outputChannel.show();
+    //  outputChannel.show();
     outputChannel.appendLine('Mocha output (stderr): ' + stderrText);
     console.error(stderrText);
     reject(createError('Process exited with code ' + code));
