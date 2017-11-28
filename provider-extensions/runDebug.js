@@ -63,6 +63,7 @@ const debugAll = (element, functionOnTerminate) => {
     currentElement = element;
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
     mochaTest.args = config.files().glob || ["./test/**/*.js"]
+    mochaTest.env = config.env();
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
     })
@@ -79,6 +80,7 @@ const debugLevel = async (element, functionOnTerminate) => {
         currentElement = t;
         let glob = config.files().glob || "./test/**/*.js";
         mochaTest.args = [glob, '--grep', `^${t.fullName}$`]
+        mochaTest.env = config.env();
         vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
             console.log(`debug status:${data}`);
         })
@@ -94,6 +96,7 @@ const debugItem = async (element, functionOnTerminate) => {
     currentElement = element;
     let glob = config.files().glob || "./test/**/*.js";
     mochaTest.args = [glob, '--grep', `^${element.item.__test.fullName}$`]
+    mochaTest.env = config.env();
     //  let reg = new RegExp(`^${element.item.test.fullName}$`)
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
