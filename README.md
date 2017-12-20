@@ -52,7 +52,7 @@ No one shoe could fit everyone. You may need to turn some switches on to fit you
 ### Configuring Mocha options
 Under File > Preferences > Workspace Settings, you can configure [Mocha options](https://github.com/mochajs/mocha/blob/master/lib/mocha.js), e.g. run in "tdd" mode, detect/ignore leaks, etc.
 
-```
+```js
 //-------- Mocha options --------
 
 // Mocha: Options to run Mocha
@@ -83,6 +83,16 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 
 // Mocha: List of files to require before running mocha
 "mocha.requires": [],
+
+//Mocha: this option allows you to enable/disable lens decorations and set update threshold "
+  "mocha.sideBarOptions": {
+          "default": {
+            "lens": true, // -> enable/disable lens
+            "decoration": true, // -> enable/disable decoration
+            "autoUpdateTime": 2000 // -> set timeout between each decorations and lens updates during test writing 
+          }
+        }
+
 ```
 
 ### Q&A
@@ -93,7 +103,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
   -  **question -** can't run ts-node compiler  
      **answer**         
        - **step1** - verify that your configuration correct 
-        ```
+        ```js
         "mocha.options": {
         "compilers": {
             "ts": "ts-node/register"
@@ -106,7 +116,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
        - **step2** - try to install typescript package locally  (not with -g)    
     -  **question -** can't run babel-register compiler  
        **answer -** verify that your configuration correct 
-        ```
+        ```js
         "mocha.options": {
         "compilers": {
              "js": "babel-register"

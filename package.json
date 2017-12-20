@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.14.14",
+  "version": "0.14.16",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -245,6 +245,14 @@
         "mocha.node_options": {
           "default": [],
           "description": "Mocha: Options to pass to node executable"
+        },
+        "mocha.sideBarOptions": {
+          "default": {
+            "lens": true,
+            "decoration": true,
+            "autoUpdateTime": 2000
+          },
+          "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
         }
       }
     }

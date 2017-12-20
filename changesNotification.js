@@ -2,13 +2,16 @@
 const vscode = require('vscode');
 const Glob = require('glob').Glob;
 const path = require('path');
-const { runTestsOnSave, files } = require('./config');
+const { runTestsOnSave, files, sideBarOptions } = require('./config');
 class changesNotification {
     constructor(mochaProvider, lensProvider) {
         this._autoPlayOnSave = (runTestsOnSave() == 'true');
         this._mochaProvider = mochaProvider;
         this._activeEditor = vscode.window.activeTextEditor;
         this._lensProvider = lensProvider;
+        this.onChangeTimeOutActive = false;
+        this.ON_CHANGE_TIME_OUT = 2000;
+
         vscode.window.onDidChangeActiveTextEditor(editor => {
             console.log(`onDidChangeActiveTextEditor: ${editor}`)
             this._updatePathOnTestChange(editor, 1000)
@@ -21,9 +24,24 @@ class changesNotification {
             console.log(`onDidSaveTextDocument: ${editor}`)
         })
         vscode.workspace.onDidChangeTextDocument(editor => {
-            console.log(`onDidChangeTextDocument: ${editor}`)
-            this._updatePathOnTestChange(editor, 3000)
+            //just a simple semaphore for avoiding multiple calls
+            if (!this.onChangeTimeOutActive) {
+                this.onChangeTimeOutActive = true;
+                setTimeout(() => {
+                    console.log(`onDidChangeTextDocument: ${editor}`)
+                    this._updatePathOnTestChange(editor, sideBarOptions().autoUpdateTime)
+                    this.onChangeTimeOutActive = false;
+                }, this.ON_CHANGE_TIME_OUT);
+
+            }
         })
+    }
+    //avoiding extra time out
+    _calcAutoUpdateTime() {
+        if (this.ON_CHANGE_TIME_OUT > sideBarOptions().autoUpdateTime) {
+            return 100;
+        }
+        return sideBarOptions.autoUpdateTime - this.ON_CHANGE_TIME_OUT;
     }
     start() {
         this._autoPlayOnSave = true;
@@ -57,7 +75,7 @@ class changesNotification {
                                     this._mochaProvider.updateDecorations(vscode.workspace.rootPath);
                                     this._lensProvider.raiseEventOnUpdate();
                                     this.isTimeOutActive = false;
-                                }, timeOut);
+                                }, this._calcAutoUpdateTime());
                             }
                             else {
                                 console.log(`notification: ignore changes timeout active`)

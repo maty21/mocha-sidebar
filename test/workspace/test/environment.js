@@ -12,11 +12,15 @@ it('test2', function () {
   assert.fail();
 });
 
+
 describe('When environment variable is set in settings', function () {
   it('should run with them', function () {
     assert(process.env.HELLO_WORLD, 'Hello, World!');
   });
 });
+
+
+
 
 describe('green 3', function () {
   it('inner green 3 test', function () {

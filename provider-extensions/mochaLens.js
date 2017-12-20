@@ -6,6 +6,7 @@ const mochaLensTestItem = require('./mochaLensTestItem');
 const mochaDebugLensTestItem = require('./mochaDebugLensTestItem');
 const mochaLensDescriberItem = require('./mochaLensDescriberItem');
 const mochaLensDebugDescriberItem = require('./mochaLensDebugDescriberItem');
+const config = require('../config');
 const TYPE = {
     test: 'test',
     debug: 'debug'
@@ -36,18 +37,21 @@ class mochaLens extends abstractCodeLens {
         this.reload();
     }
     async provideCodeLenses(document, token) {
-        this.item = await this._dirtyCheck();
-        this._counterOfItemsThatAlreadySet = {
-            test: {},
-            debug: {}
-        };
-        this.lastDocument = document.fileName;
-        this.listOfSpecificFileItems = this._getRelevantItems();
-        console.log(document);
-        this.lens = [];
-        this.createLensFromTree(this.listOfSpecificFileItems, this.lens)
-        //let lens = this.lensTestCreator(this.item.item['test'], document, selector, "item")
-        return this.lens;
+      //  console.log(vscode.workspace.getConfiguration('mocha'));
+        if (config.sideBarOptions().lens) {
+            this.item = await this._dirtyCheck();
+            this._counterOfItemsThatAlreadySet = {
+                test: {},
+                debug: {}
+            };
+            this.lastDocument = document.fileName;
+            this.listOfSpecificFileItems = this._getRelevantItems();
+            console.log(document);
+            this.lens = [];
+            this.createLensFromTree(this.listOfSpecificFileItems, this.lens)
+            //let lens = this.lensTestCreator(this.item.item['test'], document, selector, "item")
+            return this.lens;
+        }
 
     }
     resolveCodeLens(lens, token) {

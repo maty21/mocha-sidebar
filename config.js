@@ -16,3 +16,4 @@ exports.requires = () => {
     throw new Error("mocha.requires configuration must be an array of files");
   return files.map(s => s.toString());
 };
+exports.sideBarOptions = () => getConfiguration().sideBarOptions;

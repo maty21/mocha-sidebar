@@ -1,23 +1,27 @@
 const vscode = require('vscode');
 const decorationType = require('./decorationType');
 const consts = require('./consts');
+const config = require('../config');
 let pushStyle = [];
 let currentFile = null;
 let decoratorAndStyle = []
 const setDecoration = (resStatus, test) => {
-    let style = getStyle(resStatus);
-    pushStyle.push(style);
-    console.log(`test file in decorations: ${test.item.__test.file}, name:${test.item.__test.name}`);
-    if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.fileName == test.item.__test.file) {
-        let decorators = {
-            range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
-            hoverMessage: resStatus,
-            //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
-        }
-        try {
-            vscode.window.activeTextEditor.setDecorations(style, [decorators])
-        } catch (error) {
-            console.log(error);
+    if (config.sideBarOptions().decoration) {
+
+        let style = getStyle(resStatus);
+        pushStyle.push(style);
+        console.log(`test file in decorations: ${test.item.__test.file}, name:${test.item.__test.name}`);
+        if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.fileName == test.item.__test.file) {
+            let decorators = {
+                range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
+                hoverMessage: resStatus,
+                //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
+            }
+            try {
+                vscode.window.activeTextEditor.setDecorations(style, [decorators])
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
