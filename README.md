@@ -85,14 +85,13 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 "mocha.requires": [],
 ```
 
-###Q&A
-  - q: mocha side bar not run on my pc ? 
-    
-    a: 
-      step1 - verify that there is no other mocha runner extension on your pc  
-      step2 - try reinstall your vscode   
-  -  q: cant run ts-node compiler  
-     a: step1 - verify that your configuration correct 
+### Q&A
+  - **question -** mocha side bar not run on my pc ? 
+    **answer -** 
+      **step1** - verify that there is no other mocha runner extension on your pc  
+      **step2** - try reinstall your vscode   
+  -  **question -** can't run ts-node compiler  
+     **answer -** step1 - verify that your configuration correct 
         ```
         "mocha.options": {
         "compilers": {
@@ -103,11 +102,23 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
             "ts-node/register"
         ],
         ``` 
-        step2 - try to install typescript package locally  (not with -g)    
-        
-      q: all tests not working  
+        **step2** - try to install typescript package locally  (not with -g)    
+    -  **question -** can't run babel-register compiler  
+       **answer -** step1 - verify that your configuration correct 
+        ```
+        "mocha.options": {
+        "compilers": {
+             "js": "babel-register"
+          }
+        },
+        "mocha.requires": [
+            "babel-register"
+        ],
 
-      a: verify that there is no describe or test with the name "test" (should be fix soon)    
+        ``` 
+   -  **question -** all tests not working  
+
+      **answer -** verify that there is no describe or test with the name "test" (should be fix soon)    
 
         if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)  
 

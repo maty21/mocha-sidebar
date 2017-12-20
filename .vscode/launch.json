@@ -47,6 +47,17 @@
             "stopOnEntry": false
         },
         {
+            "name": "Launch es6",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "C:\\dev\\es6-mocha"
+            ],
+            "stopOnEntry": false
+        },
+        {
             "name": "Launch gateway",
             "type": "extensionHost",
             "request": "launch",
