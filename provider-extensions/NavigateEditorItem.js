@@ -3,13 +3,10 @@ const fs = require('fs');
 //const lineNumber = require('line-number');
 const splitLines = require('split-lines');
 const navigateEditorItem = (file, name) => {
-    // let re = new RegExp(`/${name}+/g`);
-    let re = new RegExp(`${name}+`);
-
     let fixture = fs.readFileSync(file, 'utf8');
-    let line = _lineNo(fixture, re);
+    let line = _lineNo(fixture, name);
     if (line.length == 0) {
-        line.push({ line: "", number: 0, match: "" })
+        line.push({ line: "", number: 1, match: "" })
     }
     let fixedLine = line.filter(l => {
         try {
@@ -31,7 +28,12 @@ const navigateEditorItem = (file, name) => {
 
 
 
-let _lineNo = (str, re) => {
+let _lineNo = (str, name) => {
+    const re = new RegExp(
+        JSON.stringify(name) // Handle things like \\ and \t
+        .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") // Escape any regex metacharacters
+        .replace(/^"(.*)"$/, "([\"'`])$1\\1") // Only count matches surrounded by " ' or `
+    );
     return splitLines(str).map((line, i) => {
         if (re.test(line)) {
             return {
