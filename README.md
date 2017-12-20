@@ -86,12 +86,13 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 ```
 
 ### Q&A
-  - **question -** mocha side bar not run on my pc ? 
-    **answer -** 
-      **step1** - verify that there is no other mocha runner extension on your pc  
-      **step2** - try reinstall your vscode   
+  - **question -** mocha side bar not run on my pc ?           
+    **answer**   
+     -    **step1** - verify that there is no other mocha runner extension on your pc  
+     -   **step2** - try reinstall your vscode   
   -  **question -** can't run ts-node compiler  
-     **answer -** step1 - verify that your configuration correct 
+     **answer**         
+       - **step1** - verify that your configuration correct 
         ```
         "mocha.options": {
         "compilers": {
@@ -102,9 +103,9 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
             "ts-node/register"
         ],
         ``` 
-        **step2** - try to install typescript package locally  (not with -g)    
+       - **step2** - try to install typescript package locally  (not with -g)    
     -  **question -** can't run babel-register compiler  
-       **answer -** step1 - verify that your configuration correct 
+       **answer -** verify that your configuration correct 
         ```
         "mocha.options": {
         "compilers": {
