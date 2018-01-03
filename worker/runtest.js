@@ -62,7 +62,7 @@ mocha.reporter(CustomReporter);
 
 mocha.run((failures) => {
   console.log('------------------------------------');
-  console.log(`finish failuare amount:${failures}`);
+  console.log(`finish failure amount:${failures}`);
   console.log('------------------------------------');
   process.exit(0);
 });
