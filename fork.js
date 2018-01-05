@@ -16,29 +16,29 @@ const debug = typeof v8debug === 'object' || /--debug|--inspect/.test(process.ex
 function fork(jsPath, args, options) {
   // Make sure mocha is executed in the right folder
   options.cwd = path.dirname(options.env.NODE_PATH);
-  options.stdio = ['pipe','pipe','pipe','ipc'];
+  options.stdio = ['pipe', 'pipe', 'pipe', 'ipc'];
 
 
 
   return nodeJSPath().then(
     execPath => new Promise((resolve, reject) => {
-      // if (debug) {
-      //   console.log('running in debug mode');
-      //   //emptyPort({ startPort: 2000, maxPort: 60000 }, (err, port) => {
-      //     resolve(ChildProcess.spawn(
-      //       execPath,
-      //       [`--inspect-brk=5859`, ...config.node_options().concat([jsPath]).concat(args)],
-      //       options
-      //     ))
-      //   //})
-      // }
-      // else {
-      resolve(ChildProcess.spawn(
-        execPath,
-        config.node_options().concat([jsPath]).concat(args),
-        options
-      ))
- //       }
+      if (debug && process.env.MOCHA_DEBUG === "true") {
+        console.log('running in debug mode');
+        //emptyPort({ startPort: 2000, maxPort: 60000 }, (err, port) => {
+        resolve(ChildProcess.spawn(
+          execPath,
+          [`--inspect-brk=5859`, ...config.node_options().concat([jsPath]).concat(args)],
+          options
+        ))
+        //})
+      }
+      else {
+        resolve(ChildProcess.spawn(
+          execPath,
+          config.node_options().concat([jsPath]).concat(args),
+          options
+        ))
+      }
 
     }),
     err => {

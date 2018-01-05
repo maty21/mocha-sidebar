@@ -11,7 +11,14 @@
                 "--extensionDevelopmentPath=${workspaceRoot}",
                 "${workspaceRoot}/test/workspace"
             ],
-            "stopOnEntry": false
+            "stopOnEntry": false,
+            "env": {
+                "MOCHA_DEBUG":"false"
+
+            }
+               
+                    
+               
         },
         {
             "name": "Launch worker",
@@ -50,6 +57,9 @@
             "name": "Launch es6",
             "type": "extensionHost",
             "request": "launch",
+            "env": {
+                "MOCHA_DEBUG": "true"
+            },
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
