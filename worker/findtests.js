@@ -9,7 +9,6 @@ const
   trimArray = require('../utils').trimArray;
 
 const args = JSON.parse(process.argv[process.argv.length - 1]);
-
 module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
 for (let file of args.requires) {
   let abs = fs.existsSync(file) || fs.existsSync(file + '.js');
@@ -21,36 +20,33 @@ for (let file of args.requires) {
 createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
   .then(mocha => crawlTests(mocha.suite))
   .then(tests => {
-    // console.error(JSON.stringify(tests, null, 2))
-    process.send(tests)
-    process.exit(0);
+    setTimeout(()=>{
+      console.error('timeout sending to parent process. Exiting');
+      process.exit(-1);      
+    },5000)
+    process.send(tests,(error)=>{
+      if (error){
+        console.error('error sending to parent process.',error);
+        process.exit(-1);
+      }
+      console.log('data send to parent. Exiting.')
+      process.exit(0);
+    })
   })
   .catch(err => {
-    console.error(err.stack);
+    console.error('Error:', err.stack);
 
     process.exit(-1);
   });
 
 function createMocha(rootPath, options, glob, ignore) {
-  // const requireOptions = options.require || [];
-
-  // if (requireOptions) {
-  //   if (typeof requireOptions === 'string') {
-  //     global[requireOptions] = require(requireOptions);
-  //   } else {
-  //     requireOptions.forEach(name => {
-  //       global[name] = require(name);
-  //     });
-  //   }
-  // }
-
   return new Promise((resolve, reject) => {
+
     new Glob(glob, { cwd: rootPath, ignore }, (err, files) => {
       if (err) { return reject(err); }
 
       try {
         const mocha = new Mocha(options);
-
         files.forEach(file => mocha.addFile(path.resolve(rootPath, file)));
         mocha.loadFiles();
         resolve(mocha);
@@ -62,10 +58,8 @@ function createMocha(rootPath, options, glob, ignore) {
 }
 
 function crawlTests(suite) {
-  let
-    suites = [{ suite, path: [suite.fullTitle()] }],
-    tests = [];
-
+  let suites = [{ suite, path: [suite.fullTitle()] }];
+  let tests = [];
   while (suites.length) {
     const
       entry = suites.shift(),
