@@ -90,6 +90,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
             "lens": true, // -> enable/disable lens
             "decoration": true, // -> enable/disable decoration
             "autoUpdateTime": 2000 // -> set timeout between each decorations and lens updates during test writing 
+            "showDebugTestStatus": true //-> an option to disable running mocha twice in order to see status on the sidebar
           }
         }
 
