@@ -8,7 +8,11 @@
             "type": "node",
             "request": "launch",
             "name": "sdfsfsf",
-            "program": "${file}"
-        }
+            "program": "${file}",
+            "env": {
+                    "MOCHA_DEBUG":"true"
+    
+                }
+        },
     ]
 }

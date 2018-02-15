@@ -8,6 +8,9 @@ const
   Promise = require('bluebird'),
   trimArray = require('../utils').trimArray;
 
+const {TYPES,message}  =require('./process-communication')
+
+let msg = message(process);
 const args = JSON.parse(process.argv[process.argv.length - 1]);
 module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
 for (let file of args.requires) {
@@ -24,7 +27,8 @@ createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
       console.error('timeout sending to parent process. Exiting');
       process.exit(-1);      
     },5000)
-    process.send(tests,(error)=>{
+  
+    msg.emit(TYPES.result,tests,error=>{
       if (error){
         console.error('error sending to parent process.',error);
         process.exit(-1);
@@ -32,9 +36,27 @@ createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
       console.log('data send to parent. Exiting.')
       process.exit(0);
     })
+
+
+
+    // process.send(tests,(error)=>{
+    //   if (error){
+    //     console.error('error sending to parent process.',error);
+    //     process.exit(-1);
+    //   }
+    //   console.log('data send to parent. Exiting.')
+    //   process.exit(0);
+    // })
   })
   .catch(err => {
     console.error('Error:', err.stack);
+    msg.emit(TYPES.error,JSON.stringify(err, Object.getOwnPropertyNames(err)) ,error=>{
+      if (error){
+        console.error('error sending to parent process.',error);
+        process.exit(-1);
+      }
+      console.log('data send to parent. Exiting.')
+    })
 
     process.exit(-1);
   });
