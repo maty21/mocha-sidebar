@@ -250,7 +250,8 @@
           "default": {
             "lens": true,
             "decoration": true,
-            "autoUpdateTime": 2000
+            "autoUpdateTime": 2000,
+            "showDebugTestStatus": true
           },
           "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
         }

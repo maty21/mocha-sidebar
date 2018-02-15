@@ -19,6 +19,11 @@ const mochaLensProvider = require('./provider-extensions/mochaLens')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
+
+const getOnTerminateFunc = func => {
+  const noop = function() {};
+  return config.sideBarOptions().showDebugTestStatus ? func : noop;
+}
 let lastPattern;
 let lastRunResult;
 
@@ -51,17 +56,17 @@ function activate(context) {
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllDebug', (element) => {
     if (hasWorkspace()) {
-      debugAll(element, _mochaProvider.runAllTests);
+      debugAll(element, getOnTerminateFunc(_mochaProvider.runAllTests));
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.debugLevel', (element) => {
     if (hasWorkspace()) {
-      debugLevel(element, _mochaProvider.runTestWithoutElement);
+      debugLevel(element, getOnTerminateFunc(_mochaProvider.runTestWithoutElement));
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.debugItem', (element) => {
     if (hasWorkspace()) {
-      debugItem(element, _mochaProvider.runTest);
+      debugItem(element, getOnTerminateFunc(_mochaProvider.runTest));
     }
   }))
 
