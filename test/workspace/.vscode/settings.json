@@ -3,5 +3,12 @@
   "mocha.env": {
     "HELLO_WORLD": "Hello, World!"
   },
-  "mocha.enabled": true
+  "mocha.enabled": true,
+  "mocha.files.glob": "test/**/*.js",
+  "mocha.sideBarOptions": {
+    "lens": true,
+    "decoration": true,
+    "autoUpdateTime": 2000,
+    "showDebugTestStatus": true
+  }
 }

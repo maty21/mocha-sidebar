@@ -79,13 +79,13 @@
             "stopOnEntry": false
         },
         {
-            "name": "Launch producer-consumer",
+            "name": "Launch producer",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/matyz/dev/raf-producer-consumer/"
+                "/home/matyz/dev/hkube-common/producer/"
             ],
             "stopOnEntry": false
         },
