@@ -79,7 +79,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 "mocha.node_options": [],
 
 // Mocha: Subdirectory in the Workspace where run mocha from
-"mocha.subfolder": "",
+"mocha.subdirectory": "",
 
 // Mocha: List of files to require before running mocha
 "mocha.requires": [],
