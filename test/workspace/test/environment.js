@@ -12,6 +12,7 @@ it('test2', function () {
   assert.fail();
 });
 
+//asdad
 
 describe('When environment variable is set in settings', function () {
   it('should run with them', function () {
