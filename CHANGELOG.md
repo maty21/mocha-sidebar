@@ -1,3 +1,9 @@
+0.14.26(28.2.2018)
+====
+ - add inline action instead of right click on side bar
+
+
+
 0.14.24(28.2.2018)
 ====
  - add detailed error in case mocha sidebar failed to find tests
