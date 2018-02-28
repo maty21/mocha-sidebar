@@ -10,17 +10,30 @@ const TYPES =
 
 
 const _emit = process=> (type,message,cb = null) =>{
-
-    process.send({type,message},cb)
+    let msg = {type,message};
+    let data = null;
+    console.log('_emit message',message);
+    if(type==TYPES.error){
+        data =  JSON.stringify(msg, Object.getOwnPropertyNames(msg));
+    }
+    else{
+        data = JSON.stringify(msg) 
+    }
+    process.send (data,cb)
 } 
 const _on = process=> (RequestedType,cb) =>{
+   
     if(RequestedType==='exit'){
         process.on('exit',message=>{
-           cb(message)
+           cb( JSON.parse(message))
         })  
     }
-    process.on('message',({type,message})=>{
-        RequestedType===type&&cb(message)
+    process.on('message',(msg)=>{
+     console.log(msg);
+    })
+    process.on('message',(data)=>{
+        let msg =JSON.parse(data);
+        RequestedType===msg.type&&cb(msg.message)
     })
 }
 
