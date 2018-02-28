@@ -22,7 +22,6 @@ describe('When environment variable is set in settings', function () {
 
 
 
-
 describe('green 3', function () {
   it('inner green 3 test', function () {
     assert.fail(process.env.HOME || process.env.PATHEXT);
