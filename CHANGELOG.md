@@ -1,3 +1,7 @@
+0.14.24(28.2.2018)
+====
+ - add detailed error in case mocha sidebar failed to find tests
+
 0.2.0 (2017-01-20)
 =====
 
