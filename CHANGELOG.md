@@ -1,7 +1,9 @@
-0.14.26(28.2.2018)
-====
- - add inline action instead of right click on side bar
 
+
+
+0.14.28(28.2.2018)
+====
+ -fix detailed error
 
 
 0.14.24(28.2.2018)

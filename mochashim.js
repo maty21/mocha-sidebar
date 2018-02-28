@@ -104,8 +104,8 @@ return new Promise((resolve, reject) => {
       console.log(data.toString());
     });
     msg.on('error', err => {
-     // let error = JSON.parse(err);
-      handleError(err, reject)})
+     let error = JSON.parse(err);
+      handleError(error, reject)})
     msg.on('exit', async code => {
         if(processMessage){
           if (code) {
