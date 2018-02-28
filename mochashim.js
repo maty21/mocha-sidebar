@@ -104,8 +104,8 @@ return new Promise((resolve, reject) => {
       console.log(data.toString());
     });
     msg.on('error', err => {
-      let error = JSON.parse(err);
-      handleError(error, reject)})
+     // let error = JSON.parse(err);
+      handleError(err, reject)})
     msg.on('exit', async code => {
         if(processMessage){
           if (code) {
@@ -128,7 +128,7 @@ async function runTests(testFiles, grep, messages) {
   outputChannel.show();
   // outputChannel.clear();
 
-  outputChannel.appendLine(`Running Mocha with Node.js at "${process.spawnfile}"\n`);
+  outputChannel.appendLine(`Running tests in "${rootPath}"\n`);
 
   appendMessagesToOutput(messages);
   let process = await  forkRunTest(testFiles, grep, rootPath)
