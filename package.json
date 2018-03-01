@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.14.28",
+  "version": "0.14.30",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -244,6 +244,16 @@
           "type": "boolean",
           "default": true,
           "description": "Show or hide the Explorer."
+        },
+        "mocha.path": {
+          "default": "",
+          "description": "Mocha: set other mocha path then the built-in one for example ../node_modules/mocha (only path to the package)",
+          "type": "string"
+        },
+        "mocha.logVerbose": {
+          "default": false,
+          "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
+          "type": "boolean"
         },
         "mocha.files.glob": {
           "default": "test/**/*.js",

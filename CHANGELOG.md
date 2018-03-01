@@ -1,5 +1,10 @@
 
-
+0.14.30(1.3.2018)
+===
+- add an option to set different mocha path the the built-in one 
+- clear not needed logs
+- add mocha.logVerbose option to set verbosity logs true will add logs to mocha output, default is false 
+- remove output window show 
 
 0.14.28(28.2.2018)
 ====

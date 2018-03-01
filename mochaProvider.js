@@ -48,6 +48,7 @@ class mochaProvider {
         let objCurrentPos = obj;
         this._tests.forEach(__test => {
             for (var i = 0; i <= __test.suitePath.length; i++) {
+                __test.fullName = __test.fullName.trimLeft();
                 if (i == __test.suitePath.length) {
                     let meta = navigateEditorItem(__test.file, __test.name);
                     objCurrentPos[__test.name] = { __test, meta };
@@ -257,7 +258,7 @@ class mochaProvider {
         let log = {};
 
 
-        this.results = await this.runMochaTests(tests, `^${escapeRegExp(tests[0].fullName)}$`)
+        this.results = await this.runMochaTests(tests, `${escapeRegExp(tests[0].fullName)}`)
         this.results.ranTests = tests;
         // if (this.results.passed.length == 0) {
         //     this.results.failed.push(tests[0])

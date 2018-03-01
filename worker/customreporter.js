@@ -1,14 +1,27 @@
 'use strict';
 
-const Mocha = require('mocha');
-const reporters = Mocha.reporters;
-const { Base, Spec } = reporters;
+let Mocha =null;
 const { trimArray } = require('../utils');
-const utils = Mocha.utils;
 let counter = 0;
 const {TYPES,message}  =require('./process-communication')
-
+let reporters =null;
+//const { Base, Spec } = null;
+let utils = null; 
+let Base = null;
+let Spec =null;
 let msg = message(process);
+
+
+const init = (mochaPath)=>{
+  Mocha = require(mochaPath);
+ reporters = Mocha.reporters;
+ Base = reporters.Base;
+ Spec =reporters.Spec;
+utils = Mocha.utils; 
+utils.inherits(Reporter, Base);
+
+return Reporter;
+}
 
 
 const failed = [];
@@ -70,6 +83,9 @@ function toJS(suitePath, test) {
 
 
 
-utils.inherits(Reporter, Base);
 
-module.exports = Reporter;
+
+module.exports = {
+  init,
+  Reporter
+};
