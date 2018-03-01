@@ -1,15 +1,16 @@
 'use strict';
 
-const CustomReporter = require('./customreporter');
 const escapeRegExp = require('escape-regexp');
 const fs = require('fs');
-const Mocha = require('mocha');
+
 const path = require('path');
 const Promise = require('bluebird');
 
 const args = JSON.parse(process.argv[process.argv.length - 1]);
 const options = args.options;
-
+const Mocha = require(args.mochaPath);
+const CustomReporter = require('./customreporter');
+ let reporter = CustomReporter.init(args.mochaPath);
 module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
 for (let file of args.requires) {
   // let pt = `${args.rootPath}/node_modules/${file}`;
@@ -58,7 +59,7 @@ if (grep) {
 }
 
 
-mocha.reporter(CustomReporter);
+mocha.reporter(reporter);
 
 mocha.run((failures) => {
   console.log('------------------------------------');

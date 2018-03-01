@@ -93,6 +93,18 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
             "showDebugTestStatus": true //-> an option to disable running mocha twice in order to see status on the sidebar
           }
         }
+//Mocha: set other mocha path then the built-in one only path to mocha package ../node_modules/mocha  "
+ "mocha.path": {
+          "default": "",
+          "description": "Mocha: set other mocha path then the built-in one for example ../node_modules/mocha (only path to the package)",
+          "type": "string"
+        },
+
+   "mocha.logVerbose": {
+          "default": false,
+          "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
+          "type": "boolean"
+        },
 
 ```
 

@@ -1,3 +1,5 @@
+const verbose = require('../provider-extensions/constLog');
+
 const TYPES = 
 {
     "result":'result',
@@ -12,7 +14,7 @@ const TYPES =
 const _emit = process=> (type,message,cb = null) =>{
     let msg = {type,message};
     let data = null;
-    console.log('_emit message',message);
+  //  console.log(`${verbose} process-communication ${message}`);
     if(type==TYPES.error){
         data =  JSON.stringify(msg, Object.getOwnPropertyNames(msg));
     }

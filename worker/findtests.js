@@ -2,7 +2,7 @@
 
 const
   Glob = require('glob').Glob,
-  Mocha = require('mocha'),
+
   path = require('path'),
   fs = require('fs'),
   Promise = require('bluebird'),
@@ -12,6 +12,7 @@ const {TYPES,message}  =require('./process-communication')
 
 let msg = message(process);
 const args = JSON.parse(process.argv[process.argv.length - 1]);
+const Mocha = require(args.mochaPath);
 module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
 for (let file of args.requires) {
   let abs = fs.existsSync(file) || fs.existsSync(file + '.js');

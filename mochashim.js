@@ -9,6 +9,7 @@ const
   _runTestsInProcess = require('./inProcess/runtestInProcess'),
   _findTestsInProcess = require('./inProcess/findtestsInProccess');
 
+const verboseLog = require('./provider-extensions/constLog');
 const outputChannel = vscode.window.createOutputChannel('Mocha');
 
 const {message,TYPES} = require('./worker/process-communication');
@@ -28,12 +29,12 @@ function applySubdirectory(rootPath) {
   return rootPath;
 }
 
-function stripWarnings(text) { // Remove node.js warnings, which would make JSON parsing fail
+// function stripWarnings(text) { // Remove node.js warnings, which would make JSON parsing fail
 
-  let newText = text.replace(/\(node:\d+\)\s[^\n]+/g, "");
+//   let newText = text.replace(/\(node:\d+\)\s[^\n]+/g, "");
 
-  return newText
-}
+//   return newText
+// }
 
 function logTestArg(testFiles, grep, rootPath) {
   console.log(`test arg: ${JSON.stringify({
@@ -48,8 +49,11 @@ function logTestArg(testFiles, grep, rootPath) {
 function forkRunTest(testFiles, grep, rootPath) {
   const args = {
     files: testFiles,
-    grep
+    grep,
+    mochaPath: config.mochaPath()
+    
   };
+  //outputChannel.appendLine(`mocha path : ${config.mochaPath()}`);
   return forkWorker('../worker/runtest.js', args, rootPath);
 }
 
@@ -58,9 +62,16 @@ function forkFindTests(rootPath) {
     files: {
       glob: config.files().glob,
       ignore: config.files().ignore
-    }
+    },
+    mochaPath: config.mochaPath()
   };
+  if(config.logVerbose()){
+     outputChannel.show();
+
+  }
+  outputChannel.appendLine(`mocha path  : ${config.mochaPath()}`);
   return forkWorker('../worker/findtests.js', args, rootPath);
+  
 }
 
 function forkWorker(workerPath, argsObject, rootPath) {
@@ -101,11 +112,14 @@ return new Promise((resolve, reject) => {
       console.log(data);
     })
     process.stdout.on('data', data => {
-      console.log(data.toString());
-    });
+        if(config.logVerbose()){
+          outputChannel.appendLine(data.toString())
+
+        }
+     });
     msg.on('error', err => {
-     // let error = JSON.parse(err);
-      handleError(err, reject)})
+     let error = JSON.parse(err);
+      handleError(error, reject)})
     msg.on('exit', async code => {
         if(processMessage){
           if (code) {
@@ -125,10 +139,10 @@ async function runTests(testFiles, grep, messages) {
   // Allow the user to choose a different subfolder
   const rootPath = applySubdirectory(vscode.workspace.rootPath);
   logTestArg(testFiles, grep, rootPath);
-  outputChannel.show();
+
   // outputChannel.clear();
 
-  outputChannel.appendLine(`Running tests in "${rootPath}"\n`);
+  //outputChannel.appendLine(`Running tests in "${rootPath}"\n`);
 
   appendMessagesToOutput(messages);
   let process = await  forkRunTest(testFiles, grep, rootPath)
@@ -138,9 +152,9 @@ async function runTests(testFiles, grep, messages) {
 
 async function  findTests(rootPath) {
   // Allow the user to choose a different subfolder
-  outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
+  //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
   rootPath = applySubdirectory(rootPath);
-  outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
+  //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
   let process =  await forkFindTests(rootPath)
 
   let data = await handleProcessMessages(process)

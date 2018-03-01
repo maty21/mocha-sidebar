@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.14.24",
+  "version": "0.14.30",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -71,28 +71,34 @@
       ],
       "view/item/context": [
         {
+          "command": "mocha-maty.runAllTests",
+          "when": "view == mocha&&viewItem==rootTests",
+          "group": "inline"
+        },
+        {
           "command": "mocha-maty.runAllDebug",
-          "when": "view == mocha&&viewItem==rootTests"
+          "when": "view == mocha&&viewItem==rootTests",
+          "group": "inline"
         },
         {
           "command": "mocha-maty.debugLevel",
-          "when": "view == mocha&&viewItem==testDescriber"
+          "when": "view == mocha&&viewItem==testDescriber",
+          "group": "inline"
         },
         {
           "command": "mocha-maty.debugItem",
-          "when": "view == mocha&&viewItem==testItem"
-        },
-        {
-          "command": "mocha-maty.runAllTests",
-          "when": "view == mocha&&viewItem==rootTests"
+          "when": "view == mocha&&viewItem==testItem",
+          "group": "inline"
         },
         {
           "command": "mocha-maty.runTest",
-          "when": "view == mocha&&viewItem==testItem"
+          "when": "view == mocha&&viewItem==testItem",
+          "group": "inline"
         },
         {
           "command": "mocha-maty.runDescriberLevelTest",
-          "when": "view == mocha&&viewItem==testDescriber"
+          "when": "view == mocha&&viewItem==testDescriber",
+          "group": "inline"
         }
       ]
     },
@@ -103,7 +109,11 @@
       },
       {
         "command": "mocha.runTest",
-        "title": "Mocha: Run test"
+        "title": "Mocha: Run test",
+        "icon": {
+          "light": "images/light/refresh.svg",
+          "dark": "images/dark/refresh.svg"
+        }
       },
       {
         "command": "mocha.runTestAtCursor",
@@ -155,17 +165,30 @@
       {
         "command": "mocha-maty.runAllTests",
         "title": "Run All Tests",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
+        }
       },
       {
         "command": "mocha-maty.runAllDebug",
         "title": "Run Debug",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/debug-side.svg",
+          "dark": "images/dark/debug-side.svg"
+        }
+        
       },
       {
         "command": "mocha-maty.runTest",
         "title": "Run test",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
+        }
       },
       {
         "command": "mocha-maty.itemSelection",
@@ -175,17 +198,29 @@
       {
         "command": "mocha-maty.debugItem",
         "title": "Debug",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/debug-side.svg",
+          "dark": "images/dark/debug-side.svg"
+        }
       },
       {
         "command": "mocha-maty.runDescriberLevelTest",
         "title": "Run tests from this level",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
+        }
       },
       {
         "command": "mocha-maty.debugLevel",
         "title": "Debug Level",
-        "category": "mocha"
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/debug-side.svg",
+          "dark": "images/dark/debug-side.svg"
+        }
       }
     ],
     "views": {
@@ -209,6 +244,16 @@
           "type": "boolean",
           "default": true,
           "description": "Show or hide the Explorer."
+        },
+        "mocha.path": {
+          "default": "",
+          "description": "Mocha: set other mocha path then the built-in one for example ../node_modules/mocha (only path to the package)",
+          "type": "string"
+        },
+        "mocha.logVerbose": {
+          "default": false,
+          "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
+          "type": "boolean"
         },
         "mocha.files.glob": {
           "default": "test/**/*.js",
