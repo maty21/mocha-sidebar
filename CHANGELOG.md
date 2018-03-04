@@ -1,4 +1,9 @@
 
+0.14.32(4.3.2018)
+===
+add gitter for asking questions
+
+
 0.14.30(1.3.2018)
 ===
 - add an option to set different mocha path the the built-in one 
