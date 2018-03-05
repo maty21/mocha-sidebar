@@ -1,18 +1,20 @@
 'use strict';
 const assert = require('assert');
-
-it('should inherit environment variables', function () {
-});
+const expect = require('chai').expect;
+// it('should inherit environment variables', function () {
+// });
 
 it('should inherit environment variables 2', function () {
-  assert.fail();
+ // assert.fail();
+ expect(1).to.equal(0);
+  expect(1).to.equal(0);
 });
 
-it('test2', function () {
-  assert.fail();
-});
+// it('test2', function () {
+//   assert.fail();
+// });
 
-//asdad
+// //asdad
 
 describe('When environment variable is set in settings', function () {
   it('should run with them', function () {

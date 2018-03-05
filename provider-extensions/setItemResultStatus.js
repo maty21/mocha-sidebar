@@ -1,17 +1,25 @@
 const consts = require('./consts');
 const setItemResultStatus = (res, name, suitePath) => {
+    let status = consts.NOT_RUN;
+    let error = null;
     if (res.passed.find(r => r.fullName == name)) {
-        return consts.PASSED;
+        status=  consts.PASSED;
     }
-    if (res.failed.find(r => r.fullName == name )) {
-        return consts.FAILED;
+   else if (res.failed.find(r => r.fullName.trimLeft() == name )) {
+        let r = res.failed.find(r => r.fullName.trimLeft() == name )
+        status =  consts.FAILED;
+        error = r.error
     }
 
-    if (res.ranTests && res.ranTests.find(t=>t.fullName == name) && res.failed.find(r=>arraysEqual(r.suitePath, suitePath))){
-        return consts.FAILED;
+    else if (res.ranTests && res.ranTests.find(t=>t.fullName == name) && res.failed.find(r=>arraysEqual(r.suitePath, suitePath))){
+        status =  consts.FAILED;
+        error = r.error
     }
         
-    return consts.NOT_RUN;
+    return {
+        status,
+        error
+    };
 
 
 }

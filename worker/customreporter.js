@@ -58,7 +58,7 @@ function Reporter(runner) {
       //   checkIfAllTestCompleted(passed, failed, counter);
     })
     .on('fail', (test,err) => {
-      failed.push(toJS(suitePath, test));
+      failed.push(toJS(suitePath, test,err));
      // console.log(error,'err');
     //  msg.emit(TYPES.error,err);
       //   checkIfAllTestCompleted(passed, failed, counter);
@@ -69,14 +69,22 @@ function Reporter(runner) {
     });
 }
 
-function toJS(suitePath, test) {
+function toJS(suitePath, test,err=null) {
   const name = test.title;
-
+  let  errLine =null
+  if(err){
+  errLine = err.stack.split('at')[1].split(':')[2]
+  }
   return {
     name,
     fullName: suitePath[suitePath.length - 1].concat(' ').concat([name]),
     suitePath: suitePath.slice(),
     file: test.file,
+    error:{
+      raw:err,
+      errLine
+    }
+    
     
   };
 }
