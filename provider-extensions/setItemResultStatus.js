@@ -12,8 +12,9 @@ const setItemResultStatus = (res, name, suitePath) => {
     }
 
     else if (res.ranTests && res.ranTests.find(t=>t.fullName == name) && res.failed.find(r=>arraysEqual(r.suitePath, suitePath))){
+        //let r = res.failed.find(r => r.fullName.trimLeft() == name )
         status =  consts.FAILED;
-        error = r.error
+        //error = r.error
     }
         
     return {
