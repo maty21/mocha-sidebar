@@ -1,4 +1,8 @@
 
+0.14.33(18.3.2018)
+===
+ - fix debugging tests with typescript
+
 0.14.32(4.3.2018)
 ===
 add gitter for asking questions
