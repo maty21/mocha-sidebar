@@ -149,7 +149,7 @@ function activate(context) {
   status.show();
   _mochaProvider.onDidChangeTreeData((rootItem) => {
     status.text = statusTemplate(_mochaProvider.results.passed.length,
-        _mochaProvider.results.passed.length + _mochaProvider.results.failed.length);
+        _mochaProvider.results.failed.length);
   })
 }
 

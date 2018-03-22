@@ -1,4 +1,4 @@
-0.16.0(22.3.2018)
+0.16.1(22.3.2018)
 ===
  - Show the number of passed and failed tests in the status bar
 
