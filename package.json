@@ -81,13 +81,13 @@
                     "group": "inline"
                 },
                 {
-                    "command": "mocha-maty.debugLevel",
+                    "command": "mocha-maty.runDescriberLevelTest",
                     "when": "view == mocha&&viewItem==testDescriber",
                     "group": "inline"
                 },
                 {
-                    "command": "mocha-maty.debugItem",
-                    "when": "view == mocha&&viewItem==testItem",
+                    "command": "mocha-maty.debugLevel",
+                    "when": "view == mocha&&viewItem==testDescriber",
                     "group": "inline"
                 },
                 {
@@ -96,8 +96,8 @@
                     "group": "inline"
                 },
                 {
-                    "command": "mocha-maty.runDescriberLevelTest",
-                    "when": "view == mocha&&viewItem==testDescriber",
+                    "command": "mocha-maty.debugItem",
+                    "when": "view == mocha&&viewItem==testItem",
                     "group": "inline"
                 }
             ]

@@ -21,7 +21,7 @@ const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
 
 const getOnTerminateFunc = func => {
-  const noop = function() {};
+  const noop = function () { };
   return config.sideBarOptions().showDebugTestStatus ? func : noop;
 }
 let lastPattern;
@@ -91,10 +91,10 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.refreshExplorer', (element) => {
     if (hasWorkspace()) {
-    _mochaProvider.refreshExplorer(element);
-    _mochaProvider.updateDecorations(vscode.workspace.rootPath);
-    _codeLensProvider.raiseEventOnUpdate();
-    //runAllTests();
+      _mochaProvider.refreshExplorer(element);
+      _mochaProvider.updateDecorations(vscode.workspace.rootPath);
+      _codeLensProvider.raiseEventOnUpdate();
+      //runAllTests();
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.itemSelection', item => {
@@ -140,6 +140,17 @@ function activate(context) {
       runLastSetAgain();
     }
   }));
+
+  const status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -1000);
+  // status.command = 'extension.selectedLines';
+  const statusTemplate = (passed,failed)=>` Tests  $(check) ${passed}   $(x) ${failed} `;
+  status.text = statusTemplate(0,0);
+  subscriptions.push(status);
+  status.show();
+  _mochaProvider.onDidChangeTreeData((rootItem) => {
+    status.text = statusTemplate(_mochaProvider.results.passed.length,
+        _mochaProvider.results.passed.length + _mochaProvider.results.failed.length);
+  })
 }
 
 exports.activate = activate;
@@ -182,15 +193,15 @@ function fork(jsPath, args, options) {
 function runAllTests() {
   runner.loadTestFiles()
     .then(
-    files => {
-      if (!files.length) {
-        return vscode.window.showWarningMessage('No tests were found.');
-      }
+      files => {
+        if (!files.length) {
+          return vscode.window.showWarningMessage('No tests were found.');
+        }
 
-      runner.runAll();
-    }
+        runner.runAll();
+      }
     ).catch(
-    err => vscode.window.showErrorMessage(`Failed to run tests due to ${err.message}`)
+      err => vscode.window.showErrorMessage(`Failed to run tests due to ${err.message}`)
     );
 }
 
@@ -235,22 +246,22 @@ function selectAndRunTest() {
   vscode.window.showQuickPick(
     runner.loadTestFiles()
       .then(
-      tests => {
-        if (!tests.length) {
-          vscode.window.showWarningMessage(`No tests were found.`);
-          throw new Error('no tests found');
-        }
+        tests => {
+          if (!tests.length) {
+            vscode.window.showWarningMessage(`No tests were found.`);
+            throw new Error('no tests found');
+          }
 
-        return tests.map(test => ({
-          detail: path.relative(rootPath, test.file),
-          label: test.fullName,
-          test
-        }));
-      },
-      err => {
-        vscode.window.showErrorMessage(`Failed to find tests due to ${err.message}`);
-        throw err;
-      }
+          return tests.map(test => ({
+            detail: path.relative(rootPath, test.file),
+            label: test.fullName,
+            test
+          }));
+        },
+        err => {
+          vscode.window.showErrorMessage(`Failed to find tests due to ${err.message}`);
+          throw err;
+        }
       )
   )
     .then(entry => {
