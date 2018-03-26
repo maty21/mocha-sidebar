@@ -179,7 +179,6 @@
           "light": "images/light/debug-side.svg",
           "dark": "images/dark/debug-side.svg"
         }
-        
       },
       {
         "command": "mocha-maty.runTest",
@@ -318,6 +317,7 @@
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "mocha": "^2.5.3",
-    "split-lines": "^1.1.0"
+    "split-lines": "^1.1.0",
+    "stacktrace-parser": "^0.1.4"
   }
 }

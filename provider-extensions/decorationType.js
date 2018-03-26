@@ -119,21 +119,23 @@ module.exports.pass = () => {
 }
 
 
-module.exports.expectErrorMessage = (text)=> window.createTextEditorDecorationType({
+module.exports.expectErrorMessage = (text) => window.createTextEditorDecorationType({
     isWholeLine: true,
     overviewRulerColor: 'red',
     overviewRulerLane: OverviewRulerLane.Left,
+    
     light: {
-      before: {
-        color: '#FF564B',
-      },
+        after: {
+            color: '#FF564B',
+        },
     },
     dark: {
-      before: {
-        color: '#AD322D',
-      },
+        after: {
+            color: '#FF564B',
+        },
     },
     after: {
-      contentText: ' // ' + text,
+        contentText: ' // ' + text,
     },
-  })
+
+})

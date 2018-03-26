@@ -10,5 +10,6 @@
     "decoration": true,
     "autoUpdateTime": 2000,
     "showDebugTestStatus": true
-  }
+  },
+  "mocha.path": "../node_modules/mocha"
 }

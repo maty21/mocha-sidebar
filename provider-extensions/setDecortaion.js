@@ -2,6 +2,8 @@ const vscode = require('vscode');
 const decorationType = require('./decorationType');
 const consts = require('./consts');
 const config = require('../config');
+const stacktraceParser = require('stacktrace-parser')
+
 let pushStyle = [];
 let currentFile = null;
 let decoratorAndStyle = []
@@ -14,19 +16,29 @@ const setDecoration = (resStatus, test) => {
         if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.fileName == test.item.__test.file) {
             let decorators = {
                 range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
-                hoverMessage: resStatus.status,
+                hoverMessage: new vscode.MarkdownString('# ' + resStatus.status),
                 //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
             }
             try {
                 //stub 
-                if(resStatus.status==consts.FAILED){
-                    let decorators = {
-                        range: new vscode.Range(resStatus.error.errLine - 1, 0, resStatus.error.errLine - 1, 1e3),
-                        hoverMessage: resStatus.status,
-                        //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
+                if (resStatus.status == consts.FAILED) {
+                    const stacktrace = stacktraceParser.parse(resStatus.error.raw.stack)
+                    if (stacktrace && stacktrace[0] && stacktrace[0].lineNumber) {
+                        let errorMessageDecorator = {
+
+                            range: new vscode.Range(stacktrace[0].lineNumber - 1, 0, stacktrace[0].lineNumber - 1, 1e3),
+                            hoverMessage: new vscode.MarkdownString(`#### Test Error
+\`\`\`javascript
+${resStatus.error.raw.stack}
+\`\`\`
+`),
+                            //'# ' + resStatus.status+"  \`\`\`javascript\n"+resStatus.error.raw.stack+"\n\`\`\`"
+                            //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
+                        }
+                        let errorMessageStyle = decorationType.expectErrorMessage(resStatus.error.raw.message);
+                        pushStyle.push(errorMessageStyle);
+                        vscode.window.activeTextEditor.setDecorations(errorMessageStyle, [errorMessageDecorator])
                     }
-                    let stubStyle = decorationType.expectErrorMessage(resStatus.error.raw.message);
-                    vscode.window.activeTextEditor.setDecorations(stubStyle, [decorators])
 
                 }
                 vscode.window.activeTextEditor.setDecorations(style, [decorators])

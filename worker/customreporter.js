@@ -1,5 +1,4 @@
 'use strict';
-
 let Mocha =null;
 const { trimArray } = require('../utils');
 let counter = 0;
@@ -72,9 +71,10 @@ function Reporter(runner) {
 function toJS(suitePath, test,err=null) {
   const name = test.title;
   let  errLine =null
-  if(err){
-  errLine = err.stack.split('at')[1].split(':')[2]
-  }
+  // if(err){
+  // // errLine = err.stack.split('at')[1].split(':')[2]
+  //   const parsed = stacktraceParser.parse(err.stack);
+  // }
   return {
     name,
     fullName: suitePath[suitePath.length - 1].concat(' ').concat([name]),
