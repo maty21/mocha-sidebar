@@ -1,4 +1,10 @@
 # Mocha Side Bar 
+[![Version](https://vsmarketplacebadge.apphb.com/version/maty.vscode-mocha-sidebar.svg)](https://marketplace.visualstudio.com/items?itemName=maty.vscode-mocha-sidebar)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/maty.vscode-mocha-sidebar.svg)](https://marketplace.visualstudio.com/items?itemName=maty.vscode-mocha-sidebar)
+[![Ratings](https://vsmarketplacebadge.apphb.com/rating/maty.vscode-mocha-sidebar.svg)](https://marketplace.visualstudio.com/items?itemName=maty.vscode-mocha-sidebar)
+
+[![Github Stars](https://img.shields.io/github/stars/maty21/mocha-sidebar.svg?style=flat-sqaure&label=Stars)](https://github.com/maty21/mocha-sidebar)
+
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mocha-sidebar/Questions)
 
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
