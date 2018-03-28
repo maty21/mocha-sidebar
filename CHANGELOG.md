@@ -1,3 +1,10 @@
+0.16.1(22.3.2018)
+===
+ - Show the number of passed and failed tests in the status bar
+
+0.15.0(18.3.2018)
+===
+ - fix debugging tests with typescript
 
 0.14.32(4.3.2018)
 ===

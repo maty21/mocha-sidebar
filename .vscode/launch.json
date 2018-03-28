@@ -4,6 +4,26 @@
     "configurations": [
 
         {
+            "name": "Launch Extension Typescript",
+            "type": "extensionHost",
+            "request": "launch",
+        
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "/home/yehil/dev/typescriptMocha"
+            ],
+            "stopOnEntry": false,
+           
+            "env": {
+                "MOCHA_DEBUG":"false"
+
+            }
+               
+                    
+               
+        },
+        {
             "name": "Launch Extension",
             "type": "extensionHost",
             "request": "launch",
