@@ -1,322 +1,323 @@
 {
-    "name": "vscode-mocha-sidebar",
-    "displayName": "Mocha sidebar",
-    "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-    "version": "0.16.2",
-    "publisher": "maty",
-    "engines": {
-        "vscode": "^0.10.1"
-    },
-    "icon": "icon.png",
-    "galleryBanner": {
-        "color": "#007F00",
-        "theme": "dark"
-    },
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/maty21/mocha-sidebar.git"
-    },
-    "bugs": "https://github.com/maty21/mocha-sidebar/issues/",
-    "homepage": "https://github.com/maty21/mocha-sidebar/blob/master/README.md",
-    "keywords": [
-        "bdd",
-        "mocha",
-        "tdd",
-        "test",
-        "testing"
-    ],
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:mocha.runAllTests",
-        "onCommand:mocha-maty.runAllTests",
-        "onCommand:mocha-maty.runAllDebug",
-        "onCommand:mocha-maty.runDescriberLevelTest",
-        "onCommand:mocha-maty.runTest",
-        "onCommand:mocha-maty.debugLevel",
-        "onCommand:mocha-maty.debugItem",
-        "onCommand:mocha-maty.refreshExplorer",
-        "onCommand:mocha-maty.autoPlay",
-        "onCommand:mocha-maty.itemSelection",
-        "onCommand:mocha.runTestAtCursor",
-        "onCommand:mocha.selectAndRunTest",
-        "onCommand:mocha.runFailedTests",
-        "onCommand:mocha.runTestsByPattern",
-        "onCommand:mocha.runLastSetAgain",
-        "onCommand:mocha.runLastSetAgain",
-        "onView:autoPlay",
-        "onView:mocha"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "menus": {
-            "view/title": [
-                {
-                    "command": "mocha-maty.refreshExplorer",
-                    "when": "view == mocha",
-                    "group": "navigation"
-                },
-                {
-                    "command": "mocha-maty.autoPlayStart",
-                    "when": "view == mocha&&runAutoPlay",
-                    "group": "navigation"
-                },
-                {
-                    "command": "mocha-maty.autoPlayPause",
-                    "when": "view == mocha&&!runAutoPlay",
-                    "group": "navigation"
-                }
-            ],
-            "view/item/context": [
-                {
-                    "command": "mocha-maty.runAllTests",
-                    "when": "view == mocha&&viewItem==rootTests",
-                    "group": "inline"
-                },
-                {
-                    "command": "mocha-maty.runAllDebug",
-                    "when": "view == mocha&&viewItem==rootTests",
-                    "group": "inline"
-                },
-                {
-                    "command": "mocha-maty.runDescriberLevelTest",
-                    "when": "view == mocha&&viewItem==testDescriber",
-                    "group": "inline"
-                },
-                {
-                    "command": "mocha-maty.debugLevel",
-                    "when": "view == mocha&&viewItem==testDescriber",
-                    "group": "inline"
-                },
-                {
-                    "command": "mocha-maty.runTest",
-                    "when": "view == mocha&&viewItem==testItem",
-                    "group": "inline"
-                },
-                {
-                    "command": "mocha-maty.debugItem",
-                    "when": "view == mocha&&viewItem==testItem",
-                    "group": "inline"
-                }
-            ]
+  "name": "vscode-mocha-sidebar",
+  "displayName": "Mocha sidebar",
+  "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
+  "version": "0.16.2",
+  "publisher": "maty",
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#007F00",
+    "theme": "dark"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maty21/mocha-sidebar.git"
+  },
+  "bugs": "https://github.com/maty21/mocha-sidebar/issues/",
+  "homepage": "https://github.com/maty21/mocha-sidebar/blob/master/README.md",
+  "keywords": [
+    "bdd",
+    "mocha",
+    "tdd",
+    "test",
+    "testing"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:mocha.runAllTests",
+    "onCommand:mocha-maty.runAllTests",
+    "onCommand:mocha-maty.runAllDebug",
+    "onCommand:mocha-maty.runDescriberLevelTest",
+    "onCommand:mocha-maty.runTest",
+    "onCommand:mocha-maty.debugLevel",
+    "onCommand:mocha-maty.debugItem",
+    "onCommand:mocha-maty.refreshExplorer",
+    "onCommand:mocha-maty.autoPlay",
+    "onCommand:mocha-maty.itemSelection",
+    "onCommand:mocha.runTestAtCursor",
+    "onCommand:mocha.selectAndRunTest",
+    "onCommand:mocha.runFailedTests",
+    "onCommand:mocha.runTestsByPattern",
+    "onCommand:mocha.runLastSetAgain",
+    "onCommand:mocha.runLastSetAgain",
+    "onView:autoPlay",
+    "onView:mocha"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "menus": {
+      "view/title": [
+        {
+          "command": "mocha-maty.refreshExplorer",
+          "when": "view == mocha",
+          "group": "navigation"
         },
-        "commands": [
-            {
-                "command": "mocha.runAllTests",
-                "title": "Mocha: Run all tests"
-            },
-            {
-                "command": "mocha.runTest",
-                "title": "Mocha: Run test",
-                "icon": {
-                    "light": "images/light/refresh.svg",
-                    "dark": "images/dark/refresh.svg"
-                }
-            },
-            {
-                "command": "mocha.runTestAtCursor",
-                "title": "Mocha: Run test at cursor"
-            },
-            {
-                "command": "mocha.selectAndRunTest",
-                "title": "Mocha: Select and run a test"
-            },
-            {
-                "command": "mocha.runFailedTests",
-                "title": "Mocha: Run failed tests"
-            },
-            {
-                "command": "mocha.runTestsByPattern",
-                "title": "Mocha: Run tests matching a pattern"
-            },
-            {
-                "command": "mocha.runLastSetAgain",
-                "title": "Mocha: Run last set again"
-            },
-            {
-                "command": "mocha-maty.refreshExplorer",
-                "title": "Refresh",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/refresh.svg",
-                    "dark": "images/dark/refresh.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.autoPlayStart",
-                "title": "Click for play",
-                "category": "autoPlay",
-                "icon": {
-                    "light": "images/light/play-button.svg",
-                    "dark": "images/dark/play-button.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.autoPlayPause",
-                "title": "Click for pause",
-                "category": "autoPlay",
-                "icon": {
-                    "light": "images/light/pause-button.svg",
-                    "dark": "images/dark/pause-button.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.runAllTests",
-                "title": "Run All Tests",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/play-side.svg",
-                    "dark": "images/dark/play-side.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.runAllDebug",
-                "title": "Run Debug",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/debug-side.svg",
-                    "dark": "images/dark/debug-side.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.runTest",
-                "title": "Run test",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/play-side.svg",
-                    "dark": "images/dark/play-side.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.itemSelection",
-                "title": "itemSelection",
-                "category": "mocha"
-            },
-            {
-                "command": "mocha-maty.debugItem",
-                "title": "Debug",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/debug-side.svg",
-                    "dark": "images/dark/debug-side.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.runDescriberLevelTest",
-                "title": "Run tests from this level",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/play-side.svg",
-                    "dark": "images/dark/play-side.svg"
-                }
-            },
-            {
-                "command": "mocha-maty.debugLevel",
-                "title": "Debug Level",
-                "category": "mocha",
-                "icon": {
-                    "light": "images/light/debug-side.svg",
-                    "dark": "images/dark/debug-side.svg"
-                }
-            }
-        ],
-        "views": {
-            "explorer": [
-                {
-                    "id": "mocha",
-                    "name": "mocha",
-                    "when": "config.mocha.showExplorer == true"
-                }
-            ]
+        {
+          "command": "mocha-maty.autoPlayStart",
+          "when": "view == mocha&&runAutoPlay",
+          "group": "navigation"
         },
-        "configuration": {
-            "type": "object",
-            "title": "Mocha options",
-            "properties": {
-                "mocha.options": {
-                    "default": {},
-                    "description": "Mocha: Options to run Mocha"
-                },
-                "mocha.showExplorer": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Show or hide the Explorer."
-                },
-                "mocha.path": {
-                    "default": "",
-                    "description": "Mocha: set other mocha path then the built-in one for example ../node_modules/mocha (only path to the package)",
-                    "type": "string"
-                },
-                "mocha.logVerbose": {
-                    "default": false,
-                    "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
-                    "type": "boolean"
-                },
-                "mocha.files.glob": {
-                    "default": "test/**/*.js",
-                    "description": "Mocha: Glob to search for test files",
-                    "type": "string"
-                },
-                "mocha.files.ignore": {
-                    "default": [
-                        "**/.git/**/*",
-                        "**/node_modules/**/*"
-                    ],
-                    "description": "Mocha: Globs to ignore when searching for test files",
-                    "type": [
-                        "string"
-                    ]
-                },
-                "mocha.requires": {
-                    "default": [],
-                    "description": "Array of module required to run Mocha. (for example babel-register, coffee-script/register or ts-node/register)",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "mocha.runTestsOnSave": {
-                    "default": "false",
-                    "description": "Mocha: run tests on each save",
-                    "type": "string"
-                },
-                "mocha.env": {
-                    "default": {},
-                    "description": "Mocha: Environment variables to run your tests"
-                },
-                "mocha.node_options": {
-                    "default": [],
-                    "description": "Mocha: Options to pass to node executable"
-                },
-                "mocha.sideBarOptions": {
-                    "default": {
-                        "lens": true,
-                        "decoration": true,
-                        "autoUpdateTime": 2000,
-                        "showDebugTestStatus": true
-                    },
-                    "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
-                }
-            }
+        {
+          "command": "mocha-maty.autoPlayPause",
+          "when": "view == mocha&&!runAutoPlay",
+          "group": "navigation"
         }
+      ],
+      "view/item/context": [
+        {
+          "command": "mocha-maty.runAllTests",
+          "when": "view == mocha&&viewItem==rootTests",
+          "group": "inline"
+        },
+        {
+          "command": "mocha-maty.runAllDebug",
+          "when": "view == mocha&&viewItem==rootTests",
+          "group": "inline"
+        },
+        {
+          "command": "mocha-maty.runDescriberLevelTest",
+          "when": "view == mocha&&viewItem==testDescriber",
+          "group": "inline"
+        },
+        {
+          "command": "mocha-maty.debugLevel",
+          "when": "view == mocha&&viewItem==testDescriber",
+          "group": "inline"
+        },
+        {
+          "command": "mocha-maty.runTest",
+          "when": "view == mocha&&viewItem==testItem",
+          "group": "inline"
+        },
+        {
+          "command": "mocha-maty.debugItem",
+          "when": "view == mocha&&viewItem==testItem",
+          "group": "inline"
+        }
+      ]
     },
-    "devDependencies": {
-        "vscode": "0.11.x"
+    "commands": [
+      {
+        "command": "mocha.runAllTests",
+        "title": "Mocha: Run all tests"
+      },
+      {
+        "command": "mocha.runTest",
+        "title": "Mocha: Run test",
+        "icon": {
+          "light": "images/light/refresh.svg",
+          "dark": "images/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "mocha.runTestAtCursor",
+        "title": "Mocha: Run test at cursor"
+      },
+      {
+        "command": "mocha.selectAndRunTest",
+        "title": "Mocha: Select and run a test"
+      },
+      {
+        "command": "mocha.runFailedTests",
+        "title": "Mocha: Run failed tests"
+      },
+      {
+        "command": "mocha.runTestsByPattern",
+        "title": "Mocha: Run tests matching a pattern"
+      },
+      {
+        "command": "mocha.runLastSetAgain",
+        "title": "Mocha: Run last set again"
+      },
+      {
+        "command": "mocha-maty.refreshExplorer",
+        "title": "Refresh",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/refresh.svg",
+          "dark": "images/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.autoPlayStart",
+        "title": "Click for play",
+        "category": "autoPlay",
+        "icon": {
+          "light": "images/light/play-button.svg",
+          "dark": "images/dark/play-button.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.autoPlayPause",
+        "title": "Click for pause",
+        "category": "autoPlay",
+        "icon": {
+          "light": "images/light/pause-button.svg",
+          "dark": "images/dark/pause-button.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.runAllTests",
+        "title": "Run All Tests",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.runAllDebug",
+        "title": "Run Debug",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/debug-side.svg",
+          "dark": "images/dark/debug-side.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.runTest",
+        "title": "Run test",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.itemSelection",
+        "title": "itemSelection",
+        "category": "mocha"
+      },
+      {
+        "command": "mocha-maty.debugItem",
+        "title": "Debug",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/debug-side.svg",
+          "dark": "images/dark/debug-side.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.runDescriberLevelTest",
+        "title": "Run tests from this level",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.debugLevel",
+        "title": "Debug Level",
+        "category": "mocha",
+        "icon": {
+          "light": "images/light/debug-side.svg",
+          "dark": "images/dark/debug-side.svg"
+        }
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "mocha",
+          "name": "mocha",
+          "when": "config.mocha.showExplorer == true"
+        }
+      ]
     },
-    "dependencies": {
-        "await-done": "^1.0.1",
-        "babel-register": "^6.26.0",
-        "babylon": "^6.13.1",
-        "bluebird": "^3.3.5",
-        "escape-regexp": "0.0.1",
-        "glob": "^7.0.3",
-        "line-number": "^0.1.0",
-        "lodash.assign": "^4.2.0",
-        "lodash.forin": "^4.4.0",
-        "lodash.isobject": "^3.0.2",
-        "mocha": "^2.5.3",
-        "split-lines": "^1.1.0"
+    "configuration": {
+      "type": "object",
+      "title": "Mocha options",
+      "properties": {
+        "mocha.options": {
+          "default": {},
+          "description": "Mocha: Options to run Mocha"
+        },
+        "mocha.showExplorer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show or hide the Explorer."
+        },
+        "mocha.path": {
+          "default": "",
+          "description": "Mocha: set other mocha path then the built-in one for example ../node_modules/mocha (only path to the package)",
+          "type": "string"
+        },
+        "mocha.logVerbose": {
+          "default": false,
+          "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
+          "type": "boolean"
+        },
+        "mocha.files.glob": {
+          "default": "test/**/*.js",
+          "description": "Mocha: Glob to search for test files",
+          "type": "string"
+        },
+        "mocha.files.ignore": {
+          "default": [
+            "**/.git/**/*",
+            "**/node_modules/**/*"
+          ],
+          "description": "Mocha: Globs to ignore when searching for test files",
+          "type": [
+            "string"
+          ]
+        },
+        "mocha.requires": {
+          "default": [],
+          "description": "Array of module required to run Mocha. (for example babel-register, coffee-script/register or ts-node/register)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mocha.runTestsOnSave": {
+          "default": "false",
+          "description": "Mocha: run tests on each save",
+          "type": "string"
+        },
+        "mocha.env": {
+          "default": {},
+          "description": "Mocha: Environment variables to run your tests"
+        },
+        "mocha.node_options": {
+          "default": [],
+          "description": "Mocha: Options to pass to node executable"
+        },
+        "mocha.sideBarOptions": {
+          "default": {
+            "lens": true,
+            "decoration": true,
+            "autoUpdateTime": 2000,
+            "showDebugTestStatus": true
+          },
+          "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
+        }
+      }
     }
+  },
+  "devDependencies": {
+    "vscode": "0.11.x"
+  },
+  "dependencies": {
+    "await-done": "^1.0.1",
+    "babel-register": "^6.26.0",
+    "babylon": "^6.13.1",
+    "bluebird": "^3.3.5",
+    "escape-regexp": "0.0.1",
+    "glob": "^7.0.3",
+    "line-number": "^0.1.0",
+    "lodash.assign": "^4.2.0",
+    "lodash.forin": "^4.4.0",
+    "lodash.isobject": "^3.0.2",
+    "mocha": "^2.5.3",
+    "split-lines": "^1.1.0",
+    "stacktrace-parser": "^0.1.4"
+  }
 }

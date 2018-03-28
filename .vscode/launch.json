@@ -2,6 +2,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Launch Extension Typescript",
             "type": "extensionHost",
@@ -60,7 +61,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/matyz/dev/hkube-common/etcd.hkube/"
+                "/home/yehil/dev/hkube-common/etcd.hkube/"
             ],
             "stopOnEntry": false
         },
