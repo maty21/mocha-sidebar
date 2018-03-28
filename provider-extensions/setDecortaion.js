@@ -16,7 +16,7 @@ const setDecoration = (resStatus, test) => {
         if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.fileName == test.item.__test.file) {
             let decorators = {
                 range: new vscode.Range(test.line[0].number - 1, 0, test.line[0].number - 1, 1e3),
-                hoverMessage: new vscode.MarkdownString('# ' + resStatus.status),
+                hoverMessage: new vscode.MarkdownString('#### ' + resStatus.status),
                 //range: new vscode.Range(line[0].number - 1, it.start.column - 1,  line[0].number - 1, it.start.column + 1)
             }
             try {
