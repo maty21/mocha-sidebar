@@ -1,3 +1,6 @@
+0.17.1 (28.3.2018)
+===
+ - show error message of failed tests. Errors are shown as decorations next to the error line
 0.16.1(22.3.2018)
 ===
  - Show the number of passed and failed tests in the status bar

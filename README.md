@@ -19,7 +19,8 @@
 * [x] debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] auto run tests on file save
 * [x] NEW: see tests results directly on the code 
-* [x] NEW:run/debug results directly from the code 
+* [x] NEW: run/debug results directly from the code 
+* [x] NEW: see test errors as decoration
 
 #### not supported yet
 * [ ] split tests into files separation for the top level hierarchy
