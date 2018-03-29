@@ -53,6 +53,18 @@ function forkRunTest(testFiles, grep, rootPath) {
     mochaPath: config.mochaPath()
     
   };
+  if(config.logVerbose()){
+    outputChannel.appendLine(`
+test runs with those args:
+
+  files: ${JSON.stringify(testFiles)},
+  options: ${JSON.stringify(config.options())},
+  grep:${JSON.stringify(grep)},
+  requires: ${JSON.stringify(config.requires())},
+  rootpath: ${JSON.stringify(rootPath)}
+  `)
+    
+  }
   //outputChannel.appendLine(`mocha path : ${config.mochaPath()}`);
   return forkWorker('../worker/runtest.js', args, rootPath);
 }
@@ -65,13 +77,33 @@ function forkFindTests(rootPath) {
     },
     mochaPath: config.mochaPath()
   };
+  findingTestLogs();
   if(config.logVerbose()){
-     outputChannel.show();
-
+    // outputChannel.show();
+    
   }
-  outputChannel.appendLine(`mocha path  : ${config.mochaPath()}`);
   return forkWorker('../worker/findtests.js', args, rootPath);
   
+}
+
+function findingTestLogs(){
+  outputChannel.clear();
+  outputChannel.appendLine(`____________________________________________________________________________`);
+  outputChannel.appendLine(`trying to serching for tests with this settings: `);
+  outputChannel.appendLine(` 
+    mocha path: ${config.mochaPath()} 
+    test files location: ${config.files().glob} 
+    files to ignore: ${config.files().ignore}
+    enviromets: ${ JSON.stringify(config.env())} 
+    requires: ${JSON.stringify(config.requires())} 
+    options:  ${JSON.stringify(config.options())} 
+    
+`);
+outputChannel.appendLine(`if you find anything wrong please change those default settings`)
+outputChannel.appendLine(`____________________________________________________________________________`);
+// vscode.window.showErrorMessage(`Failed to run Mocha due to`,'learnMorePanel').then(val=>{
+//   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://go.microsoft.com/fwlink/?linkid=864631'));
+// });
 }
 
 function forkWorker(workerPath, argsObject, rootPath) {
@@ -85,8 +117,24 @@ function forkWorker(workerPath, argsObject, rootPath) {
 }
 
 function handleError(err, reject) {
-  vscode.window.showErrorMessage(`Failed to run Mocha due to ${err.message}`);
+  const qa = 'Q/A';
+  const gitter = 'Gitter';
+  vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .  
+  error trace can be found in the ouput channel .        
+    for more help:`,qa,gitter).then(val=>{
+    switch (val) {
+      case qa:
+       vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar#qa'));
+        break;
+        case gitter:
+        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
+        break;
+      default:
+      vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
+    }
+  });
   outputChannel.appendLine(err.stack);
+  outputChannel.show();
   reject(err);
 }
 
@@ -160,81 +208,7 @@ async function  findTests(rootPath) {
   let data = await handleProcessMessages(process)
   return data;
 
-
-    // .then(process => new Promise((resolve, reject) => {
-    //   let msg = message(process);
-
-    //   // const         stderrBuffers = [];
-    //   let processMessage;
-
-    //   // process.stderr.on('data', data => {
-    //   //   console.error(data.toString());
-    //   //   stderrBuffers.push(data);
-    //   // });
-
-    //   msg.on(TYPES.result,data=>{
-    //     processMessage = data;
-    //     console.log(data);
-    //   })
-    //   // process.on('message', data => {
-    //   //   processMessage = data;
-    //   // })
-    //   process.stdout.on('data', data => {
-    //     console.log(data.toString());
-    //   });
-
-    //   msg.on('error', err => {
-    //     let error = JSON.parse(err);
-    //     handleError(error, reject)})
-    //   msg.on('exit', code => {
-    //     if(processMessage){
-    //       handleProcessExit(processMessage, code, reject, resolve);
-    //     }
-    //     });
-    // }));
 }
-
-
-// async function findTestsProcess(rootPath) {
-//   // Allow the user to choose a different subfolder
-//   //vscode.window.showWarningMessage(`entering findTestsProcess in mochasim ${rootPath}`)
-
-//   rootPath = applySubdirectory(rootPath);
-//   // vscode.window.showWarningMessage(`passing applySubdirectory in mochasim ${rootPath}`)
-//   let options = {
-//     options: config.options(),
-//     files: {
-//       glob: config.files().glob,
-//       ignore: config.files().ignore
-//     },
-//     requires: config.requires(),
-//     rootPath
-//   }
-//   //  vscode.window.showWarningMessage(`passing options in mochasim ${JSON.stringify(options)}`)
-//   return _findTestsInProcess(options);
-
-// }
-
-
-
-// async function runTestsInProcess(testFiles, grep, messages) {
-//    let rootPath = applySubdirectory(vscode.workspace.rootPath);
-//   let options ={
-//     files: testFiles,
-//     options: config.options(),
-//     grep,
-//     requires: config.requires(),
-//     rootPath
-//   }
-//   return _runTestsInProcess(options);
-
-// }
-
-
-
-
-
-
 
 
 module.exports.runTests = runTests;
