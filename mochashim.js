@@ -51,7 +51,7 @@ function forkRunTest(testFiles, grep, rootPath) {
     files: testFiles,
     grep,
     mochaPath: config.mochaPath()
-    
+
   };
   if(config.logVerbose()){
     outputChannel.appendLine(`
@@ -63,7 +63,7 @@ test runs with those args:
   requires: ${JSON.stringify(config.requires())},
   rootpath: ${JSON.stringify(rootPath)}
   `)
-    
+
   }
   //outputChannel.appendLine(`mocha path : ${config.mochaPath()}`);
   return forkWorker('../worker/runtest.js', args, rootPath);
@@ -80,24 +80,24 @@ function forkFindTests(rootPath) {
   findingTestLogs();
   if(config.logVerbose()){
     // outputChannel.show();
-    
+
   }
   return forkWorker('../worker/findtests.js', args, rootPath);
-  
+
 }
 
 function findingTestLogs(){
   outputChannel.clear();
   outputChannel.appendLine(`____________________________________________________________________________`);
   outputChannel.appendLine(`trying to serching for tests with this settings: `);
-  outputChannel.appendLine(` 
-    mocha path: ${config.mochaPath()} 
-    test files location: ${config.files().glob} 
+  outputChannel.appendLine(`
+    mocha path: ${config.mochaPath()}
+    test files location: ${config.files().glob}
     files to ignore: ${config.files().ignore}
-    enviromets: ${ JSON.stringify(config.env())} 
-    requires: ${JSON.stringify(config.requires())} 
-    options:  ${JSON.stringify(config.options())} 
-    
+    enviromets: ${ JSON.stringify(config.env())}
+    requires: ${JSON.stringify(config.requires())}
+    options:  ${JSON.stringify(config.options())}
+
 `);
 outputChannel.appendLine(`if you find anything wrong please change those default settings`)
 outputChannel.appendLine(`____________________________________________________________________________`);
@@ -119,8 +119,8 @@ function forkWorker(workerPath, argsObject, rootPath) {
 function handleError(err, reject) {
   const qa = 'Q/A';
   const gitter = 'Gitter';
-  vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .  
-  error trace can be found in the ouput channel .        
+  vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
+  error trace can be found in the ouput channel .
     for more help:`,qa,gitter).then(val=>{
     switch (val) {
       case qa:
@@ -129,8 +129,8 @@ function handleError(err, reject) {
         case gitter:
         vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
         break;
-      default:
-      vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
+      // default:
+      // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
     }
   });
   outputChannel.appendLine(err.stack);
