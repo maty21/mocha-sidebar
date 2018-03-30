@@ -89,7 +89,7 @@ function forkFindTests(rootPath) {
 function findingTestLogs(){
   outputChannel.clear();
   outputChannel.appendLine(`____________________________________________________________________________`);
-  outputChannel.appendLine(`trying to serching for tests with this settings: `);
+  outputChannel.appendLine(`trying to searching for tests using these settings: `);
   outputChannel.appendLine(`
     mocha path: ${config.mochaPath()}
     test files location: ${config.files().glob}
