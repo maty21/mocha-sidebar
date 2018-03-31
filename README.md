@@ -7,9 +7,10 @@
 
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mocha-sidebar/Questions)
 
+
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
 
-![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/image/intro/expect_error.gif)
+![demo that howing expect messages](https://github.com/maty21/mocha-sidebar/blob/master/images/intro/expect_error.gif)
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
@@ -17,12 +18,14 @@
 
 #### mocha side bar already supports this features
 * [x] see all tests in vscode side bar menu
+* [x] git lens for running/debbuging directly form the code
+* [x] decorations which shows test stauts(pass/fail/not run) from code
 * [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] auto run tests on file save
-* [x] NEW: see tests results directly on the code 
-* [x] NEW: run/debug results directly from the code 
-* [x] NEW: see test errors as decoration
+* [x] see tests results directly on the code 
+* [x] run/debug results directly from the code 
+* [x] see test errors as decoration
 
 #### not supported yet
 * [ ] split tests into files separation for the top level hierarchy
