@@ -9,6 +9,8 @@
 
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
 
+![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/image/intro/expect_error.gif)
+
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
 ##### Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
