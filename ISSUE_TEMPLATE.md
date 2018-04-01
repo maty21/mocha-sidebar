@@ -15,7 +15,7 @@ Example:
 
 1. Open test file
 2. Update my code
-3. something wrong happen
+3. something wrong happens
 -->
 
 #### Expected Results
