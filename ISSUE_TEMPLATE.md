@@ -40,12 +40,10 @@ Example:
 
 
 ### Versions
-<!--
-`Polymer.version` will show the version for Polymer
-`bower ls` or `npm ls` will show the version of webcomponents.js or webcomponents-lite.js
--->
+
 - VScode: vX.X.X
 - Mocha SideBar: vX.X.X 
+- Node Version: vX.X.X
 
 
 ### OS version
