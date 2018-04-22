@@ -63,7 +63,12 @@ const addRequires = (args) => {
         return args;
     }
     const argsArray = Array.isArray(args) ? args : [args];
-    return [...argsArray, '-r', ...requires]
+    requires.forEach(r => {
+        argsArray.push('-r');
+        argsArray.push(r);
+    });
+    return argsArray;
+    // return [...argsArray, '-r', ...requires]
 }
 const debugAll = (element, functionOnTerminate) => {
     results = [];

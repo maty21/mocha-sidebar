@@ -1,0 +1,1 @@
+global.REQ2="this is required too!"

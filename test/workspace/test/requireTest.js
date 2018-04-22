@@ -1,11 +1,11 @@
-// const expect = require('chai').expect;
-
-const assert = require('assert');
+const expect = require('chai').expect;
 
 
 
-// describe('use --require', () => {
-//     it('should have global var', () => {
-//         assert(global.REQ === 'this is required!')
-//     });
-// });
+
+describe('use --requires', () => {
+    it('should have global var', () => {
+        expect(global.REQ).to.eql('this is required!')
+        expect(global.REQ2).to.eql('this is required too!')
+    });
+});
