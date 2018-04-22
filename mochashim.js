@@ -94,7 +94,7 @@ function findingTestLogs(){
     mocha path: ${config.mochaPath()}
     test files location: ${config.files().glob}
     files to ignore: ${config.files().ignore}
-    enviromets: ${ JSON.stringify(config.env())}
+    environmets: ${ JSON.stringify(config.env())}
     requires: ${JSON.stringify(config.requires())}
     options:  ${JSON.stringify(config.options())}
 
