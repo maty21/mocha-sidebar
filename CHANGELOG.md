@@ -1,3 +1,9 @@
+0.17.7 (22.4.2018)
+ - fix #93 - pass mocha.options to mocha when debugging
+===
+0.17.6 (22.4.2018)
+ - fix #94 - pass multiple require options to mocha when debugging
+===
 0.17.1 (28.3.2018)
 ===
  - show error message of failed tests. Errors are shown as decorations next to the error line
