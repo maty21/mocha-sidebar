@@ -15,5 +15,5 @@
   "mocha.requires": [
     "./toRequire.js",
     "./toRequire2.js"
-  ],
+  ]
 }

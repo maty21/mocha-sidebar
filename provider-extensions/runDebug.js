@@ -70,6 +70,20 @@ const addRequires = (args) => {
     return argsArray;
     // return [...argsArray, '-r', ...requires]
 }
+const addOptions = (args) => {
+    const options = config.options();
+    const optionsArray = Object.entries(options);
+    if (!optionsArray || optionsArray.length === 0) {
+        return args;
+    }
+    const argsArray = Array.isArray(args) ? args : [args];
+    optionsArray.forEach(([key, value]) => {
+        argsArray.push(`--${key}`);
+        argsArray.push(value);
+    });
+    return argsArray;
+    // return [...argsArray, '-r', ...requires]
+}
 const debugAll = (element, functionOnTerminate) => {
     results = [];
 
@@ -77,6 +91,7 @@ const debugAll = (element, functionOnTerminate) => {
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
     mochaTest.args = config.files().glob || ["./test/**/*.js"]
     mochaTest.args = addRequires(mochaTest.args);
+    mochaTest.args = addOptions(mochaTest.args);
     mochaTest.env = config.env();
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
@@ -95,6 +110,7 @@ const debugLevel = async (element, functionOnTerminate) => {
         let glob = config.files().glob || "./test/**/*.js";
         mochaTest.args = [glob, '--grep', `^${t.fullName}$`]
         mochaTest.args = addRequires(mochaTest.args);
+        mochaTest.args = addOptions(mochaTest.args);
         mochaTest.env = config.env();
         vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
             console.log(`debug status:${data}`);
@@ -112,6 +128,7 @@ const debugItem = async (element, functionOnTerminate) => {
     let glob = config.files().glob || "./test/**/*.js";
     mochaTest.args = [glob, '--grep', `^${element.item.__test.fullName}$`]
     mochaTest.args = addRequires(mochaTest.args);
+    mochaTest.args = addOptions(mochaTest.args);
     mochaTest.env = config.env();
     //  let reg = new RegExp(`^${element.item.test.fullName}$`)
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {

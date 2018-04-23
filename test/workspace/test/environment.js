@@ -82,6 +82,9 @@ describe('green 5', () => {
   it('inner green 5 level 0', function () {
     assert(process.env.HOME || process.env.PATHEXT);
   });
+  it('long timeout', function (done) {
+    setTimeout(done,10000);
+  });
 });
 
 
