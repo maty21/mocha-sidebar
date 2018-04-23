@@ -79,7 +79,7 @@ const addOptions = (args) => {
     const argsArray = Array.isArray(args) ? args : [args];
     optionsArray.forEach(([key, value]) => {
         argsArray.push(`--${key}`);
-        argsArray.push(value);
+        argsArray.push(`${value}`);
     });
     return argsArray;
     // return [...argsArray, '-r', ...requires]

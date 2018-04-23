@@ -12,8 +12,7 @@
     "showDebugTestStatus": true
   },
   "mocha.path": "../node_modules/mocha",
-  "mocha.requires": [
-    "./toRequire.js",
-    "./toRequire2.js"
-  ]
+  "mocha.options": {
+    "timeout": 15000
+  }
 }
