@@ -1,3 +1,7 @@
+0.18.1 (9.5.2018)
+ - fix #96  - change readme to the correct settings
+ - change  expect_error image to https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif for           supporting showing in vscode marketplace pages 
+===
 0.18.0 (9.5.2018)
  - fix #100 #97 PR - add support for new test view + add configuration for switching back to the explorer menu
    using config.mocha.showInExplorer=true 

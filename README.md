@@ -10,7 +10,7 @@
 
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
 
-![demo that howing expect messages](https://github.com/maty21/mocha-sidebar/blob/master/images/intro/expect_error.gif)
+![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
@@ -134,9 +134,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
        - **step1** - verify that your configuration correct 
         ```js
         "mocha.options": {
-        "compilers": {
-            "ts": "ts-node/register"
-          }
+            "compilers": "ts:ts-node/register"
         },
         "mocha.requires": [
             "ts-node/register"
