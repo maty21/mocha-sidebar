@@ -223,7 +223,7 @@
       }
     ],
     "views": {
-      "explorer": [
+      "test": [
         {
           "id": "mocha",
           "name": "mocha",
