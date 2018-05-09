@@ -14,5 +14,6 @@
   "mocha.path": "../node_modules/mocha",
   "mocha.options": {
     "timeout": 15000
-  }
+  },
+  "mocha.showInExplorer": true
 }

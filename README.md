@@ -68,6 +68,9 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 ```js
 //-------- Mocha options --------
 
+//mocha view is now shown in the new test view as default it possible to switch it back to the explorer view with this setting
+"mocha.showInExplorer":false
+
 // Mocha: Options to run Mocha
 "mocha.options": {},
 

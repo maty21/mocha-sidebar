@@ -1,3 +1,8 @@
+0.18.0 (9.5.2018)
+ - fix #100 #97 PR - add support for new test view + add configuration for switching back to the explorer menu
+   using config.mocha.showInExplorer=true 
+ - remove showExplorer option since it's already built-in feature 
+===
 0.17.7 (22.4.2018)
  - fix #93 - pass mocha.options to mocha when debugging
 ===
