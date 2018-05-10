@@ -84,9 +84,7 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 ],
 
 //Mocha: run tests on each save
-"mocha.runTestsOnSave": {
-    "default": "false",
-    },
+"mocha.runTestsOnSave": "false",
 
 // Mocha: Environment variables to run your tests
 "mocha.env": {},
