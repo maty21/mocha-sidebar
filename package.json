@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.18.2",
+  "version": "0.19.0",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -112,8 +112,8 @@
     },
     "commands": [
       {
-        "command":"mocha-maty.setSubdirectory",
-        "title":"Set mocha-sidebar subdirectory"
+        "command": "mocha-maty.setSubdirectory",
+        "title": "Set mocha-sidebar subdirectory"
       },
       {
         "command": "mocha.runAllTests",
@@ -318,9 +318,9 @@
           },
           "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
         },
-        "mocha.subdirectory":{
-          "default":"",
-          "type":"string",
+        "mocha.subdirectory": {
+          "default": "",
+          "type": "string",
           "description": "Sets a subdirectory as the root for mocha-sidebar"
         }
       }
