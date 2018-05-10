@@ -2,7 +2,8 @@
 const vscode = require('vscode');
 const Glob = require('glob').Glob;
 const path = require('path');
-const { runTestsOnSave, files, sideBarOptions } = require('./config');
+const { runTestsOnSave, files, sideBarOptions,coverage } = require('./config');
+const codeCoverage = require('./lib/code-coverage');
 class changesNotification {
     constructor(mochaProvider, lensProvider) {
         this._autoPlayOnSave = (runTestsOnSave() == 'true');
@@ -15,6 +16,9 @@ class changesNotification {
         vscode.window.onDidChangeActiveTextEditor(editor => {
             console.log(`onDidChangeActiveTextEditor: ${editor}`)
             this._updatePathOnTestChange(editor, 1000)
+            if(coverage().enable){
+                codeCoverage.updateDecorationByFile(editor);
+            }
             //    this._mochaProvider.updateDecorations(editor.document.fileName);
         })
         vscode.workspace.onDidSaveTextDocument(editor => {

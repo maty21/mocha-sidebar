@@ -61,7 +61,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/yehil/dev/hkube-common/etcd.hkube/"
+                "/home/matyz/dev/hkube-common/etcd.hkube/"
             ],
             "stopOnEntry": false
         },

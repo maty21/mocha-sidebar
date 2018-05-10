@@ -20,6 +20,8 @@ const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
 
+const coverage = require('./lib/code-coverage');
+
 const getOnTerminateFunc = func => {
   const noop = function () { };
   return config.sideBarOptions().showDebugTestStatus ? func : noop;
@@ -34,6 +36,9 @@ function activate(context) {
   const _mochaProvider = new mochaProvider();
   debugInit(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
+  if(config.coverage().enable){
+    coverage.run();
+  }
   const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
   const _changesNotification = new changesNotification(_mochaProvider, _codeLensProvider);
   let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);

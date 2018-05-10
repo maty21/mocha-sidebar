@@ -223,7 +223,6 @@
       }
     ],
     "views": {
-     
       "test": [
         {
           "id": "mocha",
@@ -246,6 +245,14 @@
         "mocha.options": {
           "default": {},
           "description": "Mocha: Options to run Mocha"
+        },
+        "mocha.coverage": {
+          "default": {
+            "enable": true,
+            "decoration": true,
+            "autoUpdateTime": 2000
+          },
+          "description": "code coverage with istanbul "
         },
         "mocha.showInExplorer": {
           "type": "boolean",
@@ -320,11 +327,13 @@
     "bluebird": "^3.3.5",
     "escape-regexp": "0.0.1",
     "glob": "^7.0.3",
+    "lcov-parse": "^1.0.0",
     "line-number": "^0.1.0",
     "lodash.assign": "^4.2.0",
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "mocha": "^2.5.3",
+    "nyc": "^11.7.3",
     "split-lines": "^1.1.0",
     "stacktrace-parser": "^0.1.4"
   }
