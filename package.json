@@ -40,6 +40,7 @@
     "onCommand:mocha-maty.refreshExplorer",
     "onCommand:mocha-maty.autoPlay",
     "onCommand:mocha-maty.itemSelection",
+    "onCommand:mocha-maty.setSubdirectory",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
     "onCommand:mocha.runFailedTests",
@@ -52,6 +53,13 @@
   "main": "./extension",
   "contributes": {
     "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "mocha-maty.setSubdirectory",
+          "group": "7_modification"
+        }
+      ],
       "view/title": [
         {
           "command": "mocha-maty.refreshExplorer",
@@ -103,6 +111,10 @@
       ]
     },
     "commands": [
+      {
+        "command":"mocha-maty.setSubdirectory",
+        "title":"Set mocha-sidebar subdirectory"
+      },
       {
         "command": "mocha.runAllTests",
         "title": "Mocha: Run all tests"
@@ -305,6 +317,11 @@
             "showDebugTestStatus": true
           },
           "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
+        },
+        "mocha.subdirectory":{
+          "default":"",
+          "type":"string",
+          "description": "Sets a subdirectory as the root for mocha-sidebar"
         }
       }
     }

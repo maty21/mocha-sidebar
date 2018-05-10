@@ -84,6 +84,16 @@ const addOptions = (args) => {
     return argsArray;
     // return [...argsArray, '-r', ...requires]
 }
+
+const applySubdirectory = (rootPath) => {
+    const subdirectory = config.subdirectory()
+
+    if (subdirectory)
+        rootPath = path.resolve(rootPath, subdirectory);
+
+    return rootPath;
+}
+
 const debugAll = (element, functionOnTerminate) => {
     results = [];
 
@@ -92,6 +102,7 @@ const debugAll = (element, functionOnTerminate) => {
     mochaTest.args = config.files().glob || ["./test/**/*.js"]
     mochaTest.args = addRequires(mochaTest.args);
     mochaTest.args = addOptions(mochaTest.args);
+    mochaTest.cwd = applySubdirectory(vscode.workspace.rootPath);
     mochaTest.env = config.env();
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
         console.log(`debug status:${data}`);
@@ -111,6 +122,7 @@ const debugLevel = async (element, functionOnTerminate) => {
         mochaTest.args = [glob, '--grep', `^${t.fullName}$`]
         mochaTest.args = addRequires(mochaTest.args);
         mochaTest.args = addOptions(mochaTest.args);
+        mochaTest.cwd = applySubdirectory(vscode.workspace.rootPath);
         mochaTest.env = config.env();
         vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {
             console.log(`debug status:${data}`);
@@ -129,6 +141,7 @@ const debugItem = async (element, functionOnTerminate) => {
     mochaTest.args = [glob, '--grep', `^${element.item.__test.fullName}$`]
     mochaTest.args = addRequires(mochaTest.args);
     mochaTest.args = addOptions(mochaTest.args);
+    mochaTest.cwd = applySubdirectory(vscode.workspace.rootPath);
     mochaTest.env = config.env();
     //  let reg = new RegExp(`^${element.item.test.fullName}$`)
     vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], mochaTest).then(data => {

@@ -97,6 +97,13 @@ function activate(context) {
       //runAllTests();
     }
   }))
+
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.setSubdirectory', (element) => {
+    if (hasWorkspace() && element.path) {
+      const relativePath = path.relative(vscode.workspace.rootPath, element.path);
+      config.setSubdirectory(relativePath || element.path);
+    }
+  }));
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.itemSelection', item => {
     if (hasWorkspace()) {
       _mochaProvider.itemSelection(item);
@@ -143,13 +150,13 @@ function activate(context) {
 
   const status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -1000);
   // status.command = 'extension.selectedLines';
-  const statusTemplate = (passed,failed)=>` Tests  $(check) ${passed}   $(x) ${failed} `;
-  status.text = statusTemplate(0,0);
+  const statusTemplate = (passed, failed) => ` Tests  $(check) ${passed}   $(x) ${failed} `;
+  status.text = statusTemplate(0, 0);
   subscriptions.push(status);
   status.show();
   _mochaProvider.onDidChangeTreeData((rootItem) => {
     status.text = statusTemplate(_mochaProvider.results.passed.length,
-        _mochaProvider.results.failed.length);
+      _mochaProvider.results.failed.length);
   })
 }
 
