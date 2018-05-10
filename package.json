@@ -333,7 +333,7 @@
     "await-done": "^1.0.1",
     "babel-register": "^6.26.0",
     "babylon": "^6.13.1",
-    "bluebird": "^3.3.5",
+    "bluebird": "^3.5.1",
     "escape-regexp": "0.0.1",
     "glob": "^7.0.3",
     "line-number": "^0.1.0",
