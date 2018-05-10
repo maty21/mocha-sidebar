@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.18.1",
+  "version": "0.18.2",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -223,7 +223,6 @@
       }
     ],
     "views": {
-     
       "test": [
         {
           "id": "mocha",
