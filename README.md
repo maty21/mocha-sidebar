@@ -26,6 +26,7 @@
 * [x] see tests results directly on the code 
 * [x] run/debug results directly from the code 
 * [x] see test errors as decoration
+* [x] NEW add context menu on folders in explorer to set subdirectory (#2). 
 
 #### not supported yet
 * [ ] split tests into files separation for the top level hierarchy
