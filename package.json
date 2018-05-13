@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.18.1",
+  "version": "0.20.0",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -45,13 +45,20 @@
     "onCommand:mocha.runFailedTests",
     "onCommand:mocha.runTestsByPattern",
     "onCommand:mocha.runLastSetAgain",
-    "onCommand:mocha.runLastSetAgain",
+    "onCommand:mocha-maty.toggleCoverage",
     "onView:autoPlay",
     "onView:mocha"
   ],
   "main": "./extension",
   "contributes": {
     "menus": {
+      "editor/context": [
+        {
+          "command": "mocha-maty.toggleCoverage",
+          "when": "editorTextFocus",
+          "group": "mocha"
+      }
+      ],
       "view/title": [
         {
           "command": "mocha-maty.refreshExplorer",
@@ -133,6 +140,10 @@
       },
       {
         "command": "mocha.runLastSetAgain",
+        "title": "Mocha: Run last set again"
+      },
+      {
+        "command": "mocha-maty.toggleCoverage",
         "title": "Mocha: Run last set again"
       },
       {

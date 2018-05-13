@@ -27,6 +27,11 @@ class changesNotification {
             }
             console.log(`onDidSaveTextDocument: ${editor}`)
         })
+        
+        vscode.debug.onDidChangeBreakpoints(editor=>{
+            console.log(editor);
+        })
+
         vscode.workspace.onDidChangeTextDocument(editor => {
             //just a simple semaphore for avoiding multiple calls
             if (!this.onChangeTimeOutActive) {

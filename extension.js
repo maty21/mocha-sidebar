@@ -94,6 +94,18 @@ function activate(context) {
       //runAllTests();
     }
   }))
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.toggleCoverage', (element) => {
+    if (hasWorkspace()) {
+      try {
+        coverage.toggleCoverage();
+        
+      } catch (e) {
+        console.log(e);
+      } 
+     // _mochaProvider.runDescriberLevelTest(element);
+      //runAllTests();
+    }
+  }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.refreshExplorer', (element) => {
     if (hasWorkspace()) {
       _mochaProvider.refreshExplorer(element);
