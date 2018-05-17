@@ -57,7 +57,7 @@
           "command": "mocha-maty.toggleCoverage",
           "when": "editorTextFocus",
           "group": "mocha"
-      }
+        }
       ],
       "view/title": [
         {
@@ -261,7 +261,8 @@
           "default": {
             "enable": true,
             "decoration": true,
-            "autoUpdateTime": 2000
+            "autoUpdateTime": 2000,
+            "reporters": []
           },
           "description": "code coverage with istanbul "
         },
@@ -345,6 +346,7 @@
     "lodash.isobject": "^3.0.2",
     "mocha": "^2.5.3",
     "nyc": "^11.7.3",
+    "rimraf": "^2.6.2",
     "split-lines": "^1.1.0",
     "stacktrace-parser": "^0.1.4"
   }

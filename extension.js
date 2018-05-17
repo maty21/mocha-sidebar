@@ -20,7 +20,7 @@ const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
 
-const coverage = require('./lib/code-coverage');
+const coverage = require('./lib/coverage/code-coverage');
 
 const getOnTerminateFunc = func => {
   const noop = function () { };

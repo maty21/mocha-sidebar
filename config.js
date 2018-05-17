@@ -19,3 +19,4 @@ exports.requires = () => {
 };
 exports.sideBarOptions = () => getConfiguration().sideBarOptions;
 exports.coverage = () => getConfiguration().coverage
+exports.coverageReporters = () => getConfiguration().coverage.reporters

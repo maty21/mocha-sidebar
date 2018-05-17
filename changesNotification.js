@@ -3,7 +3,7 @@ const vscode = require('vscode');
 const Glob = require('glob').Glob;
 const path = require('path');
 const { runTestsOnSave, files, sideBarOptions, coverage } = require('./config');
-const codeCoverage = require('./lib/code-coverage');
+const codeCoverage = require('./lib/coverage/code-coverage');
 class changesNotification {
     constructor(mochaProvider, lensProvider) {
         this._autoPlayOnSave = (runTestsOnSave() == 'true');
