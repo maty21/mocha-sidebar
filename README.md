@@ -87,6 +87,9 @@ Under File > Preferences > Workspace Settings, you can configure [Mocha options]
 //Mocha: run tests on each save
 "mocha.runTestsOnSave": "false",
 
+// show popup when error
+"mocha.showErrorPopup": true,
+
 // Mocha: Environment variables to run your tests
 "mocha.env": {},
 
@@ -173,14 +176,14 @@ To quickly run tests, you can create a keyboard shortcut under File > Preference
 
 Following commands are also supported:
 
-| Command | Title |
-|---------|-------------|
-| `mocha.runAllTests` | Mocha: Run all tests |
-| `mocha.runFailedTests` | Mocha: Run failed tests |
-| `mocha.runLastSetAgain` | Mocha: Run last set again |
-| `mocha.runTestAtCursor` | Mocha: Run tests matching the current cursor position or the current active file |
-| `mocha.runTestsByPattern` | Mocha: Run tests matching a pattern |
-| `mocha.selectAndRunTest` | Mocha: Select and run a test |
+| Command                   | Title                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `mocha.runAllTests`       | Mocha: Run all tests                                                             |
+| `mocha.runFailedTests`    | Mocha: Run failed tests                                                          |
+| `mocha.runLastSetAgain`   | Mocha: Run last set again                                                        |
+| `mocha.runTestAtCursor`   | Mocha: Run tests matching the current cursor position or the current active file |
+| `mocha.runTestsByPattern` | Mocha: Run tests matching a pattern                                              |
+| `mocha.selectAndRunTest`  | Mocha: Select and run a test                                                     |
 
 
 ### How it works

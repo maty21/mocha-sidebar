@@ -119,7 +119,8 @@ function forkWorker(workerPath, argsObject, rootPath) {
 function handleError(err, reject) {
   const qa = 'Q/A';
   const gitter = 'Gitter';
-  vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
+  if (config.showErrorPopup) {
+    vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
   error trace can be found in the ouput channel .
     for more help:`,qa,gitter).then(val=>{
     switch (val) {
@@ -132,7 +133,8 @@ function handleError(err, reject) {
       // default:
       // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
     }
-  });
+    });
+  }
   outputChannel.appendLine(err.stack);
   outputChannel.show();
   reject(err);
