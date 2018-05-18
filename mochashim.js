@@ -12,7 +12,7 @@ const
 const verboseLog = require('./provider-extensions/constLog');
 const outputChannel = vscode.window.createOutputChannel('Mocha');
 
-const {message,TYPES} = require('./worker/process-communication');
+const { message, TYPES } = require('./worker/process-communication');
 
 function envWithNodePath(rootPath) {
   return Object.assign({}, process.env, {
@@ -53,7 +53,7 @@ function forkRunTest(testFiles, grep, rootPath) {
     mochaPath: config.mochaPath()
 
   };
-  if(config.logVerbose()){
+  if (config.logVerbose()) {
     outputChannel.appendLine(`
 test runs with those args:
 
@@ -78,7 +78,7 @@ function forkFindTests(rootPath) {
     mochaPath: config.mochaPath()
   };
   findingTestLogs();
-  if(config.logVerbose()){
+  if (config.logVerbose()) {
     // outputChannel.show();
 
   }
@@ -86,7 +86,7 @@ function forkFindTests(rootPath) {
 
 }
 
-function findingTestLogs(){
+function findingTestLogs() {
   outputChannel.clear();
   outputChannel.appendLine(`____________________________________________________________________________`);
   outputChannel.appendLine(`trying to searching for tests using these settings: `);
@@ -99,11 +99,11 @@ function findingTestLogs(){
     options:  ${JSON.stringify(config.options())}
 
 `);
-outputChannel.appendLine(`if you find anything wrong please change those default settings`)
-outputChannel.appendLine(`____________________________________________________________________________`);
-// vscode.window.showErrorMessage(`Failed to run Mocha due to`,'learnMorePanel').then(val=>{
-//   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://go.microsoft.com/fwlink/?linkid=864631'));
-// });
+  outputChannel.appendLine(`if you find anything wrong please change those default settings`)
+  outputChannel.appendLine(`____________________________________________________________________________`);
+  // vscode.window.showErrorMessage(`Failed to run Mocha due to`,'learnMorePanel').then(val=>{
+  //   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://go.microsoft.com/fwlink/?linkid=864631'));
+  // });
 }
 
 function forkWorker(workerPath, argsObject, rootPath) {
@@ -119,25 +119,27 @@ function forkWorker(workerPath, argsObject, rootPath) {
 function handleError(err, reject) {
   const qa = 'Q/A';
   const gitter = 'Gitter';
-  if (config.showErrorPopup) {
+  const showErrorPopup = config.showErrorPopup();
+  outputChannel.appendLine(err.stack);
+
+  if (showErrorPopup) {
     vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
   error trace can be found in the ouput channel .
-    for more help:`,qa,gitter).then(val=>{
-    switch (val) {
-      case qa:
-       vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar#qa'));
-        break;
-        case gitter:
-        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
-        break;
-      // default:
-      // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
-    }
-    });
+    for more help:`, qa, gitter).then(val => {
+        switch (val) {
+          case qa:
+            vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar#qa'));
+            break;
+          case gitter:
+            vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
+            break;
+          // default:
+          // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
+        }
+      });
+    outputChannel.show();
+    reject(err);
   }
-  outputChannel.appendLine(err.stack);
-  outputChannel.show();
-  reject(err);
 }
 
 function appendMessagesToOutput(messages) {
@@ -153,32 +155,33 @@ function createError(errorText) {
 }
 
 
-const handleProcessMessages = async (process)=>{
-return new Promise((resolve, reject) => {
-  let msg = message(process);
-  let processMessage = null;
-    msg.on(TYPES.result,data=>{
+const handleProcessMessages = async (process) => {
+  return new Promise((resolve, reject) => {
+    let msg = message(process);
+    let processMessage = null;
+    msg.on(TYPES.result, data => {
       processMessage = data;
       console.log(data);
     })
     process.stdout.on('data', data => {
-        if(config.logVerbose()){
-          outputChannel.appendLine(data.toString())
+      if (config.logVerbose()) {
+        outputChannel.appendLine(data.toString())
 
-        }
-     });
+      }
+    });
     msg.on('error', err => {
-     let error = JSON.parse(err);
-      handleError(error, reject)})
+      let error = JSON.parse(err);
+      handleError(error, reject)
+    })
     msg.on('exit', async code => {
-        if(processMessage){
-          if (code) {
-            reject(createError('Process exited with code ' + code));
-            return;
-          }
-            resolve(processMessage);
+      if (processMessage) {
+        if (code) {
+          reject(createError('Process exited with code ' + code));
+          return;
         }
-        });
+        resolve(processMessage);
+      }
+    });
   });
 }
 
@@ -195,17 +198,17 @@ async function runTests(testFiles, grep, messages) {
   //outputChannel.appendLine(`Running tests in "${rootPath}"\n`);
 
   appendMessagesToOutput(messages);
-  let process = await  forkRunTest(testFiles, grep, rootPath)
+  let process = await forkRunTest(testFiles, grep, rootPath)
   let data = await handleProcessMessages(process)
   return data;
 }
 
-async function  findTests(rootPath) {
+async function findTests(rootPath) {
   // Allow the user to choose a different subfolder
   //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
   rootPath = applySubdirectory(rootPath);
   //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
-  let process =  await forkFindTests(rootPath)
+  let process = await forkFindTests(rootPath)
 
   let data = await handleProcessMessages(process)
   return data;
