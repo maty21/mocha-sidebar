@@ -114,6 +114,13 @@ function activate(context) {
       //runAllTests();
     }
   }))
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.coverage', (element) => {
+    if (hasWorkspace()) {
+      if(config.coverage().enable){
+        coverage.runFromNavigation();
+      }
+    }
+  }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.itemSelection', item => {
     if (hasWorkspace()) {
       _mochaProvider.itemSelection(item);

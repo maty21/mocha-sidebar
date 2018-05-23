@@ -66,6 +66,17 @@
             "stopOnEntry": false
         },
         {
+            "name": "Launch pipelineDriver",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "/home/matyz/dev/hkube/pipeline-driver/"
+            ],
+            "stopOnEntry": false
+        },
+        {
             "name": "Launch nooow",
             "type": "extensionHost",
             "request": "launch",

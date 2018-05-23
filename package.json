@@ -38,6 +38,7 @@
     "onCommand:mocha-maty.debugLevel",
     "onCommand:mocha-maty.debugItem",
     "onCommand:mocha-maty.refreshExplorer",
+    "onCommand:mocha-maty.coverage",
     "onCommand:mocha-maty.autoPlay",
     "onCommand:mocha-maty.itemSelection",
     "onCommand:mocha.runTestAtCursor",
@@ -73,6 +74,11 @@
         {
           "command": "mocha-maty.autoPlayPause",
           "when": "view == mocha&&!runAutoPlay",
+          "group": "navigation"
+        },
+        {
+          "command": "mocha-maty.coverage",
+          "when": "view == mocha",
           "group": "navigation"
         }
       ],
@@ -160,8 +166,8 @@
         "title": "Click for play",
         "category": "autoPlay",
         "icon": {
-          "light": "images/light/play-button.svg",
-          "dark": "images/dark/play-button.svg"
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
         }
       },
       {
@@ -171,6 +177,15 @@
         "icon": {
           "light": "images/light/pause-button.svg",
           "dark": "images/dark/pause-button.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.coverage",
+        "title": "Click for coverage",
+        "category": "coverage",
+        "icon": {
+          "light": "images/light/coverage/umbrella.svg",
+          "dark": "images/dark/coverage/umbrella.svg"
         }
       },
       {
@@ -262,6 +277,8 @@
             "enable": true,
             "decoration": true,
             "autoUpdateTime": 2000,
+            "activeOnStart":true,
+            "runAfterTest":false,
             "reporters": []
           },
           "description": "code coverage with istanbul "
