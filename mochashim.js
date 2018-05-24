@@ -8,7 +8,8 @@ const vscode = require('vscode');
 const _runTestsInProcess = require('./inProcess/runtestInProcess');
 const _findTestsInProcess = require('./inProcess/findtestsInProccess');
 const verboseLog = require('./provider-extensions/constLog');
-const outputChannel = vscode.window.createOutputChannel('Mocha');
+const outputChannel = vscode.window.createOutputChannel('sideBar-Mocha');
+const coverage = require('./lib/coverage/code-coverage');
 const { message, TYPES } = require('./worker/process-communication');
 
 
@@ -61,7 +62,7 @@ test runs with those args:
   return forkWorker('../worker/runtest.js', args, rootPath);
 }
 
-const forkFindTests= (rootPath)=> {
+const forkFindTests = (rootPath) => {
   const args = {
     files: {
       glob: config.files().glob,
@@ -78,7 +79,7 @@ const forkFindTests= (rootPath)=> {
 
 }
 
-const findingTestLogs = ()=> {
+const findingTestLogs = () => {
   outputChannel.clear();
   outputChannel.appendLine(`____________________________________________________________________________`);
   outputChannel.appendLine(`trying to searching for tests using these settings: `);
@@ -98,7 +99,7 @@ const findingTestLogs = ()=> {
   // });
 }
 
-const forkWorker = (workerPath, argsObject, rootPath)=> {
+const forkWorker = (workerPath, argsObject, rootPath) => {
   const jsPath = path.resolve(module.filename, workerPath);
   argsObject.options = config.options();
   argsObject.requires = config.requires();
@@ -108,7 +109,7 @@ const forkWorker = (workerPath, argsObject, rootPath)=> {
   return fork(jsPath, [argsString], options);
 }
 
-const handleError = (err, reject)=> {
+const handleError = (err, reject) => {
   const qa = 'Q/A';
   const gitter = 'Gitter';
   vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
@@ -130,7 +131,7 @@ const handleError = (err, reject)=> {
   reject(err);
 }
 
-const appendMessagesToOutput = (messages)=> {
+const appendMessagesToOutput = (messages) => {
   if (messages) {
     for (let message of messages) {
       outputChannel.appendLine(`${message}`);
@@ -138,7 +139,7 @@ const appendMessagesToOutput = (messages)=> {
   }
 }
 
-const createError = (errorText)=> {
+const createError = (errorText) => {
   return new Error(`Mocha sidebar: ${errorText}. See Mocha output for more info.`);
 }
 
@@ -176,11 +177,13 @@ const handleProcessMessages = async (process) => {
 
 
 
-const runTests = async(testFiles, grep, messages)=> {
+const runTests = async (testFiles, grep, messages) => {
   // Allow the user to choose a different subfolder
   const rootPath = applySubdirectory(vscode.workspace.rootPath);
   logTestArg(testFiles, grep, rootPath);
-
+  if (config.coverage().enable && config.coverage().runAfterTest) {
+    coverage.runViaRequest();
+  }
   // outputChannel.clear();
 
   //outputChannel.appendLine(`Running tests in "${rootPath}"\n`);
@@ -191,7 +194,7 @@ const runTests = async(testFiles, grep, messages)=> {
   return data;
 }
 
-const findTests= async (rootPath)=> {
+const findTests = async (rootPath) => {
   // Allow the user to choose a different subfolder
   //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
   rootPath = applySubdirectory(rootPath);

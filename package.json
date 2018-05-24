@@ -276,9 +276,10 @@
           "default": {
             "enable": true,
             "decoration": true,
-            "autoUpdateTime": 2000,
-            "activeOnStart":true,
-            "runAfterTest":false,
+            "runWithInterval": true,
+            "autoUpdateInterval": 2000,
+            "activeOnStart": true,
+            "runAfterTest": false,
             "reporters": []
           },
           "description": "code coverage with istanbul "

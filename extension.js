@@ -19,7 +19,6 @@ const mochaLensProvider = require('./provider-extensions/mochaLens')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
-
 const coverage = require('./lib/coverage/code-coverage');
 
 const getOnTerminateFunc = func => {
@@ -117,7 +116,7 @@ function activate(context) {
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.coverage', (element) => {
     if (hasWorkspace()) {
       if(config.coverage().enable){
-        coverage.runFromNavigation();
+        coverage.runViaRequest();
       }
     }
   }))
