@@ -258,6 +258,11 @@
           "default": {},
           "description": "Mocha: Options to run Mocha"
         },
+        "mocha.showErrorPopup": {
+          "default": "true",
+          "description": "Show popup when having any error while executing test",
+          "type": "boolean"
+        },
         "mocha.showInExplorer": {
           "type": "boolean",
           "default": false,
