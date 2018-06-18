@@ -276,8 +276,8 @@
           "default": {
             "enable": true,
             "decoration": true,
-            "runWithInterval": true,
-            "autoUpdateInterval": 2000,
+            "runWithInterval": false,
+            "autoUpdateInterval": 20000,
             "activeOnStart": true,
             "runAfterTest": false,
             "reporters": []
@@ -295,7 +295,7 @@
           "type": "string"
         },
         "mocha.logVerbose": {
-          "default": false,
+          "default": true,
           "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
           "type": "boolean"
         },

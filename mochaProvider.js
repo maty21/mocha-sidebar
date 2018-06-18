@@ -1,5 +1,3 @@
-
-
 const vscode = require('vscode');
 const mochaItem = require('./mochaItem');
 const runner = require('./runner');
