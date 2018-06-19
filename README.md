@@ -32,6 +32,7 @@
 * [x] see tests results directly on the code 
 * [x] run/debug results directly from the code 
 * [x] see test errors as decoration
+* [x] NEW add context menu on folders in explorer to set subdirectory (#2). 
 
 #### not supported yet
 * [ ] tree view files separation hierarchy for the top level hierarchy
@@ -207,14 +208,14 @@ To quickly run tests, you can create a keyboard shortcut under File > Preference
 
 Following commands are also supported:
 
-| Command | Title |
-|---------|-------------|
-| `mocha.runAllTests` | Mocha: Run all tests |
-| `mocha.runFailedTests` | Mocha: Run failed tests |
-| `mocha.runLastSetAgain` | Mocha: Run last set again |
-| `mocha.runTestAtCursor` | Mocha: Run tests matching the current cursor position or the current active file |
-| `mocha.runTestsByPattern` | Mocha: Run tests matching a pattern |
-| `mocha.selectAndRunTest` | Mocha: Select and run a test |
+| Command                   | Title                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `mocha.runAllTests`       | Mocha: Run all tests                                                             |
+| `mocha.runFailedTests`    | Mocha: Run failed tests                                                          |
+| `mocha.runLastSetAgain`   | Mocha: Run last set again                                                        |
+| `mocha.runTestAtCursor`   | Mocha: Run tests matching the current cursor position or the current active file |
+| `mocha.runTestsByPattern` | Mocha: Run tests matching a pattern                                              |
+| `mocha.selectAndRunTest`  | Mocha: Select and run a test                                                     |
 
 
 ### How it works

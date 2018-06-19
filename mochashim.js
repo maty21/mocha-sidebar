@@ -127,8 +127,25 @@ const handleError = (err, reject) => {
       }
     });
   outputChannel.appendLine(err.stack);
-  outputChannel.show();
-  reject(err);
+
+  if (showErrorPopup) {
+    vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
+  error trace can be found in the ouput channel .
+    for more help:`, qa, gitter).then(val => {
+        switch (val) {
+          case qa:
+            vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar#qa'));
+            break;
+          case gitter:
+            vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
+            break;
+          // default:
+          // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
+        }
+      });
+    outputChannel.show();
+    reject(err);
+  }
 }
 
 const appendMessagesToOutput = (messages) => {

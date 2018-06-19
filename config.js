@@ -11,6 +11,7 @@ exports.options = () => getConfiguration().options;
 exports.node_options = () => getConfiguration().node_options;
 exports.files = () => getConfiguration().files;
 exports.subdirectory = () => getConfiguration().subdirectory;
+exports.setSubdirectory = (subdirectory)=>getConfiguration().update('subdirectory',subdirectory);
 exports.requires = () => {
   const files = getConfiguration().requires || [];
   if (!Array.isArray(files))
@@ -20,3 +21,4 @@ exports.requires = () => {
 exports.sideBarOptions = () => getConfiguration().sideBarOptions;
 exports.coverage = () => getConfiguration().coverage
 exports.coverageReporters = () => getConfiguration().coverage.reporters
+exports.showErrorPopup = () => getConfiguration().showErrorPopup;

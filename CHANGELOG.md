@@ -3,6 +3,14 @@
  
 ===
 
+0.19.1 (04.06.18)
+ - add config to disable error popup (#105)
+===
+
+0.19.0 (10.5.18)
+ - add context menu on folders in explorer to set subdirectory (#2). 
+ - fix debug with subdirectory set
+===
 
 0.18.2 (9.5.2018)
  - merge pr #66  #92 - change readme for the correct settings

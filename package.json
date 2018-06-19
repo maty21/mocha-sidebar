@@ -41,6 +41,7 @@
     "onCommand:mocha-maty.coverage",
     "onCommand:mocha-maty.autoPlay",
     "onCommand:mocha-maty.itemSelection",
+    "onCommand:mocha-maty.setSubdirectory",
     "onCommand:mocha.runTestAtCursor",
     "onCommand:mocha.selectAndRunTest",
     "onCommand:mocha.runFailedTests",
@@ -58,6 +59,11 @@
           "command": "mocha-maty.toggleCoverage",
           "when": "editorTextFocus",
           "group": "mocha"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "mocha-maty.setSubdirectory",
+          "group": "7_modification"
         }
       ],
       "view/title": [
@@ -116,6 +122,10 @@
       ]
     },
     "commands": [
+      {
+        "command": "mocha-maty.setSubdirectory",
+        "title": "Set mocha-sidebar subdirectory"
+      },
       {
         "command": "mocha.runAllTests",
         "title": "Mocha: Run all tests"
@@ -284,6 +294,11 @@
           },
           "description": "code coverage with istanbul "
         },
+        "mocha.showErrorPopup": {
+          "default": "true",
+          "description": "Show popup when having any error while executing test",
+          "type": "boolean"
+        },
         "mocha.showInExplorer": {
           "type": "boolean",
           "default": false,
@@ -343,6 +358,11 @@
             "showDebugTestStatus": true
           },
           "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
+        },
+        "mocha.subdirectory": {
+          "default": "",
+          "type": "string",
+          "description": "Sets a subdirectory as the root for mocha-sidebar"
         }
       }
     }
@@ -354,7 +374,7 @@
     "await-done": "^1.0.1",
     "babel-register": "^6.26.0",
     "babylon": "^6.13.1",
-    "bluebird": "^3.3.5",
+    "bluebird": "^3.5.1",
     "escape-regexp": "0.0.1",
     "glob": "^7.0.3",
     "lcov-parse": "^1.0.0",
