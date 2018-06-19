@@ -1,3 +1,14 @@
+0.20.1 (18.9.2018)
+ - add new feature for code coverage 
+ 
+===
+
+
+0.18.2 (9.5.2018)
+ - merge pr #66  #92 - change readme for the correct settings
+ 
+===
+
 0.18.1 (9.5.2018)
  - fix #96  - change readme to the correct settings
  - change  expect_error image to https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif for           supporting showing in vscode marketplace pages 
