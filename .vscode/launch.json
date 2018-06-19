@@ -61,7 +61,18 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/yehil/dev/hkube-common/etcd.hkube/"
+                "/home/matyz/dev/hkube-common/etcd.hkube/"
+            ],
+            "stopOnEntry": false
+        },
+        {
+            "name": "Launch pipelineDriver",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "/home/matyz/dev/hkube/pipeline-driver/"
             ],
             "stopOnEntry": false
         },

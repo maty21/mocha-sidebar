@@ -1,26 +1,25 @@
 'use strict';
 
-const
-  config = require('./config'),
-  fork = require('./fork'),
-  path = require('path'),
-  Promise = require('bluebird'),
-  vscode = require('vscode'),
-  _runTestsInProcess = require('./inProcess/runtestInProcess'),
-  _findTestsInProcess = require('./inProcess/findtestsInProccess');
-
+const config = require('./config');
+const fork = require('./fork');
+const path = require('path');
+const Promise = require('bluebird');
+const vscode = require('vscode');
+const _runTestsInProcess = require('./inProcess/runtestInProcess');
+const _findTestsInProcess = require('./inProcess/findtestsInProccess');
 const verboseLog = require('./provider-extensions/constLog');
-const outputChannel = vscode.window.createOutputChannel('Mocha');
-
+const outputChannel = vscode.window.createOutputChannel('sideBar-Mocha');
+const coverage = require('./lib/coverage/code-coverage');
 const { message, TYPES } = require('./worker/process-communication');
 
-function envWithNodePath(rootPath) {
+
+const envWithNodePath = (rootPath) => {
   return Object.assign({}, process.env, {
     NODE_PATH: `${rootPath}${path.sep}node_modules`
   }, config.env());
 }
 
-function applySubdirectory(rootPath) {
+const applySubdirectory = (rootPath) => {
   const subdirectory = config.subdirectory()
 
   if (subdirectory)
@@ -29,14 +28,8 @@ function applySubdirectory(rootPath) {
   return rootPath;
 }
 
-// function stripWarnings(text) { // Remove node.js warnings, which would make JSON parsing fail
 
-//   let newText = text.replace(/\(node:\d+\)\s[^\n]+/g, "");
-
-//   return newText
-// }
-
-function logTestArg(testFiles, grep, rootPath) {
+const logTestArg = (testFiles, grep, rootPath) => {
   console.log(`test arg: ${JSON.stringify({
     files: testFiles,
     options: config.options(),
@@ -46,7 +39,7 @@ function logTestArg(testFiles, grep, rootPath) {
   })}`);
 }
 
-function forkRunTest(testFiles, grep, rootPath) {
+const forkRunTest = (testFiles, grep, rootPath) => {
   const args = {
     files: testFiles,
     grep,
@@ -69,7 +62,7 @@ test runs with those args:
   return forkWorker('../worker/runtest.js', args, rootPath);
 }
 
-function forkFindTests(rootPath) {
+const forkFindTests = (rootPath) => {
   const args = {
     files: {
       glob: config.files().glob,
@@ -86,7 +79,7 @@ function forkFindTests(rootPath) {
 
 }
 
-function findingTestLogs() {
+const findingTestLogs = () => {
   outputChannel.clear();
   outputChannel.appendLine(`____________________________________________________________________________`);
   outputChannel.appendLine(`trying to searching for tests using these settings: `);
@@ -106,7 +99,7 @@ function findingTestLogs() {
   // });
 }
 
-function forkWorker(workerPath, argsObject, rootPath) {
+const forkWorker = (workerPath, argsObject, rootPath) => {
   const jsPath = path.resolve(module.filename, workerPath);
   argsObject.options = config.options();
   argsObject.requires = config.requires();
@@ -116,10 +109,23 @@ function forkWorker(workerPath, argsObject, rootPath) {
   return fork(jsPath, [argsString], options);
 }
 
-function handleError(err, reject) {
+const handleError = (err, reject) => {
   const qa = 'Q/A';
   const gitter = 'Gitter';
-  const showErrorPopup = config.showErrorPopup();
+  vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
+  error trace can be found in the ouput channel .
+    for more help:`, qa, gitter).then(val => {
+      switch (val) {
+        case qa:
+          vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar#qa'));
+          break;
+        case gitter:
+          vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
+          break;
+        // default:
+        // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
+      }
+    });
   outputChannel.appendLine(err.stack);
 
   if (showErrorPopup) {
@@ -142,7 +148,7 @@ function handleError(err, reject) {
   }
 }
 
-function appendMessagesToOutput(messages) {
+const appendMessagesToOutput = (messages) => {
   if (messages) {
     for (let message of messages) {
       outputChannel.appendLine(`${message}`);
@@ -150,7 +156,7 @@ function appendMessagesToOutput(messages) {
   }
 }
 
-function createError(errorText) {
+const createError = (errorText) => {
   return new Error(`Mocha sidebar: ${errorText}. See Mocha output for more info.`);
 }
 
@@ -188,11 +194,13 @@ const handleProcessMessages = async (process) => {
 
 
 
-async function runTests(testFiles, grep, messages) {
+const runTests = async (testFiles, grep, messages) => {
   // Allow the user to choose a different subfolder
   const rootPath = applySubdirectory(vscode.workspace.rootPath);
   logTestArg(testFiles, grep, rootPath);
-
+  if (config.coverage().enable && config.coverage().runAfterTest) {
+    coverage.runViaRequest();
+  }
   // outputChannel.clear();
 
   //outputChannel.appendLine(`Running tests in "${rootPath}"\n`);
@@ -203,7 +211,7 @@ async function runTests(testFiles, grep, messages) {
   return data;
 }
 
-async function findTests(rootPath) {
+const findTests = async (rootPath) => {
   // Allow the user to choose a different subfolder
   //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
   rootPath = applySubdirectory(rootPath);
@@ -216,8 +224,8 @@ async function findTests(rootPath) {
 }
 
 
-module.exports.runTests = runTests;
-
-module.exports.findTests = findTests;
-
-module.exports.outputChannel = outputChannel;
+module.exports = {
+  runTests,
+  findTests,
+  outputChannel,
+} 

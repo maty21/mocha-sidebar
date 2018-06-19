@@ -2,7 +2,8 @@
 const vscode = require('vscode');
 const Glob = require('glob').Glob;
 const path = require('path');
-const { runTestsOnSave, files, sideBarOptions } = require('./config');
+const { runTestsOnSave, files, sideBarOptions, coverage } = require('./config');
+const codeCoverage = require('./lib/coverage/code-coverage');
 class changesNotification {
     constructor(mochaProvider, lensProvider) {
         this._autoPlayOnSave = (runTestsOnSave() == 'true');
@@ -15,6 +16,9 @@ class changesNotification {
         vscode.window.onDidChangeActiveTextEditor(editor => {
             console.log(`onDidChangeActiveTextEditor: ${editor}`)
             this._updatePathOnTestChange(editor, 1000)
+            if (coverage().enable) {
+                codeCoverage.updateDecorationByFile();
+            }
             //    this._mochaProvider.updateDecorations(editor.document.fileName);
         })
         vscode.workspace.onDidSaveTextDocument(editor => {
@@ -23,6 +27,18 @@ class changesNotification {
             }
             console.log(`onDidSaveTextDocument: ${editor}`)
         })
+
+        vscode.debug.onDidChangeBreakpoints(breakpoints => {
+            // console.log(editor);
+          /*   Object.values(breakpoints).forEach(v => {
+                if (v.length > 0) {
+                    codeCoverage.updateDecorationAfterNotification(v[0].location.uri.path, v[0].location.range._start._line + 1);
+                }
+            }) */
+            codeCoverage.updateDecorationByFile();
+
+        })
+
         vscode.workspace.onDidChangeTextDocument(editor => {
             //just a simple semaphore for avoiding multiple calls
             if (!this.onChangeTimeOutActive) {

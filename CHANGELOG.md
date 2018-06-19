@@ -1,3 +1,8 @@
+0.20.1 (18.9.2018)
+ - add new feature for code coverage 
+ 
+===
+
 0.19.1 (04.06.18)
  - add config to disable error popup (#105)
 ===

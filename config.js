@@ -19,4 +19,6 @@ exports.requires = () => {
   return files.map(s => s.toString());
 };
 exports.sideBarOptions = () => getConfiguration().sideBarOptions;
+exports.coverage = () => getConfiguration().coverage
+exports.coverageReporters = () => getConfiguration().coverage.reporters
 exports.showErrorPopup = () => getConfiguration().showErrorPopup;

@@ -2,7 +2,7 @@
   "name": "vscode-mocha-sidebar",
   "displayName": "Mocha sidebar",
   "description": "Mocha side bar is the most complete extension for mocha testing, based on not maintained mocha extension , have fun :)",
-  "version": "0.19.1",
+  "version": "0.20.1",
   "publisher": "maty",
   "engines": {
     "vscode": "^0.10.1"
@@ -38,6 +38,7 @@
     "onCommand:mocha-maty.debugLevel",
     "onCommand:mocha-maty.debugItem",
     "onCommand:mocha-maty.refreshExplorer",
+    "onCommand:mocha-maty.coverage",
     "onCommand:mocha-maty.autoPlay",
     "onCommand:mocha-maty.itemSelection",
     "onCommand:mocha-maty.setSubdirectory",
@@ -46,14 +47,19 @@
     "onCommand:mocha.runFailedTests",
     "onCommand:mocha.runTestsByPattern",
     "onCommand:mocha.runLastSetAgain",
-    "onCommand:mocha.runLastSetAgain",
+    "onCommand:mocha-maty.toggleCoverage",
     "onView:autoPlay",
     "onView:mocha"
   ],
   "main": "./extension",
   "contributes": {
     "menus": {
-      "explorer/context": [
+      "editor/context": [
+        {
+          "command": "mocha-maty.toggleCoverage",
+          "when": "editorTextFocus",
+          "group": "mocha"
+        },
         {
           "when": "explorerResourceIsFolder",
           "command": "mocha-maty.setSubdirectory",
@@ -74,6 +80,11 @@
         {
           "command": "mocha-maty.autoPlayPause",
           "when": "view == mocha&&!runAutoPlay",
+          "group": "navigation"
+        },
+        {
+          "command": "mocha-maty.coverage",
+          "when": "view == mocha",
           "group": "navigation"
         }
       ],
@@ -148,6 +159,10 @@
         "title": "Mocha: Run last set again"
       },
       {
+        "command": "mocha-maty.toggleCoverage",
+        "title": "Mocha: Run last set again"
+      },
+      {
         "command": "mocha-maty.refreshExplorer",
         "title": "Refresh",
         "category": "mocha",
@@ -161,8 +176,8 @@
         "title": "Click for play",
         "category": "autoPlay",
         "icon": {
-          "light": "images/light/play-button.svg",
-          "dark": "images/dark/play-button.svg"
+          "light": "images/light/play-side.svg",
+          "dark": "images/dark/play-side.svg"
         }
       },
       {
@@ -172,6 +187,15 @@
         "icon": {
           "light": "images/light/pause-button.svg",
           "dark": "images/dark/pause-button.svg"
+        }
+      },
+      {
+        "command": "mocha-maty.coverage",
+        "title": "Click for coverage",
+        "category": "coverage",
+        "icon": {
+          "light": "images/light/coverage/umbrella.svg",
+          "dark": "images/dark/coverage/umbrella.svg"
         }
       },
       {
@@ -258,6 +282,18 @@
           "default": {},
           "description": "Mocha: Options to run Mocha"
         },
+        "mocha.coverage": {
+          "default": {
+            "enable": true,
+            "decoration": true,
+            "runWithInterval": false,
+            "autoUpdateInterval": 20000,
+            "activeOnStart": true,
+            "runAfterTest": false,
+            "reporters": []
+          },
+          "description": "code coverage with istanbul "
+        },
         "mocha.showErrorPopup": {
           "default": "true",
           "description": "Show popup when having any error while executing test",
@@ -274,7 +310,7 @@
           "type": "string"
         },
         "mocha.logVerbose": {
-          "default": false,
+          "default": true,
           "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
           "type": "boolean"
         },
@@ -341,11 +377,14 @@
     "bluebird": "^3.5.1",
     "escape-regexp": "0.0.1",
     "glob": "^7.0.3",
+    "lcov-parse": "^1.0.0",
     "line-number": "^0.1.0",
     "lodash.assign": "^4.2.0",
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "mocha": "^2.5.3",
+    "nyc": "^11.7.3",
+    "rimraf": "^2.6.2",
     "split-lines": "^1.1.0",
     "stacktrace-parser": "^0.1.4"
   }
