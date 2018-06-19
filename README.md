@@ -14,7 +14,7 @@
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
 ### **NEW** coverage  (via istanbul) soon on independent package also
-![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/coverage.gif)
+![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
