@@ -16,13 +16,12 @@
 ### **NEW** coverage  (via istanbul) soon on independent package also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/coverage.gif)
 
-!**Important note**  there is an open issue in vscode that its not able to select/ render two different decoration in the same line - **try F9/ or hide show decoration by clicking on the status bar  
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
 ##### Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
 
-#### mocha side bar already supports this features
+#### mocha side bar already supports this features (feel free to propose new features 
 * [x] New code coverage support
 * [x] see all tests in vscode side bar menu
 * [x] git lens for running/debbuging directly form the code
@@ -35,9 +34,15 @@
 * [x] see test errors as decoration
 
 #### not supported yet
-* [ ] split tests into files separation for the top level hierarchy
+* [ ] tree view files separation hierarchy for the top level hierarchy
 
-feel free to propose new features 
+#### known issues
+* **Coverage**- there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
+* **Wokespace**-   Currently not supported there is a workaround for solving it for more details [#107](https://github.com/maty21/mocha-sidebar/issues/107)
+
+
+
+
 
 #### Contributors:
 - Maty Zisserman
@@ -116,9 +121,9 @@ No one shoe could fit everyone. You may need to turn some switches on to fit you
 | `mocha.options` |   Options to run Mocha |`{}` |
 | `mocha.files.glob` |  Globs to ignore when searching for test files|`test/**/*.js`
 | `mocha.files.ignore` |  Globs to ignore when searching for test files |``` "mocha.files.ignore": [  "**/.git/**/*",  "**/node_modules/**/*" ], ``` |
-| `"mocha.env` | Environment variables to run your tests | `"false"`|
+| `mocha.env` | Environment variables to run your tests | `"false"`|
 | `mocha.path` |set other mocha path then the built-in one only path to mocha package ../node_modules/mocha |`"../node_modules/mocha"`|
-| `"mocha.logVerbose` |set mocha side bar log verbose for seeing in the output there are to different output sidebar-mocha for seeing mocha output and sidebar-coverage for seeing coverage output  |`true`|
+| `mocha.logVerbose` |set mocha side bar log verbose for seeing in the output there are to different output sidebar-mocha for seeing mocha output and sidebar-coverage for seeing coverage output  |`true`|
 
 
 ### SideBar options
