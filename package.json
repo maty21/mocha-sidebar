@@ -290,6 +290,7 @@
             "autoUpdateInterval": 20000,
             "activeOnStart": true,
             "runAfterTest": false,
+            "runCoverageAfterFileSave":false,
             "reporters": []
           },
           "description": "code coverage with istanbul "

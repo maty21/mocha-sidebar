@@ -25,6 +25,9 @@ class changesNotification {
             if (this._autoPlayOnSave) {
                 this._mochaProvider.runAllTests(this._mochaProvider.item);
             }
+            if (coverage().enable && coverage().runCoverageAfterFileSave) {
+                codeCoverage.runViaRequest();
+              }
             console.log(`onDidSaveTextDocument: ${editor}`)
         })
 

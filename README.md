@@ -13,9 +13,10 @@
 ### **expect error  messages**  (similar to wallaby implementation)
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
-### **NEW coverage**  (via istanbul) soon on independent package also
+### **NEW coverage**  (via istanbul) soon as independent extension also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
+#### * **important Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
@@ -96,11 +97,12 @@ Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/
         ],
 
         ``` 
-   -  **question -** cant check breakpoint when coverage is running
-      **answer 1 -** try F9 - that is an vscode issue that its not able to select/ render two different decoration in the same place
-     **answer -** you can enable disable coverage decoration by clicking on the status bar so you can open it only if its metter
- 
-   -  **question -** all tests not working  
+  -  **question -** cant check breakpoint when coverage is running  
+      **answer** 
+     -    **step1** -  try F9 - that is an vscode issue that its not able to select/ render two different decoration in the same place   
+     -    **step2** -  you can enable disable coverage decoration by clicking on the status bar so you can open it only if its matter  
+     
+  -  **question -** all tests not working  
       **answer -** verify that there is no describe or test with the name "test" (should be fix soon)    
 
         if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)  
@@ -172,7 +174,10 @@ No one shoe could fit everyone. You may need to turn some switches on to fit you
 | `runWithInterval` | auto coverage running   |`false`|
 | `autoUpdateInterval` | incase `runWithInterval`  is enable that option allows you to decide on each interval coverage will run  |`20000`|
 | `runAfterTest` |allows you to update coverage status after test running   |`false`|
+| `runCoverageAfterFileSave` | allows you to update coverage status after file save|`false`|
 | `reporters` | allows you to add more reporters other than the default html text lcov |`[]`|
+
+
 
 ### Configuring Mocha options
 Under File > Preferences > Workspace Settings, you can configure [Mocha options](https://github.com/mochajs/mocha/blob/master/lib/mocha.js), e.g. run in "tdd" mode, detect/ignore leaks, etc.
