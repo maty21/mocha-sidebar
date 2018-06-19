@@ -14,7 +14,7 @@
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
 ### **NEW** coverage  (via istanbul) soon on independent package also
-![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/coverage.gif)
+![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
 !**Important note**  there is an open issue in vscode that its not able to select/ render two different decoration in the same line - **try F9/ or hide show decoration by clicking on the status bar  
 
