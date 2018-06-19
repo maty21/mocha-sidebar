@@ -4,16 +4,16 @@
 [![Ratings](https://vsmarketplacebadge.apphb.com/rating/maty.vscode-mocha-sidebar.svg)](https://marketplace.visualstudio.com/items?itemName=maty.vscode-mocha-sidebar)
 [![Github Stars](https://img.shields.io/github/stars/maty21/mocha-sidebar.svg?style=flat-sqaure&label=Stars)](https://github.com/maty21/mocha-sidebar)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mocha-sidebar/Questions)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mocha-sidebar/Questions)
 
 
-### sidebar (currently running in the new test view by default)
+
+### **sidebar** (new running in the new test view by default)
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
 
-### expect error  messages  (similar to wallaby implementation)
+### **expect error  messages**  (similar to wallaby implementation)
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
-### **NEW** coverage  (via istanbul) soon on independent package also
+### **NEW coverage**  (via istanbul) soon on independent package also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
 
