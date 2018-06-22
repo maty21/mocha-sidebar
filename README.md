@@ -105,7 +105,7 @@ Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/
   -  **question -** all tests not working  
       **answer -** verify that there is no describe or test with the name "test" (should be fix soon)    
 
-  -  **question -** Mocha Sideboar is not working on Windows with WSL (Error: Cannot find Node.js installation from environment variable) 
+  -  **question -** Mocha Sidebar is not working on Windows with WSL (Error: Cannot find Node.js installation from environment variable) 
       **answer -** update your PATH in ~/.profile to `PATH="$HOME/bin:$HOME/.local/bin:/usr/bin:$PATH"` + restart VS Code (read more about this here: https://stackoverflow.com/a/44450219/1782659)
 
         if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)  
