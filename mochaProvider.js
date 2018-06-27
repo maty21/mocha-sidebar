@@ -54,7 +54,7 @@ class mochaProvider {
                 }
                 else {
                     let name = i == 0 ? __test.suitePath[i] : this._trimLastDescriber(__test, i);
-                    if (!objCurrentPos[name]) {
+                    if (!objCurrentPos.hasOwnProperty(name)) {
                         let meta = null;
                         if (name != "") {
                             meta = navigateEditorItem(__test.file, name);

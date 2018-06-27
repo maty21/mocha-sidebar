@@ -3,3 +3,5 @@ node_modules
 .vscode/symbols.json
 .vagrant
 .history
+**/.nyc_output
+**/coverage

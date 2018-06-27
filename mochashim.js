@@ -112,6 +112,7 @@ const forkWorker = (workerPath, argsObject, rootPath) => {
 const handleError = (err, reject) => {
   const qa = 'Q/A';
   const gitter = 'Gitter';
+  const showErrorPopup = config.showErrorPopup();
   vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
   error trace can be found in the ouput channel .
     for more help:`, qa, gitter).then(val => {
