@@ -380,16 +380,17 @@
         "babylon": "^6.13.1",
         "bluebird": "^3.5.1",
         "escape-regexp": "0.0.1",
+        "escape-string-regexp": "^1.0.5",
         "glob": "^7.0.3",
+        "lcov-parse": "^1.0.0",
         "line-number": "^0.1.0",
         "lodash.assign": "^4.2.0",
         "lodash.forin": "^4.4.0",
         "lodash.isobject": "^3.0.2",
         "mocha": "^2.5.3",
-        "split-lines": "^1.1.0",
-        "stacktrace-parser": "^0.1.4",
-        "lcov-parse": "^1.0.0",
         "nyc": "^11.7.3",
-        "rimraf": "^2.6.2"
+        "rimraf": "^2.6.2",
+        "split-lines": "^1.1.0",
+        "stacktrace-parser": "^0.1.4"
     }
 }

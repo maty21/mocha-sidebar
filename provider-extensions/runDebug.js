@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const escapeStringRegexp = require('escape-string-regexp');
 const { callDone, done } = require('await-done');
 const path = require('path');
 let mochaPath = require.resolve('mocha');
@@ -119,7 +120,7 @@ const debugLevel = async (element, functionOnTerminate) => {
     for (let t of tests) {
         currentElement = t;
         let glob = config.files().glob || "./test/**/*.js";
-        mochaTest.args = [glob, '--grep', `^${t.fullName}$`]
+        mochaTest.args = [glob, '--grep', `^${escapeStringRegexp(t.fullName)}$`]
         mochaTest.args = addRequires(mochaTest.args);
         mochaTest.args = addOptions(mochaTest.args);
         mochaTest.cwd = applySubdirectory(vscode.workspace.rootPath);
@@ -138,7 +139,7 @@ const debugItem = async (element, functionOnTerminate) => {
     callFunctionOnTerminate = functionOnTerminate.bind(_provider);
     currentElement = element;
     let glob = config.files().glob || "./test/**/*.js";
-    mochaTest.args = [glob, '--grep', `^${element.item.__test.fullName}$`]
+    mochaTest.args = [glob, '--grep', `^${escapeStringRegexp(element.item.__test.fullName)}$`]
     mochaTest.args = addRequires(mochaTest.args);
     mochaTest.args = addOptions(mochaTest.args);
     mochaTest.cwd = applySubdirectory(vscode.workspace.rootPath);
