@@ -1,3 +1,8 @@
+0.20.12 (28.6.2018)
+ - fix issue cannot show test suite name like "toString" #119
+ - fix issue Unescaped regex characters in grep for test name #112, #118, #99
+===
+
 0.20.1 (18.9.2018)
  - add new feature for code coverage 
  
