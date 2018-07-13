@@ -26,12 +26,15 @@ class mochaLens extends abstractCodeLens {
     }
 
     get selector() {
-        return {
+        return [{
             language: 'javascript',
             scheme: 'file',
             // pattern: files().glob,
             //group: ['tags', 'statuses'],
-        }
+        }, {
+            language: 'typescript',
+            scheme: 'file',
+        }];
     }
     raiseEventOnUpdate() {
         this.reload();
