@@ -2,10 +2,10 @@ const vscode = require('vscode');
 const escapeStringRegexp = require('escape-string-regexp');
 const { callDone, done } = require('await-done');
 const path = require('path');
-let mochaPath = require.resolve('mocha');
+const config = require('../config');
+let mochaPath = require.resolve(config.mochaPath());
 mochaPath = path.dirname(mochaPath);
 mochaPath = path.join(mochaPath, 'bin', '_mocha');
-const config = require('../config');
 let mochaTest = {
     "name": "Mocha Tests",
     "type": "node",
