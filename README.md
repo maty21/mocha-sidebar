@@ -74,28 +74,22 @@ Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/
 
   -  **question -** can't run typescript (ts-node compiler)  
      **answer**         
-       - **step1** - verify that your configuration correct 
+       - **step1** - try to install ``typescript`` and ``ts-node`` package locally  (not with -g)    
+       - **step2** - verify you using ``ts-node`` that support ``import`` I used ``7.0.0`` 
+       - **step3** - verify that your configuration correct 
         ```js
-        "mocha.options": {
-            "compilers": "ts:ts-node/register"
-        },
         "mocha.requires": [
             "ts-node/register"
         ],
-        ``` 
-       - **step2** - try to install typescript package locally  (not with -g)    
+        ```
+       * if you still have problems you can try running typescript test [typeScript-test](https://github.com/maty21/mocha-sidebar/tree/master/test/typeScript-test) on your pc  
     -  **question -** can't run babel-register compiler  
-       **answer -** verify that your configuration correct 
+       **answer -** verify that your configuration correct
+       
         ```js
-        "mocha.options": {
-        "compilers": {
-             "js": "babel-register"
-          }
-        },
         "mocha.requires": [
             "babel-register"
-        ],
-
+        ]
         ``` 
   -  **question -** cant check breakpoint when coverage is running  
       **answer** 
