@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "emitDecoratorMetadata": true,
+        "removeComments": false,
+        "module": "commonjs",
+        "diagnostics": false,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "sourceMap": false,
+        "target": "ES6",
+        "allowJs": true,
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "allowUnusedLabels": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

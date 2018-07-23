@@ -11,7 +11,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/yehil/dev/typescriptMocha"
+                "${workspaceRoot}/test/typeScript-test"
             ],
             "stopOnEntry": false,
            
