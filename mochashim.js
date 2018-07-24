@@ -11,7 +11,8 @@ const verboseLog = require('./provider-extensions/constLog');
 const outputChannel = vscode.window.createOutputChannel('sideBar-Mocha');
 const coverage = require('./lib/coverage/code-coverage');
 const { message, TYPES } = require('./worker/process-communication');
-
+// will notify once on error 
+let IsErrorShown = false;
 
 const envWithNodePath = (rootPath) => {
   return Object.assign({}, process.env, {
@@ -112,25 +113,14 @@ const forkWorker = (workerPath, argsObject, rootPath) => {
 const handleError = (err, reject) => {
   const qa = 'Q/A';
   const gitter = 'Gitter';
-  const showErrorPopup = config.showErrorPopup();
-  vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
-  error trace can be found in the ouput channel .
-    for more help:`, qa, gitter).then(val => {
-      switch (val) {
-        case qa:
-          vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar#qa'));
-          break;
-        case gitter:
-          vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://gitter.im/mocha-sidebar/Questions'));
-          break;
-        // default:
-        // vscode.commands.executeCommand('vscode.open', vscode.Uri.parse('https://github.com/maty21/mocha-sidebar'))
-      }
-    });
+  //const showErrorPopup = config.showErrorPopup();
   outputChannel.appendLine(err.stack);
 
-  if (showErrorPopup) {
-    vscode.window.showErrorMessage(`Failed to run Mocha due to error message:( ${err.message}) .
+
+  if (!IsErrorShown) {
+    IsErrorShown = true;
+    vscode.window.showErrorMessage(`Failed to run Mocha due to error message:               
+    "   ${err.message}  " 
   error trace can be found in the ouput channel .
     for more help:`, qa, gitter).then(val => {
         switch (val) {

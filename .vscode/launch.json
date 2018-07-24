@@ -2,46 +2,47 @@
 {
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "Launch Extension Typescript",
             "type": "extensionHost",
             "request": "launch",
-        
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
                 "${workspaceRoot}/test/typeScript-test"
             ],
             "stopOnEntry": false,
-           
             "env": {
-                "MOCHA_DEBUG":"false"
-
+                "MOCHA_DEBUG": "false"
             }
-               
-                    
-               
+        },
+        {
+            "name": "Launch Extension babel",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                " /home/matyz/dev/open-source/grabage/babel"
+            ],
+            "stopOnEntry": false,
+            "env": {
+                "MOCHA_DEBUG": "false"
+            }
         },
         {
             "name": "Launch Extension",
             "type": "extensionHost",
             "request": "launch",
-        
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
                 "${workspaceRoot}/test/workspace"
             ],
             "stopOnEntry": false,
-           
             "env": {
-                "MOCHA_DEBUG":"false"
-
+                "MOCHA_DEBUG": "false"
             }
-               
-                    
-               
         },
         {
             "name": "Launch worker",
