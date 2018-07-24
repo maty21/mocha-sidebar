@@ -1,3 +1,6 @@
+0.20.17 (23.7.2018)
+===
+ - fix issue 120 by adding flag which shows error only once 
 0.20.14 (23.7.2018)
 ===
  - update mocha version
