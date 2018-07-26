@@ -41,7 +41,7 @@
             ],
             "stopOnEntry": false,
             "env": {
-                "MOCHA_DEBUG": "false"
+                "MOCHA_DEBUG": "true"
             }
         },
         {
@@ -75,7 +75,10 @@
                 "--extensionDevelopmentPath=${workspaceRoot}",
                 "/home/matyz/dev/hkube/pipeline-driver/"
             ],
-            "stopOnEntry": false
+            "stopOnEntry": false,
+            "env": {
+                "MOCHA_DEBUG": "true"
+            }
         },
         {
             "name": "Launch nooow",

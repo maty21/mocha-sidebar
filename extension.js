@@ -35,7 +35,7 @@ function activate(context) {
   const _mochaProvider = new mochaProvider();
   debugInit(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
-  if(config.coverage().enable){
+  if (config.coverage().enable) {
     coverage.run();
   }
   const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
@@ -97,11 +97,11 @@ function activate(context) {
     if (hasWorkspace()) {
       try {
         coverage.toggleCoverage();
-        
+
       } catch (e) {
         console.log(e);
-      } 
-     // _mochaProvider.runDescriberLevelTest(element);
+      }
+      // _mochaProvider.runDescriberLevelTest(element);
       //runAllTests();
     }
   }))
@@ -115,11 +115,19 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.coverage', (element) => {
     if (hasWorkspace()) {
-      if(config.coverage().enable){
+      if (config.coverage().enable) {
         coverage.runViaRequest();
       }
     }
   }))
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.collapseTree', async (element) => {
+    if (hasWorkspace()) {
+      await _mochaProvider.collapseTree();
+      _mochaProvider.updateDecorations(vscode.workspace.rootPath);
+      _codeLensProvider.raiseEventOnUpdate();
+    }
+  }))
+
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.setSubdirectory', (element) => {
     if (hasWorkspace() && element.path) {

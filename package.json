@@ -49,6 +49,7 @@
         "onCommand:mocha.runTestsByPattern",
         "onCommand:mocha.runLastSetAgain",
         "onCommand:mocha.runLastSetAgain",
+        "onCommand:mocha-maty.collapseTree",
         "onView:autoPlay",
         "onView:mocha"
     ],
@@ -77,6 +78,11 @@
                 },
                 {
                     "command": "mocha-maty.refreshExplorer",
+                    "when": "view == mocha",
+                    "group": "navigation"
+                },
+                {
+                    "command": "mocha-maty.collapseTree",
                     "when": "view == mocha",
                     "group": "navigation"
                 },
@@ -145,6 +151,7 @@
                     "dark": "images/dark/refresh.svg"
                 }
             },
+           
             {
                 "command": "mocha.runTestAtCursor",
                 "title": "Mocha: Run test at cursor"
@@ -164,6 +171,14 @@
             {
                 "command": "mocha.runLastSetAgain",
                 "title": "Mocha: Run last set again"
+            },
+            {
+                "command": "mocha-maty.collapseTree",
+                "title": "Mocha: collapseTree",
+                "icon": {
+                    "light": "images/light/collapseAll.svg",
+                    "dark": "images/dark/collapseAll-dark.svg"
+                }
             },
             {
                 "command": "mocha-maty.refreshExplorer",

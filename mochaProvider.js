@@ -28,6 +28,7 @@ class mochaProvider {
         this._runner = new runner();
         this._testCounter = 0;
         this.currentResultWithItem = [];
+        this.collapseState = vscode.TreeItemCollapsibleState.Expanded;
         this._elements = {
 
         }
@@ -90,13 +91,22 @@ class mochaProvider {
         this._tests = await this._runner.loadAsyncTestFiles();
         this._formatedTest = this._createTreeFromArray();
     }
+    async collapseTree() {
+        this.collapseState = vscode.TreeItemCollapsibleState.Collapsed;
+        await this._refreshData()
+    }
+    async _refreshData() {
 
-    async refreshExplorer() {
         if (this.item) {
             await this.loadAndFormatTests();
             this.item.item = this._formatedTest[""];
         }
         this._onDidChangeTreeData.fire(this.item);
+    }
+
+    async refreshExplorer() {
+        this.collapseState = vscode.TreeItemCollapsibleState.Expanded;
+        await this._refreshData()
     }
     _cleanLevelZero() {
         this._tests.forEach(test => test.suitePath.splice(0, 1))
@@ -128,7 +138,7 @@ class mochaProvider {
             }
             else {
                 let name = item[0];
-                let i = new mochaItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
+                let i = new mochaItem(name,this.collapseState, 'testDescriber', null, item[1], 0);
                 return nodes.push(i);
             }
         })

@@ -10,7 +10,7 @@ const args = JSON.parse(process.argv[process.argv.length - 1]);
 const options = args.options;
 const Mocha = require(args.mochaPath);
 const CustomReporter = require('./customreporter');
- let reporter = CustomReporter.init(args.mochaPath);
+let reporter = CustomReporter.init(args.mochaPath);
 module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
 for (let file of args.requires) {
   // let pt = `${args.rootPath}/node_modules/${file}`;
@@ -61,13 +61,22 @@ if (grep) {
 
 mocha.reporter(reporter);
 
-mocha.run((failures) => {
+const runner = mocha.run((failures) => {
   console.log('------------------------------------');
   console.log(`finish failure amount:${failures}`);
   console.log('------------------------------------');
   process.exit(0);
 });
 
+
+runner.on('end', (data) => {
+  console.log(`test ended ${data}`);
+})
+
+
+runner.on('start', (data) => {
+  console.log(`test ended ${data}`);
+})
 function indent(lines) {
   return lines.split('\n').map(line => `  ${line}`).join('\n');
 }
