@@ -119,7 +119,7 @@ No one shoe could fit everyone. You may need to turn some switches on to fit you
 |--------|-------------|---------|
 | `mocha.showInExplorer` | mocha view is now shown in the new test view as default it possible to switch it back to the explorer view with this setting | ``` "mocha.showInExplorer":false ``` |
 | `mocha.options` |   Options to run Mocha |`{}` |
-| `mocha.files.glob` |  Globs to ignore when searching for test files|`test/**/*.js`
+| `mocha.files.glob` |  Globs to use when searching for test files|`test/**/*.js`
 | `mocha.files.ignore` |  Globs to ignore when searching for test files |``` "mocha.files.ignore": [  "**/.git/**/*",  "**/node_modules/**/*" ], ``` |
 | `mocha.env` | Environment variables to run your tests | `"false"`|
 | `mocha.path` |set other mocha path then the built-in one only path to mocha package ../node_modules/mocha |`"../node_modules/mocha"`|
