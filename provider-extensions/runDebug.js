@@ -4,15 +4,20 @@ const { callDone, done } = require('await-done');
 const path = require('path');
 const config = require('../config');
 let mochaPath = require.resolve(config.mochaPath());
-mochaPath = path.dirname(mochaPath);
-mochaPath = path.join(mochaPath, 'bin', '_mocha');
+//dirty fix for an issue where path is set
+if(!config.mochaPath().includes('/lib/mocha.js'))
+{
+    mochaPath = path.dirname(mochaPath);
+    mochaPath = path.join(mochaPath, 'bin', '_mocha');
+
+}
 let mochaTest = {
     "name": "Mocha Tests",
     "type": "node",
     "request": "launch",
     "stopOnEntry": false,
     // "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-    "program": mochaPath,
+   "program": mochaPath,
     "cwd": "${workspaceRoot}",
     //    "args": ["./test/**/*.js", '--grep', '^green 4 inner green 4$'],
     // "args": ["./test/**/*.js"],
