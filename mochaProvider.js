@@ -31,6 +31,7 @@ class mochaProvider {
         this._elements = {
 
         }
+        this.rootElement = null;
         this._iconPath = {
             dark: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg'),
             light: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg')
@@ -78,6 +79,7 @@ class mochaProvider {
             let nodes = [];
             await this.loadAndFormatTests();
             this.item = new mochaItem('Tests', vscode.TreeItemCollapsibleState.Expanded, 'rootTests', null, this._formatedTest[""], 0)
+            this.rootElement = this.item;
             nodes.push(this.item);
             return nodes;
 
@@ -85,7 +87,9 @@ class mochaProvider {
             return this._newLevelRunning(element.item)
         }
     }
-
+    getRootElement(){
+        return this.rootElement;
+    }
     async loadAndFormatTests() {
         this._tests = await this._runner.loadAsyncTestFiles();
         this._formatedTest = this._createTreeFromArray();
@@ -180,7 +184,10 @@ class mochaProvider {
         this._onDidChangeTreeData.fire(this.item);
         console.log('tests');
     }
-
+    hookResultsFromCommands(results){
+        this.results =results;
+        this._onDidChangeTreeData.fire(this.item);
+    }
 
     async runDescriberLevelTest(element) {
         clearData();

@@ -33,6 +33,7 @@ let lastRunResult;
 function activate(context) {
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
+  runner.setMochaProvider(_mochaProvider);
   debugInit(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
   if(config.coverage().enable){
@@ -77,7 +78,7 @@ function activate(context) {
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllTests', (element) => {
     if (hasWorkspace()) {
-      _mochaProvider.runAllTests(element);
+      _mochaProvider.runAllTests(_mochaProvider.getRootElement());
       //runAllTests();
     }
   }))

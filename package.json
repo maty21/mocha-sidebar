@@ -134,7 +134,7 @@
                 "title": "Set mocha-sidebar subdirectory"
             },
             {
-                "command": "mocha.runAllTests",
+                "command": "mocha-maty.runAllTests",
                 "title": "Mocha: Run all tests"
             },
             {
