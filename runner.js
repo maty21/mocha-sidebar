@@ -15,7 +15,7 @@ function Runner() {
 }
 
 
-Runner.prototype.setMochaProvider = (mochaProvider)=>mochaProviderRef=mochaProvider;
+Runner.prototype.setMochaProvider = (mochaProvider) => mochaProviderRef = mochaProvider;
 Runner.prototype.loadTestFiles = function () {
   return MochaShim.findTests(vscode.workspace.rootPath)
     .then(tests => {
@@ -35,7 +35,7 @@ Runner.prototype.runAsyncTests = async (testFiles, grep, logMessages) => {
   //  vscode.window.showWarningMessage(`entering loadAsyncTestFiles ${vscode.workspace.rootPath}`)
   //return process.platform == 'win32' ? MochaShim.runTestsInProcess(testFiles, grep, logMessages) : MochaShim.runTests(testFiles, grep, logMessages);
   const res = await MochaShim.runTests(testFiles, grep, logMessages);
- lastRunResult = res;
+  lastRunResult = res;
   return res;
 };
 
@@ -76,15 +76,16 @@ Runner.prototype.runAll = function (logMessages) {
   return this.runAsyncTests(tests.map(test => test.file), null, logMessages);
 };
 
-Runner.prototype.runWithGrep = function (grep) {
-  return this.runAsyncTests(tests.map(test => test.file), grep);
+Runner.prototype.runWithGrep = async function (grep) {
+  const res = await this.runAsyncTests(tests.map(test => test.file), grep);
+  mochaProviderRef.hookResultsFromCommands(res);
 };
 
 Runner.prototype.runTest = function (test) {
   return this.runAsyncTests([test], `^${escapeRegExp(test.fullName)}$`);
 };
 
-Runner.prototype.runFailed = async  function () {
+Runner.prototype.runFailed = async function () {
   const failed = (lastRunResult || {}).failed || [];
 
   if (!failed.length) {
@@ -92,7 +93,7 @@ Runner.prototype.runFailed = async  function () {
 
     return new Promise(resolve => resolve());
   } else {
-    const res = await  this.runAsyncTests(
+    const res = await this.runAsyncTests(
       dedupeStrings(failed.map(test => test.file)),
       `^${failed.map(test => `(${escapeRegExp(test.fullName)})`).join('|')}$`
     )
@@ -100,7 +101,7 @@ Runner.prototype.runFailed = async  function () {
   }
 };
 
-Runner.prototype.runLastSet = function () {
+Runner.prototype.runLastSet = async function () {
   const
     failed = (lastRunResult || {}).failed || [],
     passed = (lastRunResult || {}).passed || [],
@@ -111,11 +112,13 @@ Runner.prototype.runLastSet = function () {
 
     return new Promise(resolve => resolve());
   } else {
-    return this.runAsyncTests(
+    const res = this.runAsyncTests(
       dedupeStrings(set.map(test => test.file)),
       `^${set.map(test => `(${escapeRegExp(test.fullName)})`).join('|')}$`
     )
   }
+
+  mochaProviderRef.hookResultsFromCommands(res)
 };
 
 function dedupeStrings(array) {
