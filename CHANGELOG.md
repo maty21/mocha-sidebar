@@ -1,3 +1,11 @@
+0.20.18 (30.8.2018)
+===
+ - fix debug issues
+ - enviroment not passed to vscode debbuger  
+ - fix issue when using realtive mocha with debug 
+ - figured out what caused the stack problem with ts in later node version (ts-node should update to 7.0.1)    issue #61
+ - fix commands not running  #102 #135 
+
 0.20.17 (23.7.2018)
 ===
  - fix issue 120 by adding flag which shows error only once 
