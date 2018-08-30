@@ -20,7 +20,7 @@ describe('When environment variable is set in settings', function () {
   it('should run with them', function () {
     expect(1).to.equal(1);
     expect(1).to.equal(1);
- //   assert(process.env.HELLO_WORLD, 'Hello, World!');
+    expect(process.env.HELLO_WORLD).to.equal('Hello, World!');
   });
 });
 

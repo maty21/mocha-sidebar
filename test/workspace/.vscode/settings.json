@@ -11,7 +11,7 @@
     "autoUpdateTime": 2000,
     "showDebugTestStatus": true
   },
-  "mocha.path": "../node_modules/mocha",
+ // "mocha.path": "../node_modules/mocha",
   "mocha.options": {
     "timeout": 15000
   },

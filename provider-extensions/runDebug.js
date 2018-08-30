@@ -5,6 +5,7 @@ const path = require('path');
 const config = require('../config');
 let mochaPath = require.resolve(config.mochaPath());
 //dirty fix for an issue where path is set
+const env = config.env();
 if(!config.mochaPath().includes('/lib/mocha.js'))
 {
     mochaPath = path.dirname(mochaPath);
@@ -22,6 +23,8 @@ let mochaTest = {
     //    "args": ["./test/**/*.js", '--grep', '^green 4 inner green 4$'],
     // "args": ["./test/**/*.js"],
     "runtimeExecutable": null,
+    "env":env
+    
     //"envFile": "${workspaceRoot}/.env"
 }
 
