@@ -20,6 +20,11 @@ const envWithNodePath = (rootPath) => {
   }, config.env());
 }
 
+function mochaPath(rootPath) {
+  const mochaPath = require.resolve(config.mochaPath(), {paths: [rootPath]});
+  return mochaPath || config.mochaPath();
+}
+
 const applySubdirectory = (rootPath) => {
   const subdirectory = config.subdirectory()
 
@@ -44,8 +49,7 @@ const forkRunTest = (testFiles, grep, rootPath) => {
   const args = {
     files: testFiles,
     grep,
-    mochaPath: config.mochaPath()
-
+    mochaPath: mochaPath(rootPath)
   };
   if (config.logVerbose()) {
     outputChannel.appendLine(`
@@ -69,7 +73,7 @@ const forkFindTests = (rootPath) => {
       glob: config.files().glob,
       ignore: config.files().ignore
     },
-    mochaPath: config.mochaPath()
+    mochaPath: mochaPath(rootPath)
   };
   findingTestLogs();
   if (config.logVerbose()) {
