@@ -7,22 +7,22 @@
 
 
 
-### **sidebar** (new running in the new test view by default)
+### **Sidebar** (new running in the new test view by default)
 ![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
 
-### **expect error  messages**  (similar to wallaby implementation)
+### **Expect error  messages**  (similar to wallaby implementation)
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
 ### **NEW coverage**  (via istanbul) soon as independent extension also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
-#### * **important Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
+#### * **Iimportant Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
 ##### Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
 
-#### mocha side bar already supports this features (feel free to propose new features 
+#### Mocha Side Bar already supports these features (feel free to propose new features)
 * [x] New code coverage support
 * [x] see all tests in vscode side bar menu
 * [x] git lens for running/debbuging directly form the code
@@ -35,10 +35,10 @@
 * [x] see test errors as decoration
 * [x] NEW add context menu on folders in explorer to set subdirectory (#2). 
 
-#### not supported yet
+#### Not supported yet
 * [ ] tree view files separation hierarchy for the top level hierarchy
 
-#### known issues
+#### Known issues
 * **Coverage**- there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
 * **Wokespace**-   Currently not supported there is a workaround for solving it for more details [#107](https://github.com/maty21/mocha-sidebar/issues/107)
 
@@ -56,53 +56,71 @@ Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) 
 
 Want to make this extension even more awesome? [Send us your wish](https://github.com/maty21/mocha-sidebar/issues/new/).
 
-Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/issues/new/) to us.
+Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/issues/new/) and let us know.
 
 
 ### FAQ
 
-  - **question -** mocha side bar not run on my pc ?           
-    **answer**   
-     -    **step1** - verify that there is no other mocha runner extension on your pc  
-     -    **step2** - in case using test view option verify that the test view is already selected 
-     -    **step3** - check logs in the output menu after verifying that log verbose is set to true  
-     -    **step4** - verify that glob pattern is ok the default is `test/**/*.js`
-     -    **step5** - verify that you not  running with an old node version 6.* should be ok   
-     -    **step6** - try reinstall your vscode  
-      -   **step7** - ask for our support on gitter    [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mocha-sidebar/Questions)
+**Q:** Mocha Side Bar won't run?
 
+**A:** Try the following:
+  1. Verify that there is no other mocha runner extension on your machine.
+  2. In case you're using test view option verify that the test view is already selected 
+  3. Make sure that `mocha.logVerbose` is set to `true` and Check logs in the output menu.
+  4. Verify that the glob pattern is OK. The default is `test/**/*.js`
+  5. Verify that you're not running with an old node version. 6.* should work.
+  6. Try reinstall your VC Code instance  
+  7. Ask for our support on gitter [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/mocha-sidebar/Questions)
 
-  -  **question -** can't run typescript (ts-node compiler)  
-     **answer**         
-       - **step1** - try to install ``typescript`` and ``ts-node`` package locally  (not with -g)    
-       - **step2** - verify you using ``ts-node`` that support ``import`` I used ``7.0.0`` 
-       - **step3** - verify that your configuration correct 
-        ```js
-        "mocha.requires": [
-            "ts-node/register"
-        ],
-        ```
-       * if you still have problems you can try running typescript test [typeScript-test](https://github.com/maty21/mocha-sidebar/tree/master/test/typeScript-test) on your pc  
-    -  **question -** can't run babel-register compiler  
-       **answer -** verify that your configuration correct
-       
-        ```js
-        "mocha.requires": [
-            "babel-register"
-        ]
-        ``` 
-  -  **question -** cant check breakpoint when coverage is running  
-      **answer** 
-     -    **step1** -  try F9 - that is an vscode issue that its not able to select/ render two different decoration in the same place   
-     -    **step2** -  you can enable disable coverage decoration by clicking on the status bar so you can open it only if its matter  
+---
+
+**Q:** I can't run TypeScript (ts-node compiler)
+
+**A:** Try the following
+  1. Try installing `typescript` and `ts-node` package locally (not with -g option)
+  2. Verify that you're using `ts-node` that support `import`. Version `7.0.0` should work.
+  3. Verify that your configuration is correct 
+  ```js
+  "mocha.requires": [
+      "ts-node/register"
+  ],
+  ```
+  4. If you're still having problems you can try running TypeScript test [typeScript-test](https://github.com/maty21/mocha-sidebar/tree/master/test/typeScript-test) on your machine.
+
+---
+
+**Q:** I can't run babel-register compiler
+
+**A:** Verify that your configuration is correct
+```js
+"mocha.requires": [
+    "babel-register"
+]
+``` 
+
+---
+
+**Q:** I can't check breakpoints when coverage is running.
+
+**A:** Try the following:
+1. Try F9 - That is an vscode issue that its not able to select/render two different decoration in the same place.
+2. You can enable disable coverage decoration by clicking on the status bar so you can open it only if its matter.
+
+---
      
-  -  **question -** all tests not working  
-      **answer -** verify that there is no describe or test with the name "test" (should be fix soon)    
+**Q:** `Run all tests` not working.
 
-  -  **question -** Mocha Sidebar is not working on Windows with WSL (Error: Cannot find Node.js installation from environment variable)    
-      **answer -** update your PATH in ~/.profile to `PATH="$HOME/bin:$HOME/.local/bin:/usr/bin:$PATH"` + restart VS Code (read more about this here: https://stackoverflow.com/a/44450219/1782659)
+**A:** Verify that there is no describe or test with the name "test" (should be fix soon)
 
-        if for some reason something is not working for you create issue [file us](https://github.com/maty21/mocha-sidebar/issues/new/)  
+---
+
+**Q:** Mocha Sidebar is not working on Windows with WSL (Error: Cannot find Node.js installation from environment variable)
+
+**A:** Update your PATH in ~/.profile to `PATH="$HOME/bin:$HOME/.local/bin:/usr/bin:$PATH"` + restart VS Code (read more about this here: https://stackoverflow.com/a/44450219/1782659)
+
+If for some reason something is not working for you can [file an issue](https://github.com/maty21/mocha-sidebar/issues/new/).
+
+---
 
 
 
