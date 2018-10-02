@@ -382,6 +382,7 @@
         "escape-regexp": "0.0.1",
         "escape-string-regexp": "^1.0.5",
         "glob": "^7.0.3",
+        "jest-editor-support": "^23.5.0",
         "lcov-parse": "^1.0.0",
         "line-number": "^0.1.0",
         "lodash.assign": "^4.2.0",

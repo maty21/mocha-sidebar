@@ -17,6 +17,20 @@
             }
         },
         {
+            "name": "Launch Extension Typescript1 ",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}",
+                "/home/matyz/dev/openSource/mocha-sidebar-test-master"
+            ],
+            "stopOnEntry": false,
+            "env": {
+                "MOCHA_DEBUG": "false"
+            }
+        },
+        {
             "name": "Launch Extension babel",
             "type": "extensionHost",
             "request": "launch",
