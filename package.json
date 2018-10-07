@@ -361,7 +361,7 @@
                         "autoUpdateTime": 2000,
                         "showDebugTestStatus": true
                     },
-                    "description": "Mocha: this option allows you to enable/disable  lens nad decorations and set update threshold "
+                    "description": "Mocha: this option allows you to enable/disable lens and decorations and set update threshold."
                 },
                 "mocha.subdirectory": {
                     "default": "",
