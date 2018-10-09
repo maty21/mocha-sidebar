@@ -16,7 +16,7 @@
 ### **NEW coverage**  (via istanbul) soon as independent extension also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
-#### * **Iimportant Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
+#### * **Important Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
 
@@ -25,7 +25,7 @@
 #### Mocha Side Bar already supports these features (feel free to propose new features)
 * [x] New code coverage support
 * [x] see all tests in vscode side bar menu
-* [x] git lens for running/debbuging directly form the code
+* [x] git lens for running/debugging directly form the code
 * [x] decorations which shows test status(pass/fail/not run) from code
 * [x] run tests for each level hierarchy from all tests to a single test(and each describer of course) 
 * [x] debug tests for each level hierarchy from all tests to a single test(and each describer of course) 
@@ -40,7 +40,7 @@
 
 #### Known issues
 * **Coverage**- there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
-* **Wokespace**-   Currently not supported there is a workaround for solving it for more details [#107](https://github.com/maty21/mocha-sidebar/issues/107)
+* **Workspace** -   Currently not supported there is a workaround for solving it for more details [#107](https://github.com/maty21/mocha-sidebar/issues/107)
 
 
 
