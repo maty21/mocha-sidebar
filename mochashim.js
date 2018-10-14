@@ -171,13 +171,15 @@ const handleProcessMessages = async (process) => {
       handleError(error, reject)
     })
     msg.on('exit', async code => {
-      if (processMessage) {
-        if (code) {
+   //   if (processMessage) {
+        if (code!=0) {
           reject(createError('Process exited with code ' + code));
           return;
         }
-        resolve(processMessage);
-      }
+        else {
+          resolve(processMessage);
+        }
+    //  }
     });
   });
 }
