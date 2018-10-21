@@ -8,7 +8,7 @@ const
   Promise = require('bluebird'),
   trimArray = require('../utils').trimArray;
 
-const {TYPES,message}  =require('./process-communication')
+const { TYPES, message } = require('./process-communication')
 
 let msg = message(process);
 const args = JSON.parse(process.argv[process.argv.length - 1]);
@@ -19,19 +19,29 @@ for (let file of args.requires) {
   if (abs) {
     file = path.resolve(file);
   }
-  require(file);
+  try {
+    require(file);
+  } catch (err) {
+    msg.emit(TYPES.error, JSON.stringify(err, Object.getOwnPropertyNames(err)), error => {
+      if (error) {
+        console.error('error sending to parent process.', error);
+        process.exit(-1);
+      }
+      console.log('data send to parent. Exiting.')
+    })
+  }
 }
 createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
   .then(mocha => crawlTests(mocha.suite))
   .then(tests => {
-    setTimeout(()=>{
+    setTimeout(() => {
       console.error('timeout sending to parent process. Exiting');
-      process.exit(-1);      
-    },5000)
-  
-    msg.emit(TYPES.result,tests,error=>{
-      if (error){
-        console.error('error sending to parent process.',error);
+      process.exit(-1);
+    }, 5000)
+
+    msg.emit(TYPES.result, tests, error => {
+      if (error) {
+        console.error('error sending to parent process.', error);
         process.exit(-1);
       }
       console.log('data send to parent. Exiting.')
@@ -51,9 +61,9 @@ createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
   })
   .catch(err => {
     console.error('Error:', err.stack);
-    msg.emit(TYPES.error,JSON.stringify(err, Object.getOwnPropertyNames(err)) ,error=>{
-      if (error){
-        console.error('error sending to parent process.',error);
+    msg.emit(TYPES.error, JSON.stringify(err, Object.getOwnPropertyNames(err)), error => {
+      if (error) {
+        console.error('error sending to parent process.', error);
         process.exit(-1);
       }
       console.log('data send to parent. Exiting.')
