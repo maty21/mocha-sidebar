@@ -2,6 +2,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Launch Extension Typescript",
             "type": "extensionHost",
@@ -67,13 +68,13 @@
             "stopOnEntry": false
         },
         {
-            "name": "Launch pipelineDriver",
+            "name": "Launch caching",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/matyz/dev/hkube/pipeline-driver/"
+                "/home/matyz/dev/openSource/cashing-service"
             ],
             "stopOnEntry": false
         },

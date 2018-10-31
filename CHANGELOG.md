@@ -1,3 +1,8 @@
+0.20.20 (31.10.2018)
+===
+ - fix issue in case eception in parsing mocha side bar get stuck and Explorer tab stayes in waiting mode.
+ -  PR merge  #150 #149 #143 #141
+
 0.20.18 (30.8.2018)
 ===
  - fix debug issues
