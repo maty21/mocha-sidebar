@@ -27,7 +27,7 @@ createMocha(args.rootPath, args.options, args.files.glob, args.files.ignore)
     setTimeout(()=>{
       console.error('timeout sending to parent process. Exiting');
       process.exit(-1);      
-    },5000)
+    },30000)
   
     msg.emit(TYPES.result,tests,error=>{
       if (error){

@@ -21,7 +21,7 @@ const envWithNodePath = (rootPath) => {
 }
 
 function mochaPath(rootPath) {
-  const mochaPath = require.resolve(config.mochaPath(), {paths: [rootPath]});
+  const mochaPath = require.resolve(rootPath + "/" + config.mochaPath());
   return mochaPath || config.mochaPath();
 }
 
