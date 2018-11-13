@@ -13,6 +13,7 @@ const coverage = require('./lib/coverage/code-coverage');
 const { message, TYPES } = require('./worker/process-communication');
 // will notify once on error 
 let IsErrorShown = false;
+const resolve = require('path').resolve;
 
 const envWithNodePath = (rootPath) => {
   return Object.assign({}, process.env, {
@@ -21,7 +22,7 @@ const envWithNodePath = (rootPath) => {
 }
 
 function mochaPath(rootPath) {
-  const mochaPath = require.resolve(rootPath + "/" + config.mochaPath());
+  const mochaPath = resolve(rootPath + "/" + config.mochaPath());
   return mochaPath || config.mochaPath();
 }
 
