@@ -17,6 +17,7 @@ function Runner() {
 
 Runner.prototype.setMochaProvider = (mochaProvider) => mochaProviderRef = mochaProvider;
 Runner.prototype.loadTestFiles = function () {
+  console.log('GOING TO GO FIND TESTS...');
   return MochaShim.findTests(vscode.workspace.rootPath)
     .then(tests => {
       tests = tests;
@@ -28,6 +29,7 @@ Runner.prototype.loadTestFiles = function () {
 Runner.prototype.loadAsyncTestFiles = async () => {
   //  vscode.window.showWarningMessage(`entering loadAsyncTestFiles ${vscode.workspace.rootPath}`)
   //return process.platform == 'win32' ? MochaShim.findTestsProcess(vscode.workspace.rootPath) : MochaShim.findTests(vscode.workspace.rootPath);
+  console.log("FIND TESTS!!!");
   return await MochaShim.findTests(vscode.workspace.rootPath);
 };
 

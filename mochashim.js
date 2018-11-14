@@ -23,6 +23,7 @@ const envWithNodePath = (rootPath) => {
 
 function mochaPath(rootPath) {
   const mochaPath = resolve(rootPath + "/" + config.mochaPath());
+  console.log('mochaPath:' + mochaPath);
   return mochaPath || config.mochaPath();
 }
 
@@ -76,11 +77,21 @@ const forkFindTests = (rootPath) => {
     },
     mochaPath: mochaPath(rootPath)
   };
-  findingTestLogs();
-  if (config.logVerbose()) {
-    // outputChannel.show();
 
-  }
+  outputChannel.appendLine(`
+  find tests with these args:
+    options: ${JSON.stringify(config.options())},
+    rootpath: ${JSON.stringify(rootPath)}
+    mochaPath: ${JSON.stringify(args.mochaPath)}
+    test files location: ${config.files().glob}
+    files to ignore: ${config.files().ignore}
+    environmets: ${ JSON.stringify(config.env())}
+    requires: ${JSON.stringify(config.requires())}
+    `);
+  
+  //findingTestLogs();
+  outputChannel.show();
+
   return forkWorker('../worker/findtests.js', args, rootPath);
 
 }
@@ -91,11 +102,6 @@ const findingTestLogs = () => {
   outputChannel.appendLine(`trying to searching for tests using these settings: `);
   outputChannel.appendLine(`
     mocha path: ${config.mochaPath()}
-    test files location: ${config.files().glob}
-    files to ignore: ${config.files().ignore}
-    environmets: ${ JSON.stringify(config.env())}
-    requires: ${JSON.stringify(config.requires())}
-    options:  ${JSON.stringify(config.options())}
 
 `);
   outputChannel.appendLine(`if you find anything wrong please change those default settings`)
@@ -209,9 +215,12 @@ const runTests = async (testFiles, grep, messages) => {
 
 const findTests = async (rootPath) => {
   // Allow the user to choose a different subfolder
-  //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
+  outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
   rootPath = applySubdirectory(rootPath);
-  //outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
+  outputChannel.appendLine(`Finding tests in "${rootPath}"\n`);
+
+  console.log(`Finding tests in "${rootPath}"\n`);
+
   let process = await forkFindTests(rootPath)
 
   let data = await handleProcessMessages(process)

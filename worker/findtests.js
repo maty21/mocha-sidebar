@@ -12,6 +12,9 @@ const {TYPES,message}  =require('./process-communication')
 
 let msg = message(process);
 const args = JSON.parse(process.argv[process.argv.length - 1]);
+
+console.log(`....findtests args: ${JSON.stringify(args)}`);
+
 const Mocha = require(args.mochaPath);
 module.paths.push(args.rootPath, path.join(args.rootPath, 'node_modules'));
 for (let file of args.requires) {
