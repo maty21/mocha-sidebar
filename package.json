@@ -318,6 +318,11 @@
                     "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
                     "type": "boolean"
                 },
+                "mocha.parallelTests": {
+                    "default": 5,
+                    "description": "Mocha: number of tests to run in parallel",
+                    "type": "number"
+                },
                 "mocha.files.glob": {
                     "default": "test/**/*.js",
                     "description": "Mocha: Glob to search for test files",
@@ -375,6 +380,7 @@
         "vscode": "0.11.x"
     },
     "dependencies": {
+        "async": "^2.6.1",
         "await-done": "^1.0.1",
         "babel-register": "^6.26.0",
         "babylon": "^6.13.1",

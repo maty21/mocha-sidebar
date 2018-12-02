@@ -11,6 +11,7 @@ exports.runTestsOnSave = () => getConfiguration().runTestsOnSave;
 exports.options = () => getConfiguration().options;
 exports.node_options = () => getConfiguration().node_options;
 exports.files = () => getConfiguration().files;
+exports.parallelTests = () => getConfiguration().parallelTests;
 exports.subdirectory = () => getConfiguration().subdirectory;
 exports.setSubdirectory = (subdirectory)=>getConfiguration().update('subdirectory',subdirectory);
 exports.requires = () => {
