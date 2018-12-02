@@ -9,14 +9,23 @@ const _findTestsInProcess = require('./inProcess/findtestsInProccess');
 const verboseLog = require('./provider-extensions/constLog');
 const outputChannel = vscode.window.createOutputChannel('sideBar-Mocha');
 const coverage = require('./lib/coverage/code-coverage');
-const { message, TYPES } = require('./worker/process-communication');
+const {
+  message,
+  TYPES
+} = require('./worker/process-communication');
 // will notify once on error 
 let IsErrorShown = false;
+const resolve = require('path').resolve;
 
 const envWithNodePath = (rootPath) => {
   return Object.assign({}, process.env, {
     NODE_PATH: `${rootPath}${path.sep}node_modules`
   }, config.env());
+}
+
+function mochaPath(rootPath) {
+  const mochaPath = resolve(rootPath + "/" + config.mochaPath());
+  return mochaPath || config.mochaPath();
 }
 
 const applySubdirectory = (rootPath) => {
@@ -43,8 +52,7 @@ const forkRunTest = (testFiles, grep, rootPath) => {
   const args = {
     files: testFiles,
     grep,
-    mochaPath: config.mochaPath()
-
+    mochaPath: mochaPath(rootPath)
   };
   if (config.logVerbose()) {
     outputChannel.appendLine(`
@@ -68,30 +76,29 @@ const forkFindTests = (rootPath) => {
       glob: config.files().glob,
       ignore: config.files().ignore
     },
-    mochaPath: config.mochaPath()
+    mochaPath: mochaPath(rootPath)
   };
-  findingTestLogs();
-  if (config.logVerbose()) {
-    // outputChannel.show();
 
+  if (config.logVerbose()) {
+    findingTestLogs(rootPath, args);
   }
   return forkWorker('../worker/findtests.js', args, rootPath);
-
 }
 
-const findingTestLogs = () => {
+const findingTestLogs = (rootPath, args) => {
   outputChannel.clear();
   outputChannel.appendLine(`____________________________________________________________________________`);
   outputChannel.appendLine(`trying to searching for tests using these settings: `);
   outputChannel.appendLine(`
-    mocha path: ${config.mochaPath()}
+  find tests with these args:
+    options: ${JSON.stringify(config.options())},
+    rootpath: ${JSON.stringify(rootPath)}
+    mochaPath: ${JSON.stringify(args.mochaPath)}
     test files location: ${config.files().glob}
     files to ignore: ${config.files().ignore}
     environmets: ${ JSON.stringify(config.env())}
     requires: ${JSON.stringify(config.requires())}
-    options:  ${JSON.stringify(config.options())}
-
-`);
+  `);
   outputChannel.appendLine(`if you find anything wrong please change those default settings`)
   outputChannel.appendLine(`____________________________________________________________________________`);
   // vscode.window.showErrorMessage(`Failed to run Mocha due to`,'learnMorePanel').then(val=>{
