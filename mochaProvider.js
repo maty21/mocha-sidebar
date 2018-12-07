@@ -10,7 +10,15 @@ const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
-const { updateDecorationStyle, setDecorationOnUpdateResults, clearData, setCurrentWorkspaceFile } = require('./provider-extensions/setDecortaion');
+const {
+  updateDecorationStyle,
+  setDecorationOnUpdateResults,
+  clearData,
+  setCurrentWorkspaceFile
+} = require('./provider-extensions/setDecortaion');
+const asynclib = require('async');
+const config = require('./config');
+
 const RESULT = {
     FAIL: 'fail',
     PASS: 'pass',
@@ -126,11 +134,16 @@ class mochaProvider {
                 }
                 console.log(`name:${item[1].__test.name},file:${item[1].__test.file}`);
                 let mItem = new mochaItem(item[1].__test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
+        item[1].__test.mItem = mItem; 
                 setDecorationOnUpdateResults(status, mItem);
-                this.currentResultWithItem.push({ status, test: item[1].__test, type: "test" })
+
+        this.currentResultWithItem.push({
+          status,
+          test: item[1].__test,
+          type: "test"
+        })
                 return nodes.push(mItem);
-            }
-            else {
+      } else {
                 let name = item[0];
                 let i = new mochaItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
                 return nodes.push(i);
@@ -160,6 +173,12 @@ class mochaProvider {
                     light: path.join(__filename, '..', 'images', 'light', 'testFail.svg')
                 }
                 break;
+            case consts.RUNNING: 
+                icon = {
+                  dark: path.join(__filename, '..', 'images', 'light', 'refresh.svg'),
+                  light: path.join(__filename, '..', 'images', 'light', 'refersh.svg')
+                };
+                break;
             default:
                 icon = {
                     dark: path.join(__filename, '..', 'images', 'light', 'testNotRun.svg'),
@@ -175,17 +194,11 @@ class mochaProvider {
         return element.suitePath[hierarchyLevel].replace(element.suitePath[hierarchyLevel - 1], "").trimLeft();
     }
     async runAllTests(element) {
-        clearData();
-        let tests = []
-        this._findObjectByLabel(element, '__test', tests);
-        let log = {};
-        this.results = await this.runMochaTests(tests, null, null)
-        this.results.ranTests = tests;
-        this._onDidChangeTreeData.fire(this.item);
-        console.log('tests');
+      // since describer level runs things in parallel
+    return await this.runDescriberLevelTest(element);
     }
-    hookResultsFromCommands(results){
-        this.results =results;
+  hookResultsFromCommands(results) {
+    this.results = results;
         this._onDidChangeTreeData.fire(this.item);
     }
 
@@ -195,32 +208,28 @@ class mochaProvider {
         let results = [];
         mochaShim.outputChannel.clear();
         this._findObjectByLabel(element, '__test', tests);
-        for (let test of tests) {
-            let result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`)
+
+    asynclib.mapLimit(tests, config.parallelTests(), async (test) => {
+      test.mItem.iconPath = this._setPassOrFailIcon(consts.RUNNING);
+      this._onDidChangeTreeData.fire(test.mItem);      
+      const result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`);
             results.push(result);
-        }
-        // let combinedResults = {
-        //     passed: [],
-        //     failed: []
-        // }
-        // results.forEach(res => {
-        //     if (res.passed.length > 0) {
-        //         res.passed.forEach(r => combinedResults.passed.push(r))
-        //     }
-        //     if (res.failed.length > 0) {
-        //         res.failed.forEach(r => combinedResults.failed.push(r))
-        //     }
-        // })
+      let status = consts.NOT_RUN;
+      if (result.passed.length) {
+        status = consts.PASSED;
+      } else if (result.failed.length) {
+        status = consts.FAILED;
+      }
+      test.mItem.iconPath = this._setPassOrFailIcon(status);
+      this._onDidChangeTreeData.fire(test.mItem);
+      return status;
+    });
+
         this.results = this._combinedResults(results);
         this.results.ranTests = tests;
-
-        this._onDidChangeTreeData.fire(this.item);
-        // tests .forEach(async test => {
-        // })
-        // let results = await Promise.all(promiseArray);
-        // let spread = assign(results);
-        //  console.log('res');
+    //this._onDidChangeTreeData.fire(this.item);
     }
+
     _combinedResults(results) {
         let combinedResults = {
             passed: [],
