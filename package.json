@@ -394,7 +394,7 @@
         "lodash.forin": "^4.4.0",
         "lodash.isobject": "^3.0.2",
         "mocha": "^5.2.0",
-        "nyc": "^11.7.3",
+        "nyc": "^13.0.1",
         "rimraf": "^2.6.2",
         "split-lines": "^1.1.0",
         "stacktrace-parser": "^0.1.4"
