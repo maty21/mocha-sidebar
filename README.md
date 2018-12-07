@@ -17,7 +17,7 @@
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
 ### **NEW run test in parallel** 
-![Demo that showing parallel](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/parallel.gif)
+![Demo that showing parallel]https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/parallel.gif)
 
 
 #### * **Important Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
