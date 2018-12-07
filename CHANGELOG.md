@@ -1,3 +1,10 @@
+0.20.22 (31.10.2018)
+===
+ -  PR merge  #162 
+ - this PR allows you to run your test in paraller theres is a new settings for it with the name `parallel test` 
+ -  the default is set for run inorder to decrease ambiguty  
+  thanks for @townbully for the amazing PR
+
 0.20.20 (31.10.2018)
 ===
  - fix issue in case eception in parsing mocha side bar get stuck and Explorer tab stayes in waiting mode.

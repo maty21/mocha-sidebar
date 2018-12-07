@@ -16,6 +16,10 @@
 ### **NEW coverage**  (via istanbul) soon as independent extension also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
+### **run test in parallel** 
+![Demo that showing parallel](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/parallel.gif)
+
+
 #### * **Important Note for coverage feature** -  there is an open issue in vscode that its not able to select via mouse / render two different decorations at the same line. as a **workaround** try F9/ or hide show decoration by clicking on the status bar  
 
 #### Mocha side bar is the most complete extension for mocha testing based on not maintained mocha extension and supports all of its features and much more
@@ -33,7 +37,8 @@
 * [x] see tests results directly on the code 
 * [x] run/debug results directly from the code 
 * [x] see test errors as decoration
-* [x] NEW add context menu on folders in explorer to set subdirectory (#2). 
+* [x] add context menu on folders in explorer to set subdirectory (#2). 
+* [x] NEW run test in parallel (#162)
 
 #### Not supported yet
 * [ ] tree view files separation hierarchy for the top level hierarchy
@@ -142,7 +147,7 @@ No one shoe could fit everyone. You may need to turn some switches on to fit you
 | `mocha.env` | Environment variables to run your tests | `"false"`|
 | `mocha.path` |set other mocha path then the built-in one only path to mocha package ../node_modules/mocha |`"../node_modules/mocha"`|
 | `mocha.logVerbose` |set mocha side bar log verbose for seeing in the output there are to different output sidebar-mocha for seeing mocha output and sidebar-coverage for seeing coverage output  |`true`|
-
+| `mocha.parallelTests` |run mocha tests in parallel   |`1`|
 
 ### SideBar options
 
