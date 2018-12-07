@@ -13,10 +13,10 @@
 ### **Expect error  messages**  (similar to wallaby implementation)
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
 
-### **NEW coverage**  (via istanbul) soon as independent extension also
+### **coverage**  (via istanbul) soon as independent extension also
 ![Demo that showing code coverage](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/coverage.gif)
 
-### **run test in parallel** 
+### **NEW run test in parallel** 
 ![Demo that showing parallel](https://raw.githubusercontent.com/maty21/mocha-sidebar/coverage/images/intro/parallel.gif)
 
 
@@ -51,10 +51,12 @@
 
 
 
-#### Contributors:
+#### Collaborators:
 - Maty Zisserman
 - Yehiyam Livneh
 
+#### Contributors 
+- townbully 
 
 ## Contributions
 Love this extension? [Star](https://github.com/maty21/mocha-sidebar/stargazers) us and rate us!
