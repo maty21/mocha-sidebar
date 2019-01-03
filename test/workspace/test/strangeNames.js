@@ -8,3 +8,7 @@ describe('a', () => {
         expect(1).to.eql(1);
     });
 });
+
+describe('\'a\'', () => {
+    it('\'b\'', () => {});
+})

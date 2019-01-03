@@ -12,7 +12,7 @@ const navigateEditorItem = (file, name) => {
         try {
             let t = l.line.split('(')[1].split(',')[0].replace(/'/gi, "").replace(/"/gi, "").replace(/`/gi, "");
             return t == name;
-            
+
         } catch (error) {
             console.log(`split error:${error}`);
         }
@@ -32,6 +32,7 @@ let _lineNo = (str, name) => {
     const re = new RegExp(
         JSON.stringify(name) // Handle things like \\ and \t
         .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") // Escape any regex metacharacters
+        .replace(/'/g, `\\\\'`) // Escape single quotes inside test description "My \'test\'"
         .replace(/^"(.*)"$/, "([\"'`])$1\\1") // Only count matches surrounded by " ' or `
     );
     return splitLines(str).map((line, i) => {
