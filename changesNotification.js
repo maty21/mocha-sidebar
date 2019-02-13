@@ -91,7 +91,7 @@ class changesNotification {
                                 setTimeout(() => {
                                     console.log(`notification: timeout reached activating and set time out to active again`);
                                     this._mochaProvider.refreshExplorer();
-                                    this._mochaProvider.updateDecorations(vscode.workspace.rootPath);
+                                this._mochaProvider.updateDecorations(vscode.workspace.rootPath);
                                     this._lensProvider.raiseEventOnUpdate();
                                     this.isTimeOutActive = false;
                                 }, this._calcAutoUpdateTime());

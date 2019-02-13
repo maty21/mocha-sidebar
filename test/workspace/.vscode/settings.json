@@ -15,5 +15,10 @@
   "mocha.options": {
     "timeout": 15000
   },
-  "mocha.showInExplorer": true
+  "mocha.showInExplorer": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#3F281A",
+    "titleBar.activeBackground": "#583925",
+    "titleBar.activeForeground": "#FDFBFA"
+  }
 }

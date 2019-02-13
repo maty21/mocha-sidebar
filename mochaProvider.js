@@ -9,14 +9,16 @@ const mochaShim = require('./mochashim');
 const escapeRegExp = require('escape-regexp')
 const navigateEditorItem = require('./provider-extensions/NavigateEditorItem.js');
 const consts = require('./provider-extensions/consts');
+const { promisify } = require('util')
 const setItemResultStatus = require('./provider-extensions/setItemResultStatus');
 const {
-  updateDecorationStyle,
-  setDecorationOnUpdateResults,
-  clearData,
-  setCurrentWorkspaceFile
+    updateDecorationStyle,
+    setDecorationOnUpdateResults,
+    clearData,
+    setCurrentWorkspaceFile
 } = require('./provider-extensions/setDecortaion');
 const asynclib = require('async');
+const mapLimit = promisify(asynclib.mapLimit);
 const config = require('./config');
 
 const RESULT = {
@@ -95,7 +97,7 @@ class mochaProvider {
             return this._newLevelRunning(element.item)
         }
     }
-    getRootElement(){
+    getRootElement() {
         return this.rootElement;
     }
     async loadAndFormatTests() {
@@ -134,16 +136,16 @@ class mochaProvider {
                 }
                 console.log(`name:${item[1].__test.name},file:${item[1].__test.file}`);
                 let mItem = new mochaItem(item[1].__test.name, vscode.TreeItemCollapsibleState.None, 'testItem', iconPath, item[1], 0);
-        item[1].__test.mItem = mItem; 
+                item[1].__test.mItem = mItem;
                 setDecorationOnUpdateResults(status, mItem);
 
-        this.currentResultWithItem.push({
-          status,
-          test: item[1].__test,
-          type: "test"
-        })
+                this.currentResultWithItem.push({
+                    status,
+                    test: item[1].__test,
+                    type: "test"
+                })
                 return nodes.push(mItem);
-      } else {
+            } else {
                 let name = item[0];
                 let i = new mochaItem(name, vscode.TreeItemCollapsibleState.Expanded, 'testDescriber', null, item[1], 0);
                 return nodes.push(i);
@@ -173,10 +175,10 @@ class mochaProvider {
                     light: path.join(__filename, '..', 'images', 'light', 'testFail.svg')
                 }
                 break;
-            case consts.RUNNING: 
+            case consts.RUNNING:
                 icon = {
-                  dark: path.join(__filename, '..', 'images', 'light', 'refresh.svg'),
-                  light: path.join(__filename, '..', 'images', 'light', 'refersh.svg')
+                    dark: path.join(__filename, '..', 'images', 'light', 'refresh.svg'),
+                    light: path.join(__filename, '..', 'images', 'light', 'refersh.svg')
                 };
                 break;
             default:
@@ -194,11 +196,11 @@ class mochaProvider {
         return element.suitePath[hierarchyLevel].replace(element.suitePath[hierarchyLevel - 1], "").trimLeft();
     }
     async runAllTests(element) {
-      // since describer level runs things in parallel
-    return await this.runDescriberLevelTest(element);
+        // since describer level runs things in parallel
+        return await this.runDescriberLevelTest(element);
     }
-  hookResultsFromCommands(results) {
-    this.results = results;
+    hookResultsFromCommands(results) {
+        this.results = results;
         this._onDidChangeTreeData.fire(this.item);
     }
 
@@ -209,25 +211,25 @@ class mochaProvider {
         mochaShim.outputChannel.clear();
         this._findObjectByLabel(element, '__test', tests);
 
-    asynclib.mapLimit(tests, config.parallelTests(), async (test) => {
-      test.mItem.iconPath = this._setPassOrFailIcon(consts.RUNNING);
-      this._onDidChangeTreeData.fire(test.mItem);      
-      const result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`);
+        const status = await mapLimit(tests, config.parallelTests(), async (test) => {
+            test.mItem.iconPath = this._setPassOrFailIcon(consts.RUNNING);
+            this._onDidChangeTreeData.fire(test.mItem);
+            const result = await this.runMochaTests([test], `^${escapeRegExp(test.fullName)}$`);
             results.push(result);
-      let status = consts.NOT_RUN;
-      if (result.passed.length) {
-        status = consts.PASSED;
-      } else if (result.failed.length) {
-        status = consts.FAILED;
-      }
-      test.mItem.iconPath = this._setPassOrFailIcon(status);
-      this._onDidChangeTreeData.fire(test.mItem);
-      return status;
-    });
+            let status = consts.NOT_RUN;
+            if (result.passed.length) {
+                status = consts.PASSED;
+            } else if (result.failed.length) {
+                status = consts.FAILED;
+            }
+            test.mItem.iconPath = this._setPassOrFailIcon(status);
+            this._onDidChangeTreeData.fire(test.mItem);
+            return status;
+        });
 
         this.results = this._combinedResults(results);
         this.results.ranTests = tests;
-    //this._onDidChangeTreeData.fire(this.item);
+        //this._onDidChangeTreeData.fire(this.item);
     }
 
     _combinedResults(results) {

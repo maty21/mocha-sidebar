@@ -4,10 +4,13 @@ const expect = require('chai').expect;
 // it('should inherit environment variables', function () {
 // });
 
-it('should inherit environment variables 2', function () {
- // assert.fail();
- expect(1).to.equal(1);
-  expect(1).to.equal(1);
+describe('test___', () => {
+  it('should inherit environment variables 2', function () {
+   // assert.fail();
+   expect(1).to.equal(1);
+    expect(1).to.equal(1);
+  });
+  
 });
 
 // it('test2', function () {
