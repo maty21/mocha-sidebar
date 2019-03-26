@@ -1,6 +1,7 @@
 'use strict';
 
 const vscode = require('vscode');
+const path = require('path');
 const getConfiguration = () => vscode.workspace.getConfiguration('mocha');
 
 exports.mochaNodeModulesPath = ()=>getConfiguration().path;

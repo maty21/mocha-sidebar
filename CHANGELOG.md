@@ -1,3 +1,11 @@
+0.20.22 (3.2019)
+===
+ -  PR merge  #127 
+ - this PR fixes the partial path issues  
+
+   thanks for @eramitmittal for the  PR
+
+
 0.20.22 (31.10.2018)
 ===
  -  PR merge  #162 
