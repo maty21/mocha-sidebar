@@ -4,7 +4,19 @@ const vscode = require('vscode');
 const getConfiguration = () => vscode.workspace.getConfiguration('mocha');
 
 exports.mochaNodeModulesPath = ()=>getConfiguration().path;
-exports.mochaPath = () => getConfiguration().path? getConfiguration().path+'/lib/mocha.js':'mocha';
+exports.mochaPath = () => {
+  let mochaPath = getConfiguration().path;
+  if (mochaPath) {
+    if (!path.isAbsolute(mochaPath)) {
+      mochaPath = path.join(vscode.workspace.rootPath, mochaPath);
+    }
+
+    return path.join(mochaPath, 'index.js');
+  }
+  else {
+    return 'mocha';
+  }
+}
 exports.env = () => getConfiguration().env;
 exports.logVerbose = () => getConfiguration().logVerbose;
 exports.runTestsOnSave = () => getConfiguration().runTestsOnSave;
