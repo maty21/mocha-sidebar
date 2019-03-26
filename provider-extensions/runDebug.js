@@ -3,15 +3,10 @@ const escapeStringRegexp = require('escape-string-regexp');
 const { callDone, done } = require('await-done');
 const path = require('path');
 const config = require('../config');
-let mochaPath = require.resolve(config.mochaPath());
+let mochaPath = "${workspaceRoot}/" + config.mochaPath().replace('lib/mocha.js','bin/_mocha');
 //dirty fix for an issue where path is set
 const env = config.env();
-if(!config.mochaPath().includes('/lib/mocha.js'))
-{
-    mochaPath = path.dirname(mochaPath);
-    mochaPath = path.join(mochaPath, 'bin', '_mocha');
 
-}
 let mochaTest = {
     "name": "Mocha Tests",
     "type": "node",
