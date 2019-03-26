@@ -125,9 +125,21 @@ Hate how it is working? [File an issue](https://github.com/maty21/mocha-sidebar/
 
 **A:** Update your PATH in ~/.profile to `PATH="$HOME/bin:$HOME/.local/bin:/usr/bin:$PATH"` + restart VS Code (read more about this here: https://stackoverflow.com/a/44450219/1782659)
 
+---
+
+**Q:**  im getting  permision denied for coverage feature 
+
+**A:** try the follows
+```js
+ cd ~/.vscode/extensions/maty.vscode-mocha-sidebar-0.20.22/
+ chmod +x node_modules/nyc/bin/nyc.js node_modules/nyc/bin/wrap.js node_modules/mocha/bin/mocha
+```
+---
+
+
 If for some reason something is not working for you can [file an issue](https://github.com/maty21/mocha-sidebar/issues/new/).
 
----
+
 
 
 
