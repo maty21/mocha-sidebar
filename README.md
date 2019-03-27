@@ -8,7 +8,7 @@
 
 
 ### **Sidebar** (new running in the new test view by default)
-![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/tutorial.gif)
+![Demo showing mocha menu operation](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/tutorial.gif)
 
 ### **Expect error  messages**  (similar to wallaby implementation)
 ![Demo that showing expect messages](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/images/intro/expect_error.gif)
@@ -231,7 +231,7 @@ You can run tests by:
 * Tests that the current cursor position (or the current file)
 * One test that you pick from a list
 
-![Demo showing Mocha test result](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/demo.png)
+![Demo showing Mocha test result](https://raw.githubusercontent.com/maty21/mocha-sidebar/master/intro/demo.png)
   
 
 

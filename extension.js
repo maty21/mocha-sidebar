@@ -5,20 +5,20 @@
 const ChildProcess = require('child_process');
 const escapeRegExp = require('escape-regexp');
 const fs = require('fs');
-const { runTestsOnSave } = require('./config');
+const { runTestsOnSave } = require('./lib/config');
 const Glob = require('glob').Glob;
-const parser = require('./parser');
+const parser = require('./lib/parser');
 const path = require('path');
 const Promise = require('bluebird');
-const Runner = require('./runner');
-const config = require('./config');
+const Runner = require('./lib/runner');
+const config = require('./lib/config');
 const vscode = require('vscode');
-const changesNotification = require('./changesNotification');
-const mochaProvider = require('./mochaProvider');
-const mochaLensProvider = require('./provider-extensions/mochaLens')
+const changesNotification = require('./lib/changesNotification');
+const mochaProvider = require('./lib/mochaProvider');
+const mochaLensProvider = require('./lib/provider-extensions/mochaLens')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
-const { debugAll, debugItem, debugLevel, debugInit } = require('./provider-extensions/runDebug');
+const { debugAll, debugItem, debugLevel, debugInit } = require('./lib/provider-extensions/runDebug');
 const coverage = require('./lib/coverage/code-coverage');
 
 const getOnTerminateFunc = func => {

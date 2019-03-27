@@ -13,3 +13,4 @@ demo.png
 **/debug.log
 vagrant/**
 Vagrantfile
+images/intro/**
