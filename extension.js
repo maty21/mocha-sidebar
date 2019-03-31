@@ -20,7 +20,7 @@ const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./lib/provider-extensions/runDebug');
 const coverage = require('./lib/coverage/code-coverage');
-
+const core  = require('./lib/core');
 const getOnTerminateFunc = func => {
   const noop = function () { };
   return config.sideBarOptions().showDebugTestStatus ? func : noop;
@@ -31,9 +31,13 @@ let lastRunResult;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
+  
   const subscriptions = context.subscriptions;
   const _mochaProvider = new mochaProvider();
   runner.setMochaProvider(_mochaProvider);
+  setTimeout(() => {
+    core.init();
+  }, 10000);
   debugInit(_mochaProvider);
   vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
   if(config.coverage().enable){
@@ -90,7 +94,8 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runDescriberLevelTest', (element) => {
     if (hasWorkspace()) {
-      _mochaProvider.runDescriberLevelTest(element);
+     _mochaProvider.runDescriberLevelTest(element);
+      core.execute(element.label);
       //runAllTests();
     }
   }))
