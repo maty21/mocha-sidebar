@@ -15,6 +15,7 @@ const config = require('./lib/config');
 const vscode = require('vscode');
 const changesNotification = require('./lib/changesNotification');
 const mochaProvider = require('./lib/mochaProvider');
+const treeProvider = require('./lib/treeProvider');
 const mochaLensProvider = require('./lib/provider-extensions/mochaLens')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
@@ -31,24 +32,22 @@ let lastRunResult;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
-  
+  const _treeProvider = new treeProvider(); 
   const subscriptions = context.subscriptions;
-  const _mochaProvider = new mochaProvider();
-  runner.setMochaProvider(_mochaProvider);
-  setTimeout(() => {
-    core.init();
-  }, 10000);
-  debugInit(_mochaProvider);
-  vscode.window.registerTreeDataProvider('mocha', _mochaProvider)
+  //const _mochaProvider = new mochaProvider();
+ // runner.setMochaProvider(_mochaProvider);
+    core.run().then(r=> {vscode.window.registerTreeDataProvider('mocha', _treeProvider)});
+  //debugInit(_mochaProvider);
+ 
   if(config.coverage().enable){
     coverage.run();
   }
-  const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
-  const _changesNotification = new changesNotification(_mochaProvider, _codeLensProvider);
-  let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
-  vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
-  let runAutoPlay = runTestsOnSave();
-  subscriptions.push(registerCodeLens);
+ //const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
+  //const _changesNotification = new changesNotification(_mochaProvider, _codeLensProvider);
+ // let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
+  // vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
+  // let runAutoPlay = runTestsOnSave();
+  //subscriptions.push(registerCodeLens);
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.autoPlayStart', (element) => {
     if (hasWorkspace()) {
       vscode.commands.executeCommand('setContext', 'runAutoPlay', false)
@@ -82,20 +81,21 @@ function activate(context) {
 
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runAllTests', (element) => {
     if (hasWorkspace()) {
-      _mochaProvider.runAllTests(_mochaProvider.getRootElement());
+      core.execute(null,core.runTypes.ALL);
+      //_mochaProvider.runAllTests(_mochaProvider.getRootElement());
       //runAllTests();
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runTest', (element) => {
     if (hasWorkspace()) {
-      _mochaProvider.runTest(element);
+      core.execute(element.item.__test,core.runTypes.TEST);
       //runAllTests();
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runDescriberLevelTest', (element) => {
     if (hasWorkspace()) {
-     _mochaProvider.runDescriberLevelTest(element);
-      core.execute(element.label);
+   //  _mochaProvider.runDescriberLevelTest(element);
+      core.execute(element,core.runTypes.SUITE);
       //runAllTests();
     }
   }))
@@ -113,8 +113,8 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.refreshExplorer', (element) => {
     if (hasWorkspace()) {
-      _mochaProvider.refreshExplorer(element);
-      _mochaProvider.updateDecorations(vscode.workspace.rootPath);
+      _treeProvider.refreshExplorer(element);
+      _treeProvider.updateDecorations(vscode.workspace.rootPath);
       _codeLensProvider.raiseEventOnUpdate();
       //runAllTests();
     }
@@ -135,7 +135,7 @@ function activate(context) {
   }));
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.itemSelection', item => {
     if (hasWorkspace()) {
-      _mochaProvider.itemSelection(item);
+      _treeProvider.itemSelection(item);
       //runAllTests();
     }
   }))
@@ -143,7 +143,8 @@ function activate(context) {
 
   subscriptions.push(vscode.commands.registerCommand('mocha.runAllTests', function () {
     if (hasWorkspace()) {
-      runAllTests();
+    //  runAllTests();
+    core.execute();
     }
   }));
 
@@ -183,9 +184,9 @@ function activate(context) {
   status.text = statusTemplate(0, 0);
   subscriptions.push(status);
   status.show();
-  _mochaProvider.onDidChangeTreeData((rootItem) => {
-    status.text = statusTemplate(_mochaProvider.results.passed.length,
-      _mochaProvider.results.failed.length);
+  _treeProvider.onDidChangeTreeData((rootItem) => {
+    //status.text = statusTemplate(_treeProvider.results.passed.length,
+ //    _treeProvider.results.failed.length);
   })
 }
 
