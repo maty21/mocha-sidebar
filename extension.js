@@ -75,9 +75,9 @@ function activate(context) {
       debugLevel(element, getOnTerminateFunc(_mochaProvider.runTestWithoutElement));
     }
   }))
-  subscriptions.push(vscode.commands.registerCommand('mocha-maty.debugItem', (element) => {
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.debugItem', ({item}) => {
     if (hasWorkspace()) {
-      debugItem(element, getOnTerminateFunc(_mochaProvider.runTest));
+      debugItem(item, getOnTerminateFunc(_mochaProvider.runTest));
     }
   }))
 
@@ -89,9 +89,9 @@ function activate(context) {
       //runAllTests();
     }
   }))
-  subscriptions.push(vscode.commands.registerCommand('mocha-maty.runTest', (element) => {
+  subscriptions.push(vscode.commands.registerCommand('mocha-maty.runTest', ({item}) => {
     if (hasWorkspace()) {
-      core.execute(element.item.__test,core.runTypes.TEST);
+      core.execute(item,core.runTypes.TEST);
       //runAllTests();
     }
   }))
