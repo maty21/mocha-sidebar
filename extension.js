@@ -16,7 +16,7 @@ const vscode = require('vscode');
 const changesNotification = require('./lib/changesNotification');
 const mochaProvider = require('./lib/mochaProvider');
 const treeProvider = require('./lib/treeProvider');
-const mochaLensProvider = require('./lib/provider-extensions/mochaLens')
+const lensProvider = require('./lib/provider-extensions/mochaLens')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./lib/provider-extensions/runDebug');
@@ -36,15 +36,18 @@ function activate(context) {
   const subscriptions = context.subscriptions;
   //const _mochaProvider = new mochaProvider();
  // runner.setMochaProvider(_mochaProvider);
-    core.run().then(r=> {vscode.window.registerTreeDataProvider('mocha', _treeProvider)});
+    core.run().then(r=> {
+      vscode.window.registerTreeDataProvider('mocha', _treeProvider)
+      const _codeLensProvider = new lensProvider(context, core);
+       let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
+      
+    });
   //debugInit(_mochaProvider);
  
   if(config.coverage().enable){
     coverage.run();
   }
- //const _codeLensProvider = new mochaLensProvider(context, _mochaProvider);
   //const _changesNotification = new changesNotification(_mochaProvider, _codeLensProvider);
- // let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
   // vscode.commands.executeCommand('setContext', 'runAutoPlay', runTestsOnSave())
   // let runAutoPlay = runTestsOnSave();
   //subscriptions.push(registerCodeLens);
