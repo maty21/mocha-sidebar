@@ -33,12 +33,12 @@ let lastRunResult;
 // your extension is activated the very first time the command is executed
 function activate(context) {
   const _treeProvider = new treeProvider(); 
+  const _codeLensProvider = new lensProvider(context, core);
   const subscriptions = context.subscriptions;
   //const _mochaProvider = new mochaProvider();
  // runner.setMochaProvider(_mochaProvider);
     core.run().then(r=> {
       vscode.window.registerTreeDataProvider('mocha', _treeProvider)
-      const _codeLensProvider = new lensProvider(context, core);
        let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
       
     });
