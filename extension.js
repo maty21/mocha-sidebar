@@ -14,9 +14,10 @@ const Runner = require('./lib/runner');
 const config = require('./lib/config');
 const vscode = require('vscode');
 const changesNotification = require('./lib/changesNotification');
-const mochaProvider = require('./lib/mochaProvider');
+//const mochaProvider = require('./lib/mochaProvider');
 const treeProvider = require('./lib/treeProvider');
 const lensProvider = require('./lib/provider-extensions/mochaLens')
+const decorationProvider = require('./lib/provider-extensions/setDecortaion')
 const access = Promise.promisify(fs.access);
 const runner = new Runner();
 const { debugAll, debugItem, debugLevel, debugInit } = require('./lib/provider-extensions/runDebug');
@@ -33,10 +34,9 @@ let lastRunResult;
 // your extension is activated the very first time the command is executed
 function activate(context) {
   const _treeProvider = new treeProvider(); 
+  const _decorationProvider = new decorationProvider();
   const _codeLensProvider = new lensProvider(context, core);
   const subscriptions = context.subscriptions;
-  //const _mochaProvider = new mochaProvider();
- // runner.setMochaProvider(_mochaProvider);
     core.run().then(r=> {
       vscode.window.registerTreeDataProvider('mocha', _treeProvider)
        let registerCodeLens = vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
@@ -91,7 +91,8 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.runTest', ({item}) => {
     if (hasWorkspace()) {
-      core.execute(item,core.runTypes.TEST);
+      const test =item.__test ? item.__test :item;
+      core.execute(test,core.runTypes.TEST);
       //runAllTests();
     }
   }))
@@ -116,10 +117,7 @@ function activate(context) {
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.refreshExplorer', (element) => {
     if (hasWorkspace()) {
-      _treeProvider.refreshExplorer(element);
-      _treeProvider.updateDecorations(vscode.workspace.rootPath);
-      _codeLensProvider.raiseEventOnUpdate();
-      //runAllTests();
+      core.run();
     }
   }))
   subscriptions.push(vscode.commands.registerCommand('mocha-maty.coverage', (element) => {
@@ -146,7 +144,6 @@ function activate(context) {
 
   subscriptions.push(vscode.commands.registerCommand('mocha.runAllTests', function () {
     if (hasWorkspace()) {
-    //  runAllTests();
     core.execute();
     }
   }));
@@ -205,9 +202,6 @@ function hasWorkspace() {
   const root = vscode.workspace.rootPath;
   const validWorkspace = typeof root === "string" && root.length;
 
-  // console.log(root);
-  // console.log(vscode);
-  //console.log(validWorkspace);
 
   if (!validWorkspace) {
     vscode.window.showErrorMessage('Please open a folder before trying to execute Mocha.');
