@@ -1,6 +1,6 @@
 // 'use strict';
-const assert = require('assert');
-const expect = require('chai').expect;
+const assert = require("assert");
+const expect = require("chai").expect;
 // it('should inherit environment variables', function () {
 // });
 
@@ -10,7 +10,7 @@ const expect = require('chai').expect;
 //    expect(1).to.equal(1);
 //     expect(1).to.equal(1);
 //   });
-  
+
 // });
 
 // it('test2', function () {
@@ -27,8 +27,6 @@ const expect = require('chai').expect;
 //   });
 // });
 
-
-
 // describe('green 3', function () {
 //   it('inner green 3 test', function () {
 //     assert.fail(process.env.HOME || process.env.PATHEXT);
@@ -36,7 +34,7 @@ const expect = require('chai').expect;
 // });
 
 let isFirst = true;
-describe('green 4', function () {
+describe("green 4", function() {
   // beforeEach(() => {
   //   if (isFirst) {
   //     // this assertion fails, but mocha-sidebar test entry does not turn red
@@ -44,28 +42,25 @@ describe('green 4', function () {
   //     assert.equal(1, 2);
   //   }
   // });
-  it('inner green 4 test', function (done) {
+  it("inner green 4 test", function(done) {
     setTimeout(() => {
       expect(1).to.equal(1);
       //assert(process.env.HOME || process.env.PATHEXT);
       console.log(`waiting`);
-        done();
+      done();
     }, 5000);
   });
 
-  it('inner green second 4', function () {
+  it("inner green second 4", function() {
     assert(process.env.HOME || process.env.PATHEXT);
   });
-
 });
 
-// describe('test', function () {
-//   it('inner green 4', function () {
-//     assert(process.env.HOME || process.env.PATHEXT);
-    
-//   })
-  
-// })
+describe("test", function() {
+  it("inner green 4", function() {
+    assert(process.env.HOME || process.env.PATHEXT);
+  });
+});
 
 // describe('green 5', () => {
 //   describe('describe level 1', () => {
@@ -95,5 +90,3 @@ describe('green 4', function () {
 //     setTimeout(done,10000);
 //   });
 // });
-
-
