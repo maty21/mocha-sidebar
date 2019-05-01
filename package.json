@@ -393,6 +393,7 @@
     "lcov-parse": "^1.0.0",
     "line-number": "^0.1.0",
     "lodash.assign": "^4.2.0",
+    "lodash.difference": "^4.5.0",
     "lodash.forin": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "lodash.remove": "^4.7.0",

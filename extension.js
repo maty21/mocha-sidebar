@@ -5,11 +5,11 @@
 
 const config = require("./lib/config");
 const vscode = require("vscode");
-const changesNotification = require("./lib/changesNotification");
 const treeProvider = require("./lib/treeProvider");
 const lensProvider = require("./lib/provider-extensions/mochaLens");
-const decorationProvider = require("./lib/provider-extensions/setDecortaion");
+const decorationProvider = require("./lib/provider-extensions/decorationProvider");
 const subscriptionRegister = require("./lib/subscriptionRegister");
+const notificationsProvider = require("./lib/notificationsProvider");
 const coverage = require("./lib/coverage/code-coverage");
 const core = require("./lib/core");
 const testStatusBar = require("./lib/provider-extensions/testStatusBar");
@@ -20,9 +20,10 @@ function bootstrap(context) {
   const _testStatusBar = new testStatusBar();
   const _decorationProvider = new decorationProvider();
   const _subscriptionRegister = new subscriptionRegister();
-
-  core.run().then(r => {
-    _decorationProvider.init();
+  const _notificationsProvider = new notificationsProvider();
+  core.run().then(() => {
+    _notificationsProvider.init();
+    _decorationProvider.init(_notificationsProvider);
     _testStatusBar.init();
     _subscriptionRegister.init(context, _treeProvider);
 

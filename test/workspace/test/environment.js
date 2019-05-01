@@ -1,39 +1,10 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
 // 'use strict';
 const assert = require("assert");
 const expect = require("chai").expect;
-// it('should inherit environment variables', function () {
-// });
-
-// describe('test___', () => {
-//   it('should inherit environment variables 2', function () {
-//    // assert.fail();
-//    expect(1).to.equal(1);
-//     expect(1).to.equal(1);
-//   });
-
-// });
-
-// it('test2', function () {
-//   assert.fail();
-// });
-
-// //asdad
-
-// describe('When environment variable is set in settings', function () {
-//   it('should run with them', function () {
-//     expect(1).to.equal(1);
-//     expect(1).to.equal(1);
-//     expect(process.env.HELLO_WORLD).to.equal('Hello, World!');
-//   });
-// });
-
-// describe('green 3', function () {
-//   it('inner green 3 test', function () {
-//     assert.fail(process.env.HOME || process.env.PATHEXT);
-//   });
-// });
-
 let isFirst = true;
+
 describe("green 4", function() {
   // beforeEach(() => {
   //   if (isFirst) {
