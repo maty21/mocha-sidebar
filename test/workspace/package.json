@@ -17,6 +17,7 @@
     "chai": "^4.1.2",
     "lodash.difference": "^4.5.0",
     "mocha": "^6.0.2",
+    "nyc": "^14.0.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3"
   }

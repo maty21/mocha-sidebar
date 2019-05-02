@@ -26,15 +26,13 @@ function bootstrap(context) {
     _decorationProvider.init(_notificationsProvider);
     _testStatusBar.init();
     _subscriptionRegister.init(context, _treeProvider);
-
     vscode.window.registerTreeDataProvider("mocha", _treeProvider);
     vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
+    if (config.coverage().enable) {
+      coverage.run();
+    }
   });
   //debugInit(_mochaProvider);
-
-  if (config.coverage().enable) {
-    coverage.run();
-  }
 }
 
 exports.activate = bootstrap;

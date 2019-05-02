@@ -1,7 +1,5 @@
 {
-    "cSpell.words": [
-        "consts"
-    ],
+    "cSpell.words": ["consts"],
     "mocha.files.glob": "test/**/*.js",
     "mocha.sideBarOptions": {
         "lens": true,
@@ -11,7 +9,7 @@
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#0A3518",
-        "titleBar.activeBackground": "#0D4A22",
+        // "titleBar.activeBackground": "#0D4A22",
         "titleBar.activeForeground": "#F2FCF5"
     }
 }
