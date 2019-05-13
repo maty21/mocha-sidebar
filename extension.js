@@ -21,15 +21,17 @@ function bootstrap(context) {
   const _decorationProvider = new decorationProvider();
   const _subscriptionRegister = new subscriptionRegister();
   const _notificationsProvider = new notificationsProvider();
+  const _coverage = new coverage();
   core.run().then(() => {
     _notificationsProvider.init();
     _decorationProvider.init(_notificationsProvider);
+    _coverage.init(_notificationsProvider);
     _testStatusBar.init();
-    _subscriptionRegister.init(context, _treeProvider);
+    _subscriptionRegister.init(context, _treeProvider, _coverage);
     vscode.window.registerTreeDataProvider("mocha", _treeProvider);
     vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
     if (config.coverage().enable) {
-      coverage.run();
+      _coverage.run();
     }
   });
   //debugInit(_mochaProvider);

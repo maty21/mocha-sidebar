@@ -11,5 +11,6 @@
         "activityBar.background": "#0A3518",
         // "titleBar.activeBackground": "#0D4A22",
         "titleBar.activeForeground": "#F2FCF5"
-    }
+    },
+    "editor.fontLigatures": true
 }
