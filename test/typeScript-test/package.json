@@ -12,6 +12,7 @@
         "sinon": "^1.17.7"
     },
     "dependencies": {
+        "mocha": "^6.1.4",
         "ts-node": "^7.0.0",
         "typescript": "^2.9.2"
     }
