@@ -29,7 +29,10 @@ function bootstrap(context) {
     _testStatusBar.init();
     _subscriptionRegister.init(context, _treeProvider, _coverage);
     vscode.window.registerTreeDataProvider("mocha", _treeProvider);
-    vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
+    vscode.languages.registerCodeLensProvider(
+      _codeLensProvider.selector,
+      _codeLensProvider
+    );
     if (config.coverage().enable) {
       _coverage.run();
     }

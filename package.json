@@ -285,6 +285,11 @@
                     },
                     "description": "code coverage with istanbul "
                 },
+                "mocha.nycPath": {
+                    "default": "",
+                    "type": "string",
+                    "description": "nyc path config for coverage"
+                },
                 "mocha.showErrorPopup": {
                     "default": "true",
                     "description": "Show popup when having any error while executing test",
