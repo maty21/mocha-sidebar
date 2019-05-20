@@ -5,3 +5,4 @@ node_modules
 .history
 **/.nyc_output
 **/coverage
+*.vsix
