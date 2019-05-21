@@ -16,8 +16,8 @@ const testStatusBar = require("./lib/provider-extensions/testStatusBar");
 
 function bootstrap(context) {
   const _treeProvider = new treeProvider();
-  const _codeLensProvider = new lensProvider(context, core);
   const _testStatusBar = new testStatusBar();
+  const _codeLensProvider = new lensProvider(context, core);
   const _decorationProvider = new decorationProvider();
   const _subscriptionRegister = new subscriptionRegister();
   const _notificationsProvider = new notificationsProvider();
@@ -28,11 +28,9 @@ function bootstrap(context) {
     _coverage.init(_notificationsProvider);
     _testStatusBar.init();
     _subscriptionRegister.init(context, _treeProvider, _coverage);
+    _codeLensProvider.init(_notificationsProvider);
     vscode.window.registerTreeDataProvider("mocha", _treeProvider);
-    vscode.languages.registerCodeLensProvider(
-      _codeLensProvider.selector,
-      _codeLensProvider
-    );
+    vscode.languages.registerCodeLensProvider(_codeLensProvider.selector, _codeLensProvider);
     if (config.coverage().enable) {
       _coverage.run();
     }
