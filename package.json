@@ -290,6 +290,11 @@
                     "type": "string",
                     "description": "nyc path config for coverage"
                 },
+                "mocha.debugSettingsName": {
+                    "default": "",
+                    "type": "string",
+                    "description": "set debug name"
+                },
                 "mocha.showErrorPopup": {
                     "default": "true",
                     "description": "Show popup when having any error while executing test",

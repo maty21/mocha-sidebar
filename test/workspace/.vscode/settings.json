@@ -1,25 +1,26 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "mocha.env": {
-    "HELLO_WORLD": "Hello, World!"
-  },
-  "mocha.enabled": true,
-  "mocha.files.glob": "test/**/*.js",
-  "mocha.sideBarOptions": {
-    "lens": true,
-    "decoration": true,
-    "autoUpdateTime": 2000,
-    "showDebugTestStatus": true
-  },
- // "mocha.path": "../node_modules/mocha",
-  "mocha.options": {
-    "timeout": 15000
-  },
- // "mocha.path":"./node_modules/mocha",
-  "mocha.showInExplorer": true,
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#3F281A",
-    "titleBar.activeBackground": "#583925",
-    "titleBar.activeForeground": "#FDFBFA"
-  }
+    "mocha.env": {
+        "HELLO_WORLD": "Hello, World!"
+    },
+    "mocha.enabled": true,
+    "mocha.files.glob": "test/**/*.js",
+    "mocha.sideBarOptions": {
+        "lens": true,
+        "decoration": true,
+        "autoUpdateTime": 2000,
+        "showDebugTestStatus": true
+    },
+    // "mocha.path": "../node_modules/mocha",
+    "mocha.options": {
+        "timeout": 15000
+    },
+    // "mocha.path":"./node_modules/mocha",
+    "mocha.showInExplorer": true,
+    "mocha.debugSettingsName": "Run mocha",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#3F281A",
+        "titleBar.activeBackground": "#583925",
+        "titleBar.activeForeground": "#FDFBFA"
+    }
 }

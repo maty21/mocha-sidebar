@@ -9,9 +9,23 @@
             "request": "launch",
             "name": "sdfsfsf",
             "env": {
-                    "MOCHA_DEBUG":"true"
-    
-                }
+                "MOCHA_DEBUG": "true"
+            }
         },
+
+        {
+            "name": "Run mocha",
+            "request": "launch",
+            "type": "node",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "outputCapture": "std",
+            "skipFiles": ["<node_internals>/**"],
+            "stopOnEntry": false,
+            "args": ["test"],
+            "env": {
+                "NODE_ENV": "test"
+            },
+            "runtimeExecutable": null
+        }
     ]
 }
