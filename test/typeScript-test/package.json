@@ -12,6 +12,7 @@
         "sinon": "^1.17.7"
     },
     "dependencies": {
+        "nyc": "^14.1.1",
         "ts-node": "^7.0.0",
         "typescript": "^2.9.2"
     }

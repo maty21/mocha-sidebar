@@ -52,7 +52,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "/home/matyz/dev/hkube/pipeline-driver/"
+                "/home/yehil/dev/hkube/worker/"
             ],
             "stopOnEntry": false
         },
