@@ -30,22 +30,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:mocha-maty.coverage",
-        "onCommand:mocha-maty.toggleCoverage",
-        "onCommand:mocha-maty.runAllTests",
-        "onCommand:mocha-maty.runAllDebug",
-        "onCommand:mocha-maty.refreshExplorer",
-        "onCommand:mocha-maty.autoPlay",
-        "onCommand:mocha-maty.itemSelection",
-        "onCommand:mocha-maty.setSubdirectory",
-        "onCommand:mocha.runTestAtCursor",
-        "onCommand:mocha.selectAndRunTest",
-        "onCommand:mocha.runFailedTests",
-        "onCommand:mocha.runTestsByPattern",
-        "onCommand:mocha.runLastSetAgain",
-        "onCommand:mocha.runLastSetAgain",
-        "onView:autoPlay",
-        "onView:mocha"
+        "*"
     ],
     "main": "./extension",
     "contributes": {

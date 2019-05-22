@@ -16,8 +16,8 @@
         "timeout": 15000
     },
     // "mocha.path":"./node_modules/mocha",
-    "mocha.showInExplorer": true,
-    "mocha.debugSettingsName": "Run mocha",
+    "mocha.showInExplorer": false,
+  //  "mocha.debugSettingsName": "Run mocha",
     "workbench.colorCustomizations": {
         "activityBar.background": "#3F281A",
         "titleBar.activeBackground": "#583925",
