@@ -1,3 +1,7 @@
+# 0.22.2 (5.2019)
+
+-   fix coverage button
+
 # 0.22.00 (5.2019)
 
 -   code refactoring which changes almost anyting and improves the project maintainabilty
