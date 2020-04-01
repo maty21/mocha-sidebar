@@ -380,7 +380,7 @@
         "lodash.forin": "^4.4.0",
         "lodash.isobject": "^3.0.2",
         "lodash.remove": "^4.7.0",
-        "mocha": "^5.2.0",
+        "mocha": "^6.0.0",
         "npm": "^6.9.0",
         "nyc": "^11.7.3",
         "rimraf": "^2.6.2",
