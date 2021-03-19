@@ -297,7 +297,7 @@
                 },
                 "mocha.logVerbose": {
                     "default": true,
-                    "description": "Mocha: mocha package path then the sideBar installed one for example ../node_modules/mocha",
+                    "description": "Mocha: set log level to verbose",
                     "type": "boolean"
                 },
                 "mocha.parallelTests": {
