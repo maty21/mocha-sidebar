@@ -381,8 +381,8 @@
         "lodash.isobject": "^3.0.2",
         "lodash.remove": "^4.7.0",
         "mocha": "^5.2.0",
-        "npm": "^6.9.0",
-        "nyc": "^11.7.3",
+        "npm": "^7.21.0",
+        "nyc": "^15.0.0",
         "rimraf": "^2.6.2",
         "split-lines": "^1.1.0",
         "stacktrace-parser": "^0.1.4"
