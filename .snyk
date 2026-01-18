@@ -1,0 +1,46 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - nyc > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-types > lodash
+    - nyc > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-generator > lodash
+    - nyc > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-traverse > lodash
+    - nyc > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-template > lodash
+    - nyc > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-generator > babel-types > lodash
+    - nyc > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-traverse > babel-types > lodash
+    - nyc > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: nyc > istanbul-lib-instrument > babel-template > babel-types > lodash
+    - nyc > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: >-
+          nyc > istanbul-lib-instrument > babel-template > babel-traverse >
+          lodash
+    - nyc > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2026-01-18T01:28:59.865Z'
+        id: SNYK-JS-LODASH-450202
+        path: >-
+          nyc > istanbul-lib-instrument > babel-template > babel-traverse >
+          babel-types > lodash
