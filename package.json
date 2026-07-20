@@ -5,7 +5,7 @@
     "version": "0.22.2",
     "publisher": "maty",
     "engines": {
-        "vscode": "^0.10.1"
+        "vscode": "^1.75.0"
     },
     "icon": "icon.png",
     "galleryBanner": {
@@ -30,7 +30,14 @@
         "Other"
     ],
     "activationEvents": [
-        "*"
+        "onView:mocha",
+        "onCommand:mocha-maty.runAllTests",
+        "onCommand:mocha-maty.runTest",
+        "onCommand:mocha-maty.runTestAtCursor",
+        "onCommand:mocha-maty.selectAndRunTest",
+        "onCommand:mocha.runAllTests",
+        "onCommand:mocha.runTestAtCursor",
+        "onCommand:mocha.selectAndRunTest"
     ],
     "main": "./extension",
     "contributes": {
@@ -381,7 +388,6 @@
         "lodash.isobject": "^3.0.2",
         "lodash.remove": "^4.7.0",
         "mocha": "^5.2.0",
-        "npm": "^6.9.0",
         "nyc": "^11.7.3",
         "rimraf": "^2.6.2",
         "split-lines": "^1.1.0",

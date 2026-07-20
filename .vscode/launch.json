@@ -10,7 +10,7 @@
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
-                "${workspaceRoot}/test/typeScript-test"
+                "${workspaceRoot}/test/workspace"
             ],
             "stopOnEntry": false,
             "env": {

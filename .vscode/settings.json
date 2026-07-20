@@ -1,6 +1,7 @@
 {
     "cSpell.words": ["consts"],
     "mocha.files.glob": "test/**/*.js",
+    "mocha.files.ignore": "**/.git/**/*,**/node_modules/**/*,**/typeScript-test/**",
     "mocha.sideBarOptions": {
         "lens": true,
         "decoration": true,
